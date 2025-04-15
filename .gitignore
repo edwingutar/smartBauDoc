@@ -1,0 +1,29 @@
+# IDE-Dateien
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# Umgebungsvariablen
+.env
+
+# === FRONTEND ===
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# === BACKEND ===
+backend/node_modules/
+backend/.env
+backend/.gradle/
+backend/build/
+backend/out/
+
+# === DB ===
+db/*.sqlite
+db/.env
+db/__pycache__/
+
+# macOS System-Dateien
+.DS_Store
