@@ -1,0 +1,83 @@
+.auth-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+
+}
+.switch-buttons {
+  display: flex;
+  position: absolute;
+  top: 11%;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.switch-btn {
+  background: none;
+  border: none;
+  color: #91A7BA;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+.switch-btn.active {
+  color: #1654F7;
+  border-bottom: 2px solid #1654F7;
+}
+.form-wrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 500px;
+}
+.login-form {
+  top: 43.2%;
+  left: 48%;
+}
+.register-form {
+  top: 52%;
+  left: 48%;
+}
+.section-divider {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 83%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.8rem;
+  color: #91A7BA;
+  gap: 1rem;
+  width: 350px;
+  padding: 0 1rem;
+}
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #91A7BA;
+}
+.social-icons {
+  position: absolute;
+  top: 88%;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-button img {
+  width: 32px;
+  height: 32px;
+}
