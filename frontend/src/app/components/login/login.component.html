@@ -1,0 +1,20 @@
+<main class="LoginWindow" aria-label="Login-Bereich">
+  <div class="InputGroup">
+    <app-input-field
+      placeholder="E-MAIL"
+      [(fieldValue)]="email"
+    ></app-input-field>
+
+    <app-input-field
+      placeholder="PASSWORT"
+      type="password"
+      [(fieldValue)]="password"
+    ></app-input-field>
+
+    <app-confirm-button [title]="'ANMELDEN'"></app-confirm-button>
+  </div>
+
+  <button class="forgot-password">
+    PASSWORT VERGESSEN?
+  </button>
+</main>
