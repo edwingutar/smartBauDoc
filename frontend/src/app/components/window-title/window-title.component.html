@@ -1,0 +1,24 @@
+<header class="window-title"
+        [ngStyle]="{
+          width: width,
+          height: height,
+          minWidth: minWidth,
+          maxWidth: maxWidth,
+          minHeight: minHeight,
+          maxHeight: maxHeight
+        }">
+  <div class="top-bar" [ngStyle]="{ height: topbarHeight }">
+    <h1 [ngStyle]="{ color: colorText, fontSize: fontSizeHeadline }">
+      {{ title }}
+    </h1>
+
+    <button
+      class="close-button"
+      (click)="close.emit()"
+      [ngStyle]="{ fontSize: closeButtonFontSize }"
+      aria-label="Fenster schließen"
+    >
+      &times;
+    </button>
+  </div>
+</header>
