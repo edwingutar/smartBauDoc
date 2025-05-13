@@ -1,0 +1,15 @@
+<div
+  class="inputField"
+  [ngStyle]="{
+    minWidth: minWidth,
+    maxWidth: maxWidth,
+    height: height
+  }">
+  <input
+    [value]="fieldValue"
+    (input)="onUserInput($any($event.target).value)"
+    [placeholder]="placeholder"
+    [type]="type"
+    [ngStyle]="{ backgroundColor }"
+  />
+</div>
