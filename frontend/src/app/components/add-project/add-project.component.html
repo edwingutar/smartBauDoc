@@ -1,0 +1,84 @@
+<div class="background">
+
+  <div class="window">
+
+    <app-window-title
+      [title]= titelProjekt
+      [minHeight]= height
+      [maxHeight]= height
+      [minWidth]= widht
+      [maxWidth]= widht>
+    </app-window-title>
+
+    <div class="AufgabeTitel">
+      <span class="underline-text">Projekt Hinzufügen</span>
+    </div>
+
+    <div class="inputFelder">
+      <app-input-field
+        [placeholder]= firstPlaceholder
+        [height]="'50px'"
+        [maxWidth]= widhtInput
+        [minWidth]= widhtInput
+        [(fieldValue)]=project.task>
+      </app-input-field>
+      <app-input-field
+        [placeholder]= secondPlaceholder
+        [height]= heightInput
+        [maxWidth]= widhtInput
+        [minWidth]= widhtInput
+        [(fieldValue)]=project.pn>
+      </app-input-field>
+      <app-input-field
+        [placeholder]= thirdPlaceholder
+        [height]="'50px'"
+        [maxWidth]= widhtInput
+        [minWidth]= widhtInput
+        [(fieldValue)]=project.address>
+      </app-input-field>
+      <app-input-field
+        [placeholder]= fourthPlaceholder
+        [height]="'50px'"
+        [maxWidth]= widhtInput
+        [minWidth]= widhtInput
+        [(fieldValue)]=project.details>
+      </app-input-field>
+      <app-input-field
+        [placeholder]= fifthPlaceholder
+        [height]="'50px'"
+        [maxWidth]= widhtInput
+        [minWidth]= widhtInput
+        [(fieldValue)]=project.contact>
+      </app-input-field>
+      <app-input-field
+        [placeholder]= sixthPlaceholder
+        [height]="'50px'"
+        [maxWidth]= widhtInput
+        [minWidth]= widhtInput
+        [(fieldValue)]=project.deadline>
+      </app-input-field>
+    </div>
+
+    <div class="confirmButton">
+      <app-confirm-button
+        [title]="'ANLEGEN'"
+        [height]= heightInput
+        [minWidth]= widhtInput
+        [maxWidth]= widhtInput>
+      </app-confirm-button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="testbutton">
+  <button (click)="test()">Aufgabe</button>
+  <button (click)="test2()">PN</button>
+  <button (click)="test3()">Adresse</button>
+  <button (click)="test4()">Details</button>
+  <button (click)="test5()">Ansprechpartner</button>
+  <button (click)="test6()">Deadline</button>
+  <button (click)="saveProject()">Projekt speichern</button>
+</div>

@@ -1,0 +1,30 @@
+<main class="RegisterWindow" aria-label="Registrieren-Bereich">
+  <div class="Input">
+    <app-input-field
+      placeholder="E-MAIL"
+      [(fieldValue)]="email"
+    ></app-input-field>
+
+    <app-input-field
+      placeholder="NAME"
+      [(fieldValue)]="name"
+    ></app-input-field>
+
+    <app-input-field
+      placeholder="PASSWORT"
+      type="password"
+      [(fieldValue)]="password"
+    ></app-input-field>
+
+    <app-input-field
+      placeholder="PASSWORT BESTÄTIGEN"
+      type="password"
+      [(fieldValue)]="confirmPassword"
+    ></app-input-field>
+
+    <app-confirm-button
+      [title]="'REGISTRIEREN'"
+    ></app-confirm-button>
+  </div>
+
+</main>

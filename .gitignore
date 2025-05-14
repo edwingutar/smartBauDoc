@@ -1,29 +1,22 @@
-# === macOS ===
+# macOS
 .DS_Store
 
-# === IDE ===
+# IDE
 .idea/
 *.iml
 
-# === Logs ===
-*.log
-
-# === Umgebungsvariablen ===
-.env
-frontend/.env
-backend/.env
-db/.env
-
-# === FRONTEND ===
+# Node
 frontend/node_modules/
 frontend/dist/
+frontend/.env
 
-# === BACKEND ===
-backend/node_modules/
+# Gradle/Java
 backend/.gradle/
 backend/build/
 backend/out/
+backend/.env
 
-# === DB ===
-db/*.sqlite
+# Python
 db/__pycache__/
+db/*.sqlite
+db/.env
