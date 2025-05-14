@@ -7,8 +7,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthViewComponent } from './components/auth-view/auth-view.component';
 import { AddEntryComponent } from './components/add-entry/add-entry.component';
 import { AddProjectComponent } from './components/add-project/add-project.component';
-import { OutputFieldComponent} from './components/output-field/output-field.component';
-
+import { OutputTaskComponent } from './components/output-task/output-task.component';
 
 export const routes: Routes = [
   { path: 'windowTitle', component: WindowTitleComponent},
@@ -19,6 +18,6 @@ export const routes: Routes = [
   { path: 'AuthView', component: AuthViewComponent },
   { path: 'AddEntry', component: AddEntryComponent },
   { path: 'AddProject', component: AddProjectComponent },
-  { path: 'OutputField', component: OutputFieldComponent },
+  { path: 'OutputTask', component: OutputTaskComponent },
 
 ];
