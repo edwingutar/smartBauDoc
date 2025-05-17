@@ -3,7 +3,7 @@
   <div class="window">
 
     <app-window-title
-      [title]= titelProjekt
+      [title]= windowTitle
       [minHeight]= height
       [maxHeight]= height
       [minWidth]= widht
@@ -20,42 +20,42 @@
         [height]="'50px'"
         [maxWidth]= widhtInput
         [minWidth]= widhtInput
-        [(fieldValue)]=project.task>
+        [(fieldValue)]=project.title>
       </app-input-field>
       <app-input-field
         [placeholder]= secondPlaceholder
         [height]= heightInput
         [maxWidth]= widhtInput
         [minWidth]= widhtInput
-        [(fieldValue)]=project.pn>
+        [(fieldValue)]=project.detail>
       </app-input-field>
       <app-input-field
         [placeholder]= thirdPlaceholder
         [height]="'50px'"
         [maxWidth]= widhtInput
         [minWidth]= widhtInput
-        [(fieldValue)]=project.address>
+        [(fieldValue)]=project.street>
       </app-input-field>
       <app-input-field
         [placeholder]= fourthPlaceholder
         [height]="'50px'"
         [maxWidth]= widhtInput
         [minWidth]= widhtInput
-        [(fieldValue)]=project.details>
+        [(fieldValue)]=project.pCode>
       </app-input-field>
       <app-input-field
         [placeholder]= fifthPlaceholder
         [height]="'50px'"
         [maxWidth]= widhtInput
         [minWidth]= widhtInput
-        [(fieldValue)]=project.contact>
+        [(fieldValue)]=project.sDate>
       </app-input-field>
       <app-input-field
         [placeholder]= sixthPlaceholder
         [height]="'50px'"
         [maxWidth]= widhtInput
         [minWidth]= widhtInput
-        [(fieldValue)]=project.deadline>
+        [(fieldValue)]=project.dDate>
       </app-input-field>
     </div>
 
