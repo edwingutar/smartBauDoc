@@ -6,12 +6,10 @@ import java.time.LocalDateTime
 
 @Document("projects")
 data class Project(
-    @Id val id: String? = null,
     val title: String,
-    val task: String,
-    val pn: String,
-    val address: String,
-    val details: String,
-    val contact: String,
-    val deadline: String
+    val detail: String,
+    val street: String,
+    val pCode: String,
+    val sDate: String,
+    val dDate: String
 )
