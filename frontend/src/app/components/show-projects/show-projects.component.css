@@ -1,0 +1,12 @@
+.background {
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.projects-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

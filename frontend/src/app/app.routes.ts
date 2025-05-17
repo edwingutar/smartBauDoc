@@ -8,6 +8,8 @@ import { AuthViewComponent } from './components/auth-view/auth-view.component';
 import { AddEntryComponent } from './components/add-entry/add-entry.component';
 import { AddProjectComponent } from './components/add-project/add-project.component';
 import { OutputTaskComponent } from './components/output-task/output-task.component';
+import { ShowProjectsComponent } from './components/show-projects/show-projects.component';
+import { OutputProjectComponent} from './components/output-project/output-project.component';
 
 export const routes: Routes = [
   { path: 'windowTitle', component: WindowTitleComponent},
@@ -19,5 +21,7 @@ export const routes: Routes = [
   { path: 'AddEntry', component: AddEntryComponent },
   { path: 'AddProject', component: AddProjectComponent },
   { path: 'OutputTask', component: OutputTaskComponent },
+  { path: 'OutputProject', component: OutputProjectComponent },
+  { path: 'showProject', component:ShowProjectsComponent },
 
 ];
