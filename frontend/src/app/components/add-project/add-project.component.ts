@@ -25,22 +25,21 @@ export class AddProjectComponent {
   @Input() widhtInput: string = '325px';
   @Input() heightInput: string = '50px';
 
-  @Input() titelProjekt: string = 'Projekte';
-  @Input() firstPlaceholder = 'Aufgabe';
-  @Input() secondPlaceholder = 'PN';
-  @Input() thirdPlaceholder = 'Adresse';
-  @Input() fourthPlaceholder = 'Details';
-  @Input() fifthPlaceholder = 'Ansprechpartner';
+  @Input() windowTitle: string = 'Projekte';
+  @Input() firstPlaceholder = 'Projekt-Titel';
+  @Input() secondPlaceholder = 'Details';
+  @Input() thirdPlaceholder = 'Straße';
+  @Input() fourthPlaceholder = 'PLZ';
+  @Input() fifthPlaceholder = 'Start';
   @Input() sixthPlaceholder = 'Deadline';
 
   project: Project = {
     title: '',
-    task: '',
-    pn: '',
-    address: '',
-    details: '',
-    contact: '',
-    deadline: ''
+    detail: '',
+    street: '',
+    pCode: '',
+    sDate: '',
+    dDate: '',
   };
 
   constructor(private projectService: ProjectService) {}
@@ -58,22 +57,22 @@ export class AddProjectComponent {
 
   // Test
   test():void {
-    console.log(this.project.task)
+    console.log(this.project.title)
   }
   test2():void {
-    console.log(this.project.pn)
+    console.log(this.project.detail)
   }
   test3():void {
-    console.log(this.project.address)
+    console.log(this.project.street)
   }
   test4():void {
-    console.log(this.project.details)
+    console.log(this.project.pCode)
   }
   test5():void {
-    console.log(this.project.contact)
+    console.log(this.project.sDate)
   }
   test6():void {
-    console.log(this.project.deadline)
+    console.log(this.project.dDate)
   }
 
 

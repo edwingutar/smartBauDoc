@@ -1,0 +1,20 @@
+<div class="background">
+
+  <app-window-title
+    [title]="titelProjekt"
+    [minHeight]="height"
+    [maxHeight]="height"
+    [minWidth]="widht"
+    [maxWidth]="widht">
+  </app-window-title>
+
+
+  <div class="projects-container">
+    <app-output-project
+      *ngFor="let project of projectList"
+      [project]="project">
+    </app-output-project>
+  </div>
+
+</div>
+
