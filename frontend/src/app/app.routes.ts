@@ -22,6 +22,6 @@ export const routes: Routes = [
   { path: 'AddProject', component: AddProjectComponent },
   { path: 'OutputTask', component: OutputTaskComponent },
   { path: 'OutputProject', component: OutputProjectComponent },
-  { path: 'showProject', component:ShowProjectsComponent },
+  { path: 'showProject', component: ShowProjectsComponent },
 
 ];

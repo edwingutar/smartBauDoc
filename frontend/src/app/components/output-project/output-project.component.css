@@ -1,14 +1,15 @@
 .project-card {
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
+  align-items: flex-start;
   background-color: white;
   border-radius: 16px;
   padding: 1rem;
-  max-width: 400px;
+  width: 300px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
   font-family: Arial, sans-serif;
   color: #91A7BA;
+  gap: 1rem;
 }
 
 .project-content {
@@ -29,7 +30,7 @@
 .project-sdate,
 .project-ddate {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 
