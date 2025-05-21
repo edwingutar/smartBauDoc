@@ -1,0 +1,29 @@
+<div class="weather-container">
+  <h2>Wetterdaten für Augsburg</h2>
+  <label>
+    Tag auswählen:
+    <input type="date" [(ngModel)]="selectedDate" (change)="fetchWeather()" />
+  </label>
+
+  <button (click)="fetchWeather()">Wetter laden</button>
+
+  <div *ngIf="loading">Lade Wetterdaten...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table *ngIf="weatherData.length > 0">
+    <thead>
+      <tr>
+        <th>Uhrzeit</th>
+        <th>Temperatur (°C)</th>
+        <th>Regen (mm)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hour of weatherData">
+        <td>{{ hour.time | date:'shortTime' }}</td>
+        <td>{{ hour.temperature !== null ? hour.temperature : '-' }}</td>
+        <td>{{ hour.precipitation !== null ? hour.precipitation : '-' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
