@@ -23,7 +23,7 @@ export class ConfirmButtonComponent {
   @Input() fontSizeText = '12px';
   @Output() confirmed = new EventEmitter<void>();
 
-constructor() {
-  console.log('ConfirmButtonComponent geladen');
+onButtonClick() {
+  this.confirmed.emit();
 }
 }
