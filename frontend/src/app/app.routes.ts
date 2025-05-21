@@ -14,7 +14,6 @@ import { OutputProjectComponent} from './components/output-project/output-projec
 export const routes: Routes = [
   { path: 'windowTitle', component: WindowTitleComponent},
   { path: 'InputField', component: InputFieldComponent },
-  { path: 'ConfirmButton', component: ConfirmButtonComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'AuthView', component: AuthViewComponent },

@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, InputFieldComponent, ConfirmButtonComponent],
+  imports: [CommonModule, InputFieldComponent, ConfirmButtonComponent, HttpClientModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
@@ -21,7 +21,7 @@ export class RegisterComponent {
   constructor(private authService: AuthService) {}
 
   onRegister() {
-    if (this.password !== this.confirmPassword) {
+    if (this.password != this.confirmPassword) {
       alert('Passwörter stimmen nicht überein!');
     } else {
       this.authService.register({
