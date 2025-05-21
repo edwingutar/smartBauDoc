@@ -1,5 +1,5 @@
 <button
-  class="confirmButton"
+  class="confirmButton" 
   [ngStyle]="{
     minWidth: minWidth,
     maxWidth: maxWidth,
@@ -8,6 +8,7 @@
     backgroundColor: colorBackground,
     fontSize: fontSizeText
   }"
+  (click)="confirmed.emit()"
 >
   <h1>{{ title }}</h1>
 </button>
