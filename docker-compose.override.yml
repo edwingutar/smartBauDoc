@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   frontend:
-    build: ./frontend
+    build: 
+    context: ./frontend
     target: dev # Hier wird das Build-Target dev angegeben
     ports:
       - "4200:4200"
