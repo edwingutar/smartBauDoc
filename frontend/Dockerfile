@@ -4,4 +4,4 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 EXPOSE 4200
-CMD ["npm", "run", "start"]  # oder: ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["npm", "run", "start"]
