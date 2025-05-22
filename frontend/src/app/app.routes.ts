@@ -12,6 +12,7 @@ import { ShowProjectsComponent } from './components/show-projects/show-projects.
 import { OutputProjectComponent} from './components/output-project/output-project.component';
 import { WeatherViewComponent } from './components/weather-view/weather-view.component';
 import { DailyReportComponent } from './components/daily-report/daily-report.component';
+import { TicketOverviewComponent } from './components/ticket-overview/ticket-overview.component';
 
 
 export const routes: Routes = [
@@ -27,7 +28,9 @@ export const routes: Routes = [
   { path: 'OutputProject', component: OutputProjectComponent },
   { path: 'showProject', component:ShowProjectsComponent },
   { path: 'weather', component: WeatherViewComponent },
-  { path: 'daily-report', component: DailyReportComponent }
+  { path: 'daily-report', component: DailyReportComponent },
+  { path: 'tickets', component: TicketOverviewComponent },
+  { path: '', redirectTo: 'tickets', pathMatch: 'full' }
 
 
 ];
