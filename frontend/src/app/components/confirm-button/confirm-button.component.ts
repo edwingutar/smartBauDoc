@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {NgStyle} from '@angular/common';
 
 @Component({
@@ -10,9 +10,6 @@ import {NgStyle} from '@angular/common';
   ],
   styleUrls: ['./confirm-button.component.css']
 })
-
-
-
 export class ConfirmButtonComponent {
   @Input() title = 'ANMELDEN';
   @Input() height: string = '50px';
@@ -21,9 +18,4 @@ export class ConfirmButtonComponent {
   @Input() colorText = '#FFFFFF';
   @Input() colorBackground = '#1654F7';
   @Input() fontSizeText = '12px';
-  @Output() confirmed = new EventEmitter<void>();
-
-onButtonClick() {
-  this.confirmed.emit();
-}
 }
