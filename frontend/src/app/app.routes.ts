@@ -18,7 +18,6 @@ import { TicketOverviewComponent } from './components/ticket-overview/ticket-ove
 export const routes: Routes = [
   { path: 'windowTitle', component: WindowTitleComponent},
   { path: 'InputField', component: InputFieldComponent },
-  { path: 'ConfirmButton', component: ConfirmButtonComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'AuthView', component: AuthViewComponent },
