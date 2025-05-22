@@ -3,6 +3,8 @@ Lukas L:
 -> Pdf Export Logik gebaut
 -> Bezug der Wetterdaten gebaut und Standortangabe
 
+-> Ticketsystem für offene Jobs angelegt
+
 
 Lukas B: 
 -> Confirm-button schickt jetzt Daten an die DB 
