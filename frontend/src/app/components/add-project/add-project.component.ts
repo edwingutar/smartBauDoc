@@ -33,6 +33,10 @@ export class AddProjectComponent {
   @Input() fifthPlaceholder = 'Start';
   @Input() sixthPlaceholder = 'Deadline';
 
+  saveClick: () => void = () => {
+    this.saveProject();
+  };
+
   project: Project = {
     title: '',
     detail: '',
@@ -54,27 +58,4 @@ export class AddProjectComponent {
       }
     });
   }
-
-  // Test
-  test():void {
-    console.log(this.project.title)
-  }
-  test2():void {
-    console.log(this.project.detail)
-  }
-  test3():void {
-    console.log(this.project.street)
-  }
-  test4():void {
-    console.log(this.project.pCode)
-  }
-  test5():void {
-    console.log(this.project.sDate)
-  }
-  test6():void {
-    console.log(this.project.dDate)
-  }
-
-
-
 }
