@@ -13,6 +13,9 @@ import { OutputProjectComponent} from './components/output-project/output-projec
 import { MenuBarComponent} from "./components/menu-bar/menu-bar.component";
 import { ProjectViewComponent} from "./components/project-view/project-view.component";
 import { ProjectAddViewComponent} from "./components/project-add-view/project-add-view.component";
+import { DailyReportComponent } from './components/daily-report/daily-report.component';
+import { TicketOverviewComponent } from './components/ticket-overview/ticket-overview.component';
+
 
 export const routes: Routes = [
   { path: 'windowTitle', component: WindowTitleComponent},
@@ -29,5 +32,6 @@ export const routes: Routes = [
   { path: 'menuBar', component: MenuBarComponent },
   { path: 'menuBar/projectView', component: ProjectViewComponent },
   { path: 'menuBar/addProject', component: ProjectAddViewComponent },
-
+  { path: 'daily-report', component: DailyReportComponent },
+  { path: 'tickets', component: TicketOverviewComponent },
 ];
