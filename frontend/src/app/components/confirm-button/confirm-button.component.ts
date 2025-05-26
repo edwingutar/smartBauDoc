@@ -18,4 +18,5 @@ export class ConfirmButtonComponent {
   @Input() colorText = '#FFFFFF';
   @Input() colorBackground = '#1654F7';
   @Input() fontSizeText = '12px';
+  @Input() onClick: () => void = () => {};
 }
