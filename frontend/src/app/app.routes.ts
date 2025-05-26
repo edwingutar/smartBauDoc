@@ -10,6 +10,9 @@ import { AddProjectComponent } from './components/add-project/add-project.compon
 import { OutputTaskComponent } from './components/output-task/output-task.component';
 import { ShowProjectsComponent } from './components/show-projects/show-projects.component';
 import { OutputProjectComponent} from './components/output-project/output-project.component';
+import { MenuBarComponent} from "./components/menu-bar/menu-bar.component";
+import { ProjectViewComponent} from "./components/project-view/project-view.component";
+import { ProjectAddViewComponent} from "./components/project-add-view/project-add-view.component";
 
 export const routes: Routes = [
   { path: 'windowTitle', component: WindowTitleComponent},
@@ -22,6 +25,9 @@ export const routes: Routes = [
   { path: 'AddProject', component: AddProjectComponent },
   { path: 'OutputTask', component: OutputTaskComponent },
   { path: 'OutputProject', component: OutputProjectComponent },
-  { path: 'showProject', component:ShowProjectsComponent },
+  { path: 'showProjects', component: ShowProjectsComponent },
+  { path: 'menuBar', component: MenuBarComponent },
+  { path: 'menuBar/projectView', component: ProjectViewComponent },
+  { path: 'menuBar/addProject', component: ProjectAddViewComponent },
 
 ];
