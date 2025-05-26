@@ -1,0 +1,54 @@
+.TicketWindow {
+  background: #f8f9fa;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px #0001;
+  padding: 2rem;
+  max-width: 1100px;
+  margin: 2rem auto;
+}
+.TicketHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.3rem;
+}
+.TicketButton {
+  background: #185cff;
+  border: none;
+  color: #fff;
+  border-radius: 2rem;
+  padding: 0.5rem 2rem;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+.TicketTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  background: #fff;
+}
+.TicketTable th, .TicketTable td {
+  padding: 0.7rem;
+  border-bottom: 1px solid #e3e3e3;
+  text-align: left;
+}
+.TicketTable tr.selected {
+  background: #e1f5d8;
+}
+.TicketDetail, .TicketForm {
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  max-width: 450px;
+}
+.TicketInput {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d0d0d0;
+}
