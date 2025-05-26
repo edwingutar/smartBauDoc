@@ -1,20 +1,19 @@
-<div class="background">
+<div class="background" [style.width]="widht" [style.height]="height">
+    <app-window-title
+            [title]="titelProjekt"
+            [minHeight]="height"
+            [maxHeight]="height"
+            [minWidth]="widht"
+            [maxWidth]="widht">
+    </app-window-title>
 
-  <app-window-title
-    [title]="titelProjekt"
-    [minHeight]="height"
-    [maxHeight]="height"
-    [minWidth]="widht"
-    [maxWidth]="widht">
-  </app-window-title>
-
-
-  <div class="projects-container">
-    <app-output-project
-      *ngFor="let project of projectList"
-      [project]="project">
-    </app-output-project>
-  </div>
-
+    <div class="projects-scroll-area">
+        <div class="projects-container">
+            <app-output-project
+                    *ngFor="let project of projectList"
+                    [project]="project">
+            </app-output-project>
+        </div>
+    </div>
 </div>
 

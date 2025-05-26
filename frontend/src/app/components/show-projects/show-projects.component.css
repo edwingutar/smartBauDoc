@@ -1,12 +1,23 @@
 .background {
   position: relative;
-  justify-content: space-between;
-  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.projects-scroll-area {
+  position: absolute;
+  top: 85px;
+  bottom: 10px;
+  left: 30px;
+  right: 10px;
+  overflow-y: auto;
+  padding-right: 5px;
+  scrollbar-width: none;
 }
 
 .projects-container {
-  position: absolute;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 }
