@@ -1,0 +1,151 @@
+.DailyReportWindow {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  background: #f8f9fa;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px #0001;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 2.5rem;
+}
+
+.DailyReportHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.DailyReportTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.DailyReportSubtitle {
+  font-size: 1rem;
+  color: #888;
+}
+
+.DailyReportProject {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.DailyReportAddress {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.DailyReportMeta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.DailyReportInput {
+  border-radius: 1.5rem;
+  border: 1px solid #d1d5db;
+  background: #f3f4f6;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  margin-bottom: 0.2rem;
+  min-width: 120px;
+}
+
+.DailyReportSection {
+  margin-top: 1.5rem;
+}
+
+.DailyReportSectionTitle {
+  font-weight: bold;
+  margin-bottom: 0.7rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.DailyReportBadge {
+  background: #185cff;
+  color: #fff;
+  border-radius: 1rem;
+  padding: 0.1rem 0.7rem;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+}
+
+.DailyReportCompany {
+  background: #e9ecef;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.DailyReportCompanyAdd {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 0.7rem;
+  align-items: center;
+}
+
+.DailyReportImages img {
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+  max-width: 60px;
+  max-height: 60px;
+  object-fit: cover;
+  box-shadow: 0 1px 4px #0001;
+}
+
+.DailyReportRemove {
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.DailyReportButton {
+  background: #185cff;
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+
+.DailyReportButton:hover {
+  background: #003bb3;
+}
+
+.DailyReportTextarea {
+  width: 100%;
+  min-height: 60px;
+  border-radius: 1rem;
+  border: 1px solid #d1d5db;
+  background: #f3f4f6;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.DailyReportFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
