@@ -15,6 +15,7 @@ import { ProjectViewComponent} from "./components/views/project-view/project-vie
 import { ProjectAddViewComponent} from "./components/views/project-add-view/project-add-view.component";
 import { DailyReportComponent } from './components/daily-report/daily-report.component';
 import { TicketOverviewComponent } from './components/ticket-overview/ticket-overview.component';
+import { DailyReportViewComponent } from './components/views/daily-report-view/daily-report-view.component';
 
 
 export const routes: Routes = [
@@ -32,6 +33,7 @@ export const routes: Routes = [
   { path: 'menuBar', component: MenuBarComponent },
   { path: 'menuBar/projectView', component: ProjectViewComponent },
   { path: 'menuBar/addProject', component: ProjectAddViewComponent },
+  { path: 'menuBar/dailyReport', component: DailyReportViewComponent },
   { path: 'daily-report', component: DailyReportComponent },
   { path: 'tickets', component: TicketOverviewComponent },
 ];
