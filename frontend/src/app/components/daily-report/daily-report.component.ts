@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // Add this import
 import { HttpClient } from '@angular/common/http';
+import { WindowTitleComponent } from '../window-title/window-title.component'; // Adjust the path as needed
 
 
 interface CompanyEntry {
   name: string;
-  strength: number;
+  strength: number | null;
   activity: string;
   images: string[]; // Dateipfade oder Base64-Strings
 }
@@ -17,13 +18,20 @@ interface CompanyEntry {
   templateUrl: './daily-report.component.html',
   styleUrls: ['./daily-report.component.css'],
   standalone: true,
-  imports: [FormsModule, CommonModule]
+  imports: [FormsModule, CommonModule, WindowTitleComponent]
 })
 export class DailyReportComponent {
   date: string = new Date().toISOString().slice(0, 10);
   companies: CompanyEntry[] = [];
   weather: string = '';
   notes: string = '';
+
+  @Input() titelProjekt: string = 'Projekte';
+  @Input() widht: string = '400px';
+  @Input() height: string = '750px';
+  @Input() widhtInput: string = '325px';
+  @Input() heightInput: string = '50px';
+
 
   projectName: string = '';
   projectAddress: string = '';
@@ -39,12 +47,12 @@ lat: number | null = null;
 lon: number | null = null;
 
 
-  newCompany: CompanyEntry = { name: '', strength: 0, activity: '', images: [] };
+  newCompany: CompanyEntry = { name: '', strength: null, activity: '', images: [] };
 
   constructor(private http: HttpClient) {}
   addCompany() {
     this.companies.push({ ...this.newCompany, images: [] });
-    this.newCompany = { name: '', strength: 0, activity: '', images: [] };
+    this.newCompany = { name: '', strength: null, activity: '', images: [] };
   }
 
   removeCompany(company: CompanyEntry) {
