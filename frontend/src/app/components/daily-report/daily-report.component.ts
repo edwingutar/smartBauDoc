@@ -111,7 +111,7 @@ autoFillWeather() {
 
 
   saveReport() {
-    
+
     console.log({
       date: this.date,
       companies: this.companies,

@@ -1,66 +1,88 @@
-<main class="auth-wrapper" aria-labelledby="auth-title">
-
-  <app-window-title
-    [title]= title
-    [width]= width
-    [height]= height
-    [minWidth]= minWidth
-    [maxWidth]= maxWidth
-    [minHeight]= minHeight
-    [maxHeight]= maxHeight
-  />
-
-  <nav aria-label="Anmeldung oder Registrierung auswählen" class="switch-buttons">
-    <button
-      class="switch-btn"
-      [class.active]="activeTab === 'login'"
-      (click)="activeTab = 'login'"
-      [attr.aria-pressed]="activeTab === 'login'"
-    >
-      LOGIN
-    </button>
-
-    <button
-      class="switch-btn"
-      [class.active]="activeTab === 'register'"
-      (click)="activeTab = 'register'"
-      [attr.aria-pressed]="activeTab === 'register'"
-    >
-      REGISTRIEREN
-    </button>
-  </nav>
-
-  <section
-    *ngIf="activeTab === 'login'"
-    aria-label="Login Formular"
-    class="form-wrapper login-form"
-  >
-    <app-login />
-  </section>
-
-  <section
-    *ngIf="activeTab === 'register'"
-    aria-label="Registrierungsformular"
-    class="form-wrapper register-form"
-  >
-    <app-register />
-  </section>
-
-  <div class="section-divider">
-    LOGIN MIT
+<div class="DailyReportWindow">
+  <div class="DailyReportHeader">
+    <div class="DailyReportTitle">
+      <div class="DailyReportSubtitle">BAUTAGEBUCH – {{ date | date:'dd.MM.yyyy' }}</div>
+      <div class="DailyReportProject">{{ projectName }}</div>
+      <div class="DailyReportAddress">{{ projectAddress }}</div>
+    </div>
+    <div class="DailyReportMeta">
+      <input class="DailyReportInput" placeholder="Bauherr" [(ngModel)]="client">
+      <input class="DailyReportInput" placeholder="Ersteller" [(ngModel)]="creator">
+      <input class="DailyReportInput" placeholder="Tagesberichtsnummer" [(ngModel)]="reportNumber">
+    </div>
+    <div class="DailyReportMeta">
+      <label>
+        Datum:
+        <input class="DailyReportInput" type="date" [(ngModel)]="date">
+      </label>
+      <input class="DailyReportInput" placeholder="KW" [(ngModel)]="calendarWeek">
+    </div>
+    <div class="DailyReportMeta">
+      <label>
+        Ankunft:
+        <input class="DailyReportInput" type="time" [(ngModel)]="arrival">
+      </label>
+      <label>
+        Verlassen:
+        <input class="DailyReportInput" type="time" [(ngModel)]="departure">
+      </label>
+    </div>
   </div>
 
-  <div class="social-icons">
-    <button class="icon-button" (click)="loginWithApple()" aria-label="Login mit Apple">
-      <img src="/assets/icons/apple.png" alt="Apple-Logo" />
-    </button>
-
-    <button class="icon-button" (click)="loginWithMeta()" aria-label="Login mit Meta">
-      <img src="assets/icons/meta.png" alt="Meta-Logo" />
-    </button>
-
-    <button class="icon-button" (click)="loginWithGoogle()" aria-label="Login mit Google">
-      <img src="assets/icons/google.png" alt="Google-Logo" />
-    </button>
+  <div class="DailyReportSection">
+    <div class="DailyReportSectionTitle">
+      ANWESENDE FIRMEN <span class="DailyReportBadge">{{ companies.length }}</span>
+    </div>
+    <div *ngFor="let company of companies" class="DailyReportCompany">
+      <input class="DailyReportInput" placeholder="Firmenname" [(ngModel)]="company.name">
+      <input class="DailyReportInput" type="number" min="1" placeholder="Stärke" [(ngModel)]="company.strength">
+      <input class="DailyReportInput" placeholder="Tätigkeit" [(ngModel)]="company.activity">
+      <div class="DailyReportImages">
+        <span *ngFor="let img of company.images">
+          <img [src]="img" />
+        </span>
+        <input type="file" (change)="addImageToCompany(company, $event)">
+      </div>
+      <button class="DailyReportRemove" (click)="removeCompany(company)">Entfernen</button>
+    </div>
+    <div class="DailyReportCompanyAdd">
+      <input class="DailyReportInput" placeholder="Firmenname" [(ngModel)]="newCompany.name">
+      <input class="DailyReportInput" type="number" min="1" placeholder="Stärke" [(ngModel)]="newCompany.strength">
+      <input class="DailyReportInput" placeholder="Tätigkeit" [(ngModel)]="newCompany.activity">
+      <button class="DailyReportButton" (click)="addCompany()">WEITERE FIRMA HINZUFÜGEN</button>
+    </div>
   </div>
-</main>
+
+  <div class="DailyReportSection">
+    <div class="DailyReportSectionTitle">Standort</div>
+    <input class="DailyReportInput" placeholder="Ort oder Adresse suchen" [(ngModel)]="locationQuery">
+    <button class="DailyReportButton" (click)="searchLocation()">Suchen</button>
+    <div *ngIf="locationResults.length > 0" class="DailyReportLocationResults">
+      <div *ngFor="let loc of locationResults" (click)="selectLocation(loc)" class="DailyReportLocationResult">
+        {{ loc.display_name }}
+      </div>
+    </div>
+    <div *ngIf="lat && lon" class="DailyReportLocationSelected">
+      <b>Gewählter Standort:</b> {{ lat }}, {{ lon }}
+    </div>
+  </div>
+
+  <div class="DailyReportSection">
+    <div class="DailyReportSectionTitle">Wetter</div>
+    <input class="DailyReportInput" placeholder="z.B. Teilw. bewölkt, 21°C, 75%, 2km/h" [(ngModel)]="weather">
+    <!-- Optional: Button für Wetter-Auto-Fill -->
+    <button class="DailyReportButton" (click)="autoFillWeather()">AUTO</button>
+  </div>
+
+  <div class="DailyReportSection">
+    <div class="DailyReportSectionTitle">BESONDERHEITEN / ABSPRACHEN</div>
+    <textarea class="DailyReportTextarea" [(ngModel)]="notes"></textarea>
+  </div>
+
+  <div class="DailyReportFooter">
+    <button class="DailyReportButton" (click)="saveReport()">SPEICHERN</button>
+    <button class="DailyReportButton" (click)="saveReport()">ALS PDF EXPORTIEREN</button>
+  </div>
+
+
+</div>
