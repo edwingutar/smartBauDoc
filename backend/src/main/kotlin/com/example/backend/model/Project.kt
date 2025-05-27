@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
+import java.time.LocalDate
 
 @Document("projects")
 data class Project(
@@ -18,6 +19,10 @@ data class Project(
     @Field("detail")
     val detail: String,
 
+    @get:JsonProperty("ansprechpartner")
+    @Field("ansprechpartner")
+    val ansprechpartner: String,
+
     @get:JsonProperty("street")
     @Field("street")
     val street: String,
@@ -28,9 +33,13 @@ data class Project(
 
     @get:JsonProperty("sDate")
     @Field("sDate")
-    val sDate: String,
+    val sDate: LocalDate,
 
     @get:JsonProperty("dDate")
     @Field("dDate")
-    val dDate: String
+    val dDate: LocalDate,
+
+    @get:JsonProperty("entries")
+    @Field("entries")
+    val entries: List<Entry> = listOf()
 )
