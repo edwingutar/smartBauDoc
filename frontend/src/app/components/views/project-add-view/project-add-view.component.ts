@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MenuBarComponent } from '../menu-bar/menu-bar.component';
-import { AddProjectComponent } from '../add-project/add-project.component';
+import { MenuBarComponent } from '../../menu-bar/menu-bar.component';
+import { AddProjectComponent } from '../../add-project/add-project.component';
 
 @Component({
   selector: 'app-project-add-view',

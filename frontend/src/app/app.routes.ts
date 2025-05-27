@@ -11,11 +11,11 @@ import { OutputTaskComponent } from './components/output-task/output-task.compon
 import { ShowProjectsComponent } from './components/show-projects/show-projects.component';
 import { OutputProjectComponent} from './components/output-project/output-project.component';
 import { MenuBarComponent} from "./components/menu-bar/menu-bar.component";
-import { ProjectViewComponent} from "./components/project-view/project-view.component";
-import { ProjectAddViewComponent} from "./components/project-add-view/project-add-view.component";
+import { ProjectViewComponent} from "./components/views/project-view/project-view.component";
+import { ProjectAddViewComponent} from "./components/views/project-add-view/project-add-view.component";
 import { DailyReportComponent } from './components/daily-report/daily-report.component';
 import { TicketOverviewComponent } from './components/ticket-overview/ticket-overview.component';
-
+import { ProjectAddEntriesViewComponent} from "./components/views/project-add-entries-view/project-add-entries-view.component";
 
 export const routes: Routes = [
   { path: 'windowTitle', component: WindowTitleComponent},
@@ -34,4 +34,5 @@ export const routes: Routes = [
   { path: 'menuBar/addProject', component: ProjectAddViewComponent },
   { path: 'daily-report', component: DailyReportComponent },
   { path: 'tickets', component: TicketOverviewComponent },
+  { path: 'menuBar/addEntries', component: ProjectAddEntriesViewComponent },
 ];
