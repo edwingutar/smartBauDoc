@@ -1,16 +1,17 @@
 package com.example.backend.model
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime
 
-@Document("entries")
 data class Entry(
-    @Id val id: String? = null,
-    val title: String,
-    val content: String,
-    val imageFileName: String? = null,
-    val projectId: String,
-    val categoryId: String,
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    val creatorName: String,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val calendarWeek: Int? = null,
+    val arrivalTime: String,
+    val departureTime: String,
+    val companyName: String,
+    val onSitePersonnelCount: Int,
+    val taskDescription: String,
+    val notes: String,
+    val weather: Weather,
+    val image: Image
 )
