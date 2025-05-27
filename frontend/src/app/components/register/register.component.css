@@ -1,5 +1,6 @@
 .RegisterWindow {
   width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,13 +11,24 @@
 
 .Input {
   width: 100%;
-  max-width: 500px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   padding: 1rem;
+  box-sizing: border-box;
 }
 
 app-input-field {
   width: 100%;
+}
+
+/* Responsive Anpassung */
+@media (max-width: 600px) {
+  .RegisterWindow {
+    padding: 0.5rem;
+  }
+
+  .Input {
+    padding: 0.5rem;
+  }
 }
