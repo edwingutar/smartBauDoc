@@ -1,9 +1,16 @@
+import {Weather} from './weather.model';
+import {Image} from './image.model';
+
 export interface Entry {
-  id?: string;
-  title: string;
-  content: string;
-  imageFileName?: string;
-  projectId: string;
-  categoryId: string;
-  createdAt: string;
+  creatorName: string;
+  createdAt?: string;
+  calendarWeek?: number;
+  arrivalTime: string;
+  departureTime: string;
+  companyName: string;
+  onSitePersonnelCount: number;
+  taskDescription: string;
+  notes: string;
+  weather: Weather;
+  image: Image;
 }
