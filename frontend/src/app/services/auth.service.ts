@@ -16,7 +16,7 @@ export class AuthService {
 
 //loginservice
   login(email: string, password: string): Observable<any> {
-    return this.http.post('http://localhost:8080/api/login', { username: email, password });
+    return this.http.post('http://localhost:8080/api/login', {email, password });
   }
 
 }
