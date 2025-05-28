@@ -3,12 +3,11 @@
   justify-content: space-between;
   align-items: stretch;
   background-color: white;
-  border-radius: 16px;
+  border-radius: 25px;
   padding: 1rem;
   width: 300px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-  font-family: Arial, sans-serif;
-  color: #91A7BA;
+  font-family: "Helvetica Neue", sans-serif;
+  color:  #013063;
 }
 
 .project-content {
@@ -17,19 +16,21 @@
 }
 
 .project-title {
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: 400;
   margin: 0 0 0.5rem;
-  font-weight: 600;
-  font-size: 16px;
-  color: #91A7BA;
+  font-size: 20px;
+  color:  #013063;
 }
 
 .project-detail,
 .project-street,
+.project-anPartner,
 .project-pCode,
 .project-sdate,
 .project-ddate {
   margin: 0;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 

@@ -3,10 +3,9 @@
   <div class="project-content">
     <h3 class="project-title">{{ project.title }}</h3>
     <p class="project-detail">{{ project.detail }}</p>
-    <p class="project-street">{{ project.street }}</p>
-    <p class="project-pCode">{{ project.pCode }}</p>
-    <p class="project-sdate">{{ project.sDate }}</p>
-    <p class="project-ddate">{{ project.dDate }}</p>
+    <p class="project-pCode">{{ project.pCode }} {{ project.street }}</p>
+    <p class="project-sdate"> Start {{ project.sDate }}</p>
+    <p class="project-ddate"> Ende {{ project.dDate }}</p>
   </div>
 
   <button class="info-button" (click)="showInfo()">
