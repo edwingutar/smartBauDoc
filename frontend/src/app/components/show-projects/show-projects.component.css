@@ -1,23 +1,11 @@
-.background {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
 .projects-scroll-area {
-  position: absolute;
-  top: 85px;
-  bottom: 10px;
-  left: 30px;
-  right: 10px;
   overflow-y: auto;
-  padding-right: 5px;
-  scrollbar-width: none;
+  max-height: 580px;
 }
 
 .projects-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 1rem;
 }
