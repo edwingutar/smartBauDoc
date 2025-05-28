@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {ConfirmButtonComponent} from '../confirm-button/confirm-button.component';
 import {InputFieldComponent} from '../input-field/input-field.component';
 import {WindowTitleComponent} from '../window-title/window-title.component';
-import {Project} from '../../models/project.model';
+import {Project} from '../../core/models/project.model';
 import {ProjectService} from '../../services/project.service';
 
 @Component({
@@ -28,10 +28,11 @@ export class AddProjectComponent {
   @Input() windowTitle: string = 'Projekte';
   @Input() firstPlaceholder = 'Projekt-Titel';
   @Input() secondPlaceholder = 'Details';
-  @Input() thirdPlaceholder = 'Straße';
+  @Input() thirdPlaceholder = 'Ansprechpartner';
   @Input() fourthPlaceholder = 'PLZ';
-  @Input() fifthPlaceholder = 'Start';
-  @Input() sixthPlaceholder = 'Deadline';
+  @Input() fifthPlaceholder = 'Straße';
+  @Input() sixthPlaceholder = 'Start';
+  @Input() seventhPlaceholder = 'Deadline';
 
   saveClick: () => void = () => {
     this.saveProject();
@@ -40,10 +41,12 @@ export class AddProjectComponent {
   project: Project = {
     title: '',
     detail: '',
+    ansprechpartner: '',
     street: '',
     pCode: '',
     sDate: '',
     dDate: '',
+    entries: [],
   };
 
   constructor(private projectService: ProjectService) {}
