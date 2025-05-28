@@ -1,4 +1,3 @@
-.TS:
 import { Component } from '@angular/core';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { ConfirmButtonComponent } from '../confirm-button/confirm-button.component';
