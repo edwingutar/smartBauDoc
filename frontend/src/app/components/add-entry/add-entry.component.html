@@ -1,73 +1,57 @@
-<div class="background">
+<app-window-title
+  [title]= titelProjekt>
 
-  <div class="window">
+  <div class="AufgabeTitel">
+    <span class="underline-text">Eintrag Hinzufügen</span>
+  </div>
 
-    <app-window-title
-      [title]= titelProjekt
-      [minHeight]= height
-      [maxHeight]= height
-      [minWidth]= widht
-      [maxWidth]= widht>
-    </app-window-title>
-
-    <div class="AufgabeTitel">
-      <span class="underline-text">Eintrag Hinzufügen</span>
-    </div>
-
-    <div class="inputFelder">
-      <app-input-field
-        [placeholder]= firstPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= secondPlaceholder
-        [height]= heightInput
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= thirdPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= fourthPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= fifthPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput>
-      </app-input-field>
-    </div>
-
+  <div class="inputFelder">
+    <app-input-field
+      [placeholder]= firstPlaceholder>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= secondPlaceholder>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= thirdPlaceholder>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= fourthPlaceholder>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= fifthPlaceholder>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= sixthPlaceholder>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= seventhPlaceholder>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= eighthPlaceholder>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= ninthPlaceholder>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= tenthPlaceholder>
+    </app-input-field>
 
     <button class="icon-button" (click)="uploadPic()" aria-label="uploadPic">
       <img src="assets/icons/camera.png" alt="camera" />
     </button>
 
-
-    <div class="confirmButton">
-      <app-confirm-button
-      [title]="'ANLEGEN'"
-      [height]= heightInput
-      [minWidth]= widhtInput
-      [maxWidth]= widhtInput>
-      </app-confirm-button>
-    </div>
-
   </div>
 
+  <app-confirm-button
+    title="ANLEGEN"
+    [onClick]="saveClick">
+  </app-confirm-button>
+
+</app-window-title>
 
 
 
 
-</div>
 
 

@@ -17,29 +17,28 @@ import {ConfirmButtonComponent} from '../confirm-button/confirm-button.component
 })
 export class AddEntryComponent {
 
-  @Input() widht: string = '400px';
-  @Input() height: string = '750px';
-
-  //müssen wir noch überarbeiten, größen skallierung gehe ich später an das frisst mir grad zu viel Zeit
-  @Input() widhtInput: string = '325px';
-  @Input() heightInput: string = '50px';
-
-
-
-
   @Input() titelProjekt: string = 'Projekt Name';
-  @Input() firstPlaceholder = 'Aufgabe';
-  @Input() secondPlaceholder = 'Date';
-  @Input() thirdPlaceholder = 'Erledigt von: ';
-  @Input() fourthPlaceholder = 'PN. 001/005/001';
-  @Input() fifthPlaceholder = 'Notizen';
+  @Input() firstPlaceholder = 'Ersteller';
+  @Input() secondPlaceholder = 'Datum';
+  @Input() thirdPlaceholder = 'Kalenderwoche';
+  @Input() fourthPlaceholder = 'Firma';
+  @Input() fifthPlaceholder = 'Personal vor Ort';
+  @Input() sixthPlaceholder = 'Aufgabe';
+  @Input() seventhPlaceholder = 'Notizen';
+  @Input() eighthPlaceholder = 'Temperatur';
+  @Input() ninthPlaceholder = 'Windgeschwindikeit';
+  @Input() tenthPlaceholder = 'Wettercode';
 
+  saveClick: () => void = () => {
+    this.saveEntry();
+  };
+
+  saveEntry() {
+  }
 
   uploadPic(): void {
     console.log("Button funktionier!")
 
   }
-
-
 
 }
