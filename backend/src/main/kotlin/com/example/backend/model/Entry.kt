@@ -6,8 +6,6 @@ data class Entry(
     val creatorName: String,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val calendarWeek: Int? = null,
-    val arrivalTime: String,
-    val departureTime: String,
     val companyName: String,
     val onSitePersonnelCount: Int,
     val taskDescription: String,

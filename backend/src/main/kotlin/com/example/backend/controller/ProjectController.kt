@@ -43,8 +43,6 @@ class ProjectController(
             creatorName = entryInput.creatorName,
             createdAt = LocalDateTime.now(),
             calendarWeek = entryInput.calendarWeek,
-            arrivalTime = entryInput.arrivalTime,
-            departureTime = entryInput.departureTime,
             companyName = entryInput.companyName,
             onSitePersonnelCount = entryInput.onSitePersonnelCount,
             taskDescription = entryInput.taskDescription,
