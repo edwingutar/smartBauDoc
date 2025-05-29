@@ -2,7 +2,7 @@
   [title]= windowTitle>
 
   <div class="AufgabeTitel">
-    <span class="underline-text">Eintrag Hinzufügen</span>
+    <span class="underline-text">Projekt Hinzufügen</span>
   </div>
 
   <div class="inputFelder">
@@ -35,12 +35,12 @@
       [(fieldValue)]=project.dDate>
     </app-input-field>
 
-    <app-confirm-button
-      title="ANLEGEN"
-      [onClick]="saveClick">
-    </app-confirm-button>
-
   </div>
+
+  <app-confirm-button
+    title="ANLEGEN"
+    [onClick]="saveClick">
+  </app-confirm-button>
 
 </app-window-title>
 
