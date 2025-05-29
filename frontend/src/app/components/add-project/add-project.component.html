@@ -1,81 +1,48 @@
-<div class="background">
+<app-window-title
+  [title]= windowTitle>
 
-  <div class="window">
+  <div class="AufgabeTitel">
+    <span class="underline-text">Eintrag Hinzufügen</span>
+  </div>
 
-    <app-window-title
-      [title]= windowTitle
-      [minHeight]= height
-      [maxHeight]= height
-      [minWidth]= widht
-      [maxWidth]= widht>
-    </app-window-title>
+  <div class="inputFelder">
+    <app-input-field
+      [placeholder]= firstPlaceholder
+      [(fieldValue)]=project.title>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= secondPlaceholder
+      [(fieldValue)]=project.detail>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= thirdPlaceholder
+      [(fieldValue)]=project.ansprechpartner>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= fourthPlaceholder
+      [(fieldValue)]=project.pCode>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= fifthPlaceholder
+      [(fieldValue)]=project.street>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= sixthPlaceholder
+      [(fieldValue)]=project.sDate>
+    </app-input-field>
+    <app-input-field
+      [placeholder]= seventhPlaceholder
+      [(fieldValue)]=project.dDate>
+    </app-input-field>
 
-    <div class="AufgabeTitel">
-      <span class="underline-text">Projekt Hinzufügen</span>
-    </div>
-
-    <div class="inputFelder">
-      <app-input-field
-        [placeholder]= firstPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput
-        [(fieldValue)]=project.title>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= secondPlaceholder
-        [height]= heightInput
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput
-        [(fieldValue)]=project.detail>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= thirdPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput
-        [(fieldValue)]=project.ansprechpartner>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= fourthPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput
-        [(fieldValue)]=project.pCode>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= fifthPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput
-        [(fieldValue)]=project.street>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= sixthPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput
-        [(fieldValue)]=project.sDate>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= seventhPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput
-        [(fieldValue)]=project.dDate>
-      </app-input-field>
-    </div>
-
-    <div class="confirmButton">
-      <app-confirm-button
-        [title]="'ANLEGEN'"
-        [height]= heightInput
-        [minWidth]= widhtInput
-        [maxWidth]= widhtInput
-        [onClick]="saveClick">
-      </app-confirm-button>
-    </div>
+    <app-confirm-button
+      title="ANLEGEN"
+      [onClick]="saveClick">
+    </app-confirm-button>
 
   </div>
 
-</div>
+</app-window-title>
+
+
+

@@ -14,16 +14,9 @@ import {ProjectService} from '../../services/project.service';
   ],
   templateUrl: './add-project.component.html',
   standalone: true,
-  styleUrl: './add-project.component.css'
+  styleUrls: ['./add-project.component.css']
 })
 export class AddProjectComponent {
-
-  @Input() widht: string = '400px';
-  @Input() height: string = '750px';
-
-  //müssen wir noch überarbeiten, größen skallierung gehe ich später an das frisst mir grad zu viel Zeit
-  @Input() widhtInput: string = '325px';
-  @Input() heightInput: string = '50px';
 
   @Input() windowTitle: string = 'Projekte';
   @Input() firstPlaceholder = 'Projekt-Titel';
