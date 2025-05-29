@@ -17,8 +17,9 @@ export class InputFieldComponent {
   @Input() type: 'text' | 'password' = 'text';
 
   @Input() height: string = '50px';
+  @Input() width: string = '90vw';
   @Input() minWidth: string = '325px';
-  @Input() maxWidth: string = '500px';
+  @Input() maxWidth: string = '1100px';
 
   @Input()
   set fieldValue(val: string) {
