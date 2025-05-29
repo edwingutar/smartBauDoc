@@ -1,9 +1,8 @@
-/*
 package com.example.backend.controller
 
 import com.example.backend.dto.LoginRequest
 import com.example.backend.model.User
-import com.example.backend.respository.UserRepository
+import com.example.backend.repository.UserRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -36,4 +35,4 @@ class UserController(val userRepository: UserRepository) {
         }
     }
 }
- */
+ 
