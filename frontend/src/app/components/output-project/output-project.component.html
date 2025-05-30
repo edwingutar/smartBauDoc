@@ -1,4 +1,10 @@
-<div class="project-card">
+<div class="project-card"
+     [ngStyle]="{
+          width: width,
+          height: height,
+          minWidth: minWidth,
+          maxWidth: maxWidth,
+        }">
 
   <div class="project-content">
     <h3 class="project-title">{{ project.title }}</h3>
