@@ -13,6 +13,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center; /* Zentrierung hinzugefügt */
   gap: 1.5rem;
   padding: 1rem;
   box-sizing: border-box;
@@ -20,6 +21,14 @@
 
 app-input-field {
   width: 100%;
+  display: flex; /* Wichtig für korrekte Ausrichtung */
+  justify-content: center; /* Zentriert das Input-Feld */
+}
+
+app-confirm-button {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Zentriert den Button */
 }
 
 /* Responsive Anpassung */

@@ -11,9 +11,9 @@
 
 .InputGroup {
   width: 100%;
-  /* max-width entfernen, damit sie sich am Container orientiert */
   display: flex;
   flex-direction: column;
+  align-items: center; /* Neues Property für horizontale Zentrierung */
   gap: 1.5rem;
   padding: 1rem;
   box-sizing: border-box;
@@ -21,6 +21,14 @@
 
 app-input-field {
   width: 100%;
+  display: flex; /* Wichtig für korrekte Ausrichtung */
+  justify-content: center; /* Zentriert das Input-Feld */
+}
+
+app-confirm-button {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Zentriert den Button */
 }
 
 /* Responsive Anpassung */
@@ -34,10 +42,6 @@ app-input-field {
   }
 }
 
-app-input-field {
-  width: 100%;
-}
-
 .forgot-password {
   background: none;
   border: none;
@@ -48,6 +52,8 @@ app-input-field {
   text-decoration: underline;
   padding: 0;
   margin-top: 0.2rem;
+  text-align: center; /* Zentriert den Text */
+  width: 100%; /* Sorgt dafür, dass der Text zentriert wird */
 }
 
 .forgot-password:hover {

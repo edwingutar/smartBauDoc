@@ -1,46 +1,48 @@
 <app-window-title
   [title]="title"
   [width]="width"
-  [height]="'auto'"
+  [height]="height"
   [minWidth]="minWidth"
   [maxWidth]="maxWidth"
-  [minHeight]="'0'"
-  [maxHeight]="'none'">
+  [minHeight]="minHeight"
+  [maxHeight]="maxHeight">
 
-  <nav aria-label="Anmeldung oder Registrierung auswählen" class="switch-buttons">
-    <button
-      class="switch-btn"
-      [class.active]="activeTab === 'login'"
-      (click)="activeTab = 'login'"
-      [attr.aria-pressed]="activeTab === 'login'">
-      LOGIN
-    </button>
-    <button
-      class="switch-btn"
-      [class.active]="activeTab === 'register'"
-      (click)="activeTab = 'register'"
-      [attr.aria-pressed]="activeTab === 'register'">
-      REGISTRIEREN
-    </button>
-  </nav>
+  <div class="auth-content">
+    <nav aria-label="Anmeldung oder Registrierung auswählen" class="switch-buttons">
+      <button
+        class="switch-btn"
+        [class.active]="activeTab === 'login'"
+        (click)="activeTab = 'login'"
+        [attr.aria-pressed]="activeTab === 'login'">
+        LOGIN
+      </button>
+      <button
+        class="switch-btn"
+        [class.active]="activeTab === 'register'"
+        (click)="activeTab = 'register'"
+        [attr.aria-pressed]="activeTab === 'register'">
+        REGISTRIEREN
+      </button>
+    </nav>
 
-  <section *ngIf="activeTab === 'login'" aria-label="Login Formular" class="form-wrapper login-form">
-    <app-login />
-  </section>
-  <section *ngIf="activeTab === 'register'" aria-label="Registrierungsformular" class="form-wrapper register-form">
-    <app-register />
-  </section>
+    <section *ngIf="activeTab === 'login'" aria-label="Login Formular" class="form-wrapper login-form">
+      <app-login />
+    </section>
+    <section *ngIf="activeTab === 'register'" aria-label="Registrierungsformular" class="form-wrapper register-form">
+      <app-register />
+    </section>
 
-  <div class="section-divider">LOGIN MIT</div>
-  <div class="social-icons">
-    <button class="icon-button" (click)="loginWithApple()" aria-label="Login mit Apple">
-      <img src="/assets/icons/apple.png" alt="Apple-Logo" />
-    </button>
-    <button class="icon-button" (click)="loginWithMeta()" aria-label="Login mit Meta">
-      <img src="assets/icons/meta.png" alt="Meta-Logo" />
-    </button>
-    <button class="icon-button" (click)="loginWithGoogle()" aria-label="Login mit Google">
-      <img src="assets/icons/google.png" alt="Google-Logo" />
-    </button>
+    <div class="section-divider">LOGIN MIT</div>
+    <div class="social-icons">
+      <button class="icon-button" (click)="loginWithApple()" aria-label="Login mit Apple">
+        <img src="/assets/icons/apple.png" alt="Apple-Logo" />
+      </button>
+      <button class="icon-button" (click)="loginWithMeta()" aria-label="Login mit Meta">
+        <img src="assets/icons/meta.png" alt="Meta-Logo" />
+      </button>
+      <button class="icon-button" (click)="loginWithGoogle()" aria-label="Login mit Google">
+        <img src="assets/icons/google.png" alt="Google-Logo" />
+      </button>
+    </div>
   </div>
 </app-window-title>

@@ -17,17 +17,13 @@ import { RegisterComponent } from '../register/register.component';
   styleUrls: ['./auth-view.component.css']
 })
 export class AuthViewComponent {
-
   @Input() title: string = 'SmartBauDoc'
   @Input() width: string = '90vw';
-  @Input() height: string = '600px';
+  @Input() height: string = 'auto'; // Auto-Höhe statt fester Höhe
   @Input() maxWidth: string = '600px';
   @Input() minWidth: string = '320px';
-  @Input() minHeight: string = '200px';
-  @Input() maxHeight: string = '90vh';
-
-
-
+  @Input() minHeight: string = '0'; // Minimum-Höhe auf 0 setzen
+  @Input() maxHeight: string = 'none'; // Keine maximale Höhe
 
   activeTab: 'login' | 'register' = 'login';
 
