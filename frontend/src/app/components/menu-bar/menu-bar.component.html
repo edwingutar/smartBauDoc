@@ -1,5 +1,15 @@
-<div class="menu-bar">
-  <div class="Titel">SBD</div>
+<div class="menu-bar"
+     [ngStyle]="{
+          width: width,
+          height: height,
+          minWidth: minWidth,
+          maxWidth: maxWidth,
+        }">
+
+  <div class="icon">
+    <img src="assets/icons/sbd.png" alt="sbd" />
+  </div>
+
   <div class="buttons">
     <button routerLink="/menuBar/projectView" class="projekte">Projekte</button>
     <button routerLink="/menuBar/addProject" class="tickets">Tickets</button>

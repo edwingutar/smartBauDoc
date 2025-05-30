@@ -4,22 +4,10 @@
   justify-content: space-between;
   background: #ffffff;
   border-radius: 35px;
-  padding: 10px 20px;
-  width: 90%;
-  max-width: 1200px;
-  margin: 20px auto;
-  height: 70px;
+  padding: 10px;
+  margin-right: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-}
-
-.Titel {
-  font-family: "Helvetica Neue", sans-serif;
-  color: #013063;
-  font-size: 30px;
-  font-weight: 200;
-  white-space: nowrap;
-  margin-right: 20px;
 }
 
 .buttons {
@@ -52,4 +40,14 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.icon {
+  display: flex;
+  margin-top: 5px;
+}
+
+.icon img {
+  width: 60px;
+  height: 60px;
 }
