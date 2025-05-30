@@ -1,6 +1,8 @@
 .projects-scroll-area {
   overflow-y: auto;
-  max-height: 580px;
+  overflow-x: hidden;
+  max-height: 90vh;
+  scrollbar-width: none;
 }
 
 .projects-container {

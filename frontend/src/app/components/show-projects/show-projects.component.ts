@@ -1,10 +1,11 @@
 import {Component, Input} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { WindowTitleComponent} from '../window-title/window-title.component';
+import {CommonModule} from '@angular/common';
+import {WindowTitleComponent} from '../window-title/window-title.component';
 import {OutputProjectComponent} from '../output-project/output-project.component';
-import {Project} from '../../core/models/project.model';
 import {ProjectService} from '../../services/project.service';
 import {Entry} from '../../core/models/entry.model';
+import {Router} from '@angular/router';
+import {ConfirmButtonComponent} from '../confirm-button/confirm-button.component';
 
 @Component({
   selector: 'app-show-projects',
@@ -12,6 +13,7 @@ import {Entry} from '../../core/models/entry.model';
     WindowTitleComponent,
     OutputProjectComponent,
     CommonModule,
+    ConfirmButtonComponent,
   ],
   templateUrl: './show-projects.component.html',
   standalone: true,
@@ -20,12 +22,15 @@ import {Entry} from '../../core/models/entry.model';
 export class ShowProjectsComponent {
 
   @Input() titelProjekt: string = 'Projekte';
-  @Input() widht: string = '400px';
-  @Input() height: string = '750px';
-  @Input() widhtInput: string = '325px';
-  @Input() heightInput: string = '50px';
+  @Input() colorButton: string = '#FAD739';
+  @Input() colorText: string = '#FFFFFF'; //Eventuell hier andere Farbe
 
-  constructor(private projectService: ProjectService) {}
+  constructor(private projectService: ProjectService, private router: Router) {}
+
+  goToProjectAdd = () => {
+    this.router.navigate(['/menuBar/addProject']);
+  }
+
 
   ngOnInit(): void {
     this.projectService.getProjects().subscribe({
@@ -33,7 +38,6 @@ export class ShowProjectsComponent {
       error: (err) => console.error('Fehler beim Laden der Projekte:', err)
     });
   }
-
 
   projectList = [
     {

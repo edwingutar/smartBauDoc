@@ -1,9 +1,5 @@
 <app-window-title
-  [title]="titelProjekt"
-  [minHeight]="height"
-  [maxHeight]="height"
-  [minWidth]="widht"
-  [maxWidth]="widht">
+  [title]="titelProjekt">
 
   <div class="projects-scroll-area">
     <div class="projects-container">
@@ -13,6 +9,13 @@
       </app-output-project>
     </div>
   </div>
+
+  <app-confirm-button
+    [title] ="'Projekt Hinzufügen'"
+    [colorBackground] = colorButton
+    [colorText]= colorText
+    [onClick]="goToProjectAdd">
+  </app-confirm-button>
 
 </app-window-title>
 
