@@ -1,0 +1,106 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  height: auto;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+
+.profile-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #f1f2f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.profile-icon img {
+  width: 50px;
+  height: 50px;
+}
+
+.profile-title {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #013063;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.profile-content {
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.profile-item {
+  display: flex;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f1f2f4;
+}
+
+.profile-item:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.item-label {
+  width: 30%;
+  font-family: "Helvetica Neue", sans-serif;
+  color: #91A7BA;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.item-value {
+  width: 70%;
+  font-family: "Helvetica Neue", sans-serif;
+  color: #013063;
+  font-size: 16px;
+  font-weight: 400;
+  word-break: break-word;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 600px) {
+  .profile-content {
+    padding: 1rem;
+  }
+  
+  .profile-item {
+    flex-direction: column;
+  }
+  
+  .item-label, .item-value {
+    width: 100%;
+  }
+  
+  .item-label {
+    margin-bottom: 0.3rem;
+  }
+}

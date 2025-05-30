@@ -6,6 +6,10 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 
 export class AuthService {
+  logout() {
+      console.log('Ausgeloggt');
+      // Hier könntest du später Token entfernen, Session beenden, etc.
+  }
   constructor(private http: HttpClient) {}
 
 //registerservice
