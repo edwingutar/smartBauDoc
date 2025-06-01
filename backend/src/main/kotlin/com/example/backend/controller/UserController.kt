@@ -23,7 +23,7 @@ class UserController(val userRepository: UserRepository) {
             val users = userRepository.findByEmail(request.email)
             val validUser = users.firstOrNull { it.password == request.password }
             return if (validUser != null) {
-                val token = JwtUtil.generateToken(validUser.email)
+                val token = JwtUtil.generateToken(validUser.email, validUser.name) // <-- Name mitgeben!
                 ResponseEntity.ok(mapOf("token" to token))
             } else {
                 ResponseEntity.status(401).body(mapOf("message" to "Ungültige Anmeldedaten"))
