@@ -37,32 +37,25 @@ export class ProfilViewComponent implements OnInit {
   }
 
   tryLoadUserData(): void {
-    // Token abrufen
     const token = localStorage.getItem('token');
-    
-    // Wenn kein Token vorhanden ist, zeige Beispieldaten an
     if (!token) {
-      console.log('Kein Token gefunden, zeige Beispieldaten');
+      this.currentUser = { email: '', name: '' };
       return;
     }
-    
-    // Falls Token vorhanden, versuche Daten zu laden
-    this.http.get('http://localhost:8080/api/user/current', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).subscribe({
-      next: (user: any) => {
-        this.currentUser = {
-          email: user.email,
-          name: user.name
-        };
-      },
-      error: (err) => {
-        console.error('Fehler beim Laden der Benutzerdaten:', err);
-        // Keine Umleitung zur Login-Seite
-      }
-    });
+    const payload = this.decodeJwtPayload(token);
+    this.currentUser.email = payload?.email || '';
+    this.currentUser.name = payload?.name || '';
+  }
+
+  // Hilfsfunktion zum Decodieren des JWT-Payloads
+  decodeJwtPayload(token: string): any {
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const payloadJson = atob(payloadBase64.replace(/-/g, '+').replace(/_/g, '/'));
+      return JSON.parse(decodeURIComponent(escape(payloadJson)));
+    } catch {
+      return null;
+    }
   }
 
   logout = () => {
@@ -70,12 +63,13 @@ export class ProfilViewComponent implements OnInit {
     this.http.post('http://localhost:8080/api/logout', {}).subscribe({
       next: () => {
         this.authService.logout();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/AuthView']);
+        console.log('Erfolgreich abgemeldet');
       },
       error: (err) => {
         console.error('Fehler beim Logout:', err);
         this.authService.logout();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/AuthView']);
       }
     });
   }
