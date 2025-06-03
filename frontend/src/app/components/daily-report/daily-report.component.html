@@ -1,34 +1,27 @@
-<div class="page-content">
-  <div class="daily-report-window">
-    <app-window-title
-      [title]="'Tagesbericht'"
-      [minHeight]="height"
-      [maxHeight]="height">
-    </app-window-title>
 
-    <div class="daily-report-scroll-area">
-      <div class="AufgabeTitel">
-  
+<app-window-title
+  [title]="'Tagesbericht'">
+    
+
+  <div class="daily-report-scroll-area">
+    <div class="inputFelder">
+      <input class="DailyReportInput" placeholder="Projektname" [(ngModel)]="client">
+      <input class="DailyReportInput" placeholder="Ersteller" [(ngModel)]="creator">
+      <input class="DailyReportInput" placeholder="Tagesberichtsnummer" [(ngModel)]="reportNumber">
+      <input class="DailyReportInput" type="date" placeholder="Datum" [(ngModel)]="date">        
+      <input class="DailyReportInput" placeholder="KW" [(ngModel)]="calendarWeek">
+      <input class="DailyReportInput" type="time" placeholder="Ankunft" [(ngModel)]="arrival">
+      <input class="DailyReportInput" type="time" placeholder="Verlassen" [(ngModel)]="departure">
+    </div>
+
+    <div class="inputFelder">
+      <div class="DailyReportSectionTitle">Anwesende Firmen</div>
+      <div *ngFor="let company of companies" class="DailyReportCompany">
+        <input class="DailyReportInput" placeholder="Firmenname" [(ngModel)]="company.name">
+        <input class="DailyReportInput" type="number" min="1" placeholder="Anzahl Mitarbeiter" [(ngModel)]="company.strength">
+        <input class="DailyReportInput" placeholder="Tätigkeit" [(ngModel)]="company.activity">
+        <button class="DailyReportRemove" (click)="removeCompany(company)">Entfernen</button>
       </div>
-
-      <div class="inputFelder">
-        <input class="DailyReportInput" placeholder="Projektname" [(ngModel)]="client">
-        <input class="DailyReportInput" placeholder="Ersteller" [(ngModel)]="creator">
-        <input class="DailyReportInput" placeholder="Tagesberichtsnummer" [(ngModel)]="reportNumber">
-        <input class="DailyReportInput" type="date" placeholder="Datum" [(ngModel)]="date">
-        <input class="DailyReportInput" placeholder="KW" [(ngModel)]="calendarWeek">
-        <input class="DailyReportInput" type="time" placeholder="Ankunft" [(ngModel)]="arrival">
-        <input class="DailyReportInput" type="time" placeholder="Verlassen" [(ngModel)]="departure">
-      </div>
-
-      <div class="inputFelder">
-        <div class="DailyReportSectionTitle">Anwesende Firmen</div>
-        <div *ngFor="let company of companies" class="DailyReportCompany">
-          <input class="DailyReportInput" placeholder="Firmenname" [(ngModel)]="company.name">
-          <input class="DailyReportInput" type="number" min="1" placeholder="Anzahl Mitarbeiter" [(ngModel)]="company.strength">
-          <input class="DailyReportInput" placeholder="Tätigkeit" [(ngModel)]="company.activity">
-          <button class="DailyReportRemove" (click)="removeCompany(company)">Entfernen</button>
-        </div>
         <div class="DailyReportCompanyAdd">
           <input class="DailyReportInput" placeholder="Firmenname" [(ngModel)]="newCompany.name">
           <input class="DailyReportInput" type="number" min="1" placeholder="Anzahl Mitarbeiter" [(ngModel)]="newCompany.strength">
@@ -64,8 +57,7 @@
 
       <div class="confirmButton">
         <button class="DailyReportButton" (click)="saveReport()">SPEICHERN</button>
-        <button class="DailyReportButton" (click)="saveReport()">ALS PDF EXPORTIEREN</button>
       </div>
     </div>
-  </div>
-  </div>
+</app-window-title>
+

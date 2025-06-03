@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Add this import
+import { CommonModule } from '@angular/common'; 
 import { HttpClient } from '@angular/common/http';
-import { WindowTitleComponent } from '../window-title/window-title.component'; // Adjust the path as needed
+import { WindowTitleComponent } from '../window-title/window-title.component'; 
 
 
 interface CompanyEntry {
   name: string;
   strength: number | null;
   activity: string;
-  images: string[]; // Dateipfade oder Base64-Strings
+  images: string[]; 
 }
 
 
@@ -84,12 +84,12 @@ selectLocation(loc: any) {
   this.lon = parseFloat(loc.lon);
   console.log('NEUE Koordinaten:', this.lat, this.lon);
   this.locationResults = [];
-  // Optional: Setze Adresse/Feld im Formular
+
   this.projectAddress = loc.display_name;
 }
 
 autoFillWeather() {
-  // Prüfe, ob Koordinaten gesetzt sind
+
   console.log('DEBUG lat:', this.lat, 'lon:', this.lon, 'date:', this.date);
  if (this.lat === null || this.lon === null) {
   this.weather = 'Bitte zuerst einen Standort auswählen!';
@@ -101,7 +101,7 @@ autoFillWeather() {
 
   this.http.get<any>(url).subscribe({
     next: data => {
-      // Hole z.B. die Werte von 12 Uhr (Index 12)
+      
       const idx = 12;
       const temp = data.hourly?.temperature_2m?.[idx];
       const hum = data.hourly?.relative_humidity_2m?.[idx];

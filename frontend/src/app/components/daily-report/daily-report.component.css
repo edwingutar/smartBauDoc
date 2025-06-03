@@ -1,3 +1,17 @@
+:host ::ng-deep .window-content {
+  align-items: stretch !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+app-window-title {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1.5rem;
+  height: 100%;
+}
+
 .background {
   position: relative;
   display: flex;
@@ -9,11 +23,11 @@
 }
 
 .daily-report-window {
-  position: relative;
+  position: static;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  background: #fff; /* Weiß wie bei Projekten */
+  background: #fff;  
   border-radius: 16px;
   margin: 2rem auto;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
@@ -26,14 +40,13 @@
 }
 
 .daily-report-scroll-area {
-  position: absolute;
-  top: 85px;
-  bottom: 10px;
-  left: 30px;
-  right: 10px;
+ 
+flex: 1 1 auto;
   overflow-y: auto;
   padding-right: 5px;
   scrollbar-width: none;
+  max-width: 1500px;
+  max-height: 90vh;
 }
 
 .AufgabeTitel {
@@ -58,8 +71,9 @@
 .inputFelder {
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   gap: 0.7rem;
-  width: 90%;
+  width: 100%;
 }
 
 .DailyReportInput, .DailyReportTextarea {
@@ -71,6 +85,7 @@
   color: #4978A1;
   background-color: #e9ecef;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.07);
+  box-sizing: border-box;
 }
 
 .DailyReportTextarea {
@@ -79,8 +94,9 @@
 }
 
 .DailyReportSectionTitle {
-  margin-bottom: 1.2rem; /* mehr Platz unter Überschrift */
-  font-weight: bold;
+  font-family: "Helvetica Neue", sans-serif;
+  margin-bottom: 1.2rem; 
+  margin-top: 2rem;
   font-size: 1.1rem;
 }
 
