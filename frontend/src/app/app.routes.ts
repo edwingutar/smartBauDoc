@@ -18,6 +18,7 @@ import { TicketOverviewComponent } from './components/ticket-overview/ticket-ove
 import { DailyReportViewComponent } from './components/views/daily-report-view/daily-report-view.component';
 import { ProfilViewComponent } from './components/profil-view/profil-view.component'; 
 import { AuthGuard } from './guards/auth.guard';
+import { DiaryOverviewComponent } from './components/diary-overview/diary-overview.component';
 
 export const routes: Routes = [
   { path: 'windowTitle', component: WindowTitleComponent},
@@ -37,5 +38,6 @@ export const routes: Routes = [
   { path: 'menuBar/dailyReport', component: DailyReportViewComponent },
   { path: 'daily-report', component: DailyReportComponent },
   { path: 'tickets', component: TicketOverviewComponent },
-  { path: 'profil-view', component: ProfilViewComponent, canActivate: [AuthGuard] }
+  { path: 'profil-view', component: ProfilViewComponent, canActivate: [AuthGuard] },
+   { path: 'diary-overview', component: DiaryOverviewComponent }
 ];

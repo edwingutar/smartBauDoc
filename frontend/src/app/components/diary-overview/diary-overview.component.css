@@ -1,0 +1,97 @@
+.overview-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem 0;
+}
+
+.entry-list {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 1.2rem 1.5rem;
+  min-width: 220px;
+  max-width: 320px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.overview-title {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #013063;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.entry-row {
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border: 1px solid transparent;
+}
+
+.entry-row.selected,
+.entry-row:hover {
+  background: #e9ecef;
+  border: 1px solid #1654F7;
+}
+
+.entry-date {
+  font-size: 0.95rem;
+  color: #4978A1;
+  font-weight: 500;
+}
+
+.entry-title {
+  font-size: 1rem;
+  color: #013063;
+}
+
+.entry-details {
+  background: #f5f7fa;
+  border-radius: 18px;
+  padding: 1.2rem 1.5rem;
+  min-width: 260px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 2px 8px #0001;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.details-title {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #013063;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.7rem;
+}
+
+.details-date,
+.details-title,
+.details-content {
+  font-size: 1rem;
+  color: #4978A1;
+}
+
+@media (max-width: 900px) {
+  .overview-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .entry-list, .entry-details {
+    min-width: 0;
+    max-width: 100vw;
+  }
+}

@@ -1,0 +1,31 @@
+<app-window-title [title]="'Tagebuch Übersicht'">
+  <div class="overview-container">
+    <div class="entry-list">
+      <div class="overview-title">Tagebucheinträge</div>
+      <div *ngFor="let entry of diaryEntries"
+           class="entry-row"
+           [class.selected]="entry === selectedEntry"
+           (click)="selectEntry(entry)">
+        <div class="entry-title">
+          <b>{{ entry.projectName || 'Kein Projektname' }} – {{ entry.date }}</b>
+        </div>
+      </div>
+    </div>
+    <div class="entry-details" *ngIf="selectedEntry">
+      <div class="details-title">Details</div>
+      <div><b>Datum:</b> {{ selectedEntry.date }}</div>
+      <div><b>Projektname:</b> {{ selectedEntry.projectName }}</div>
+      <div><b>Ersteller:</b> {{ selectedEntry.creator }}</div>
+      <div><b>Auftraggeber:</b> {{ selectedEntry.client }}</div>
+      <div><b>Adresse:</b> {{ selectedEntry.projectAddress }}</div>
+      <div><b>Wetter:</b> {{ selectedEntry.weather }}</div>
+      <div><b>KW:</b> {{ selectedEntry.calendarWeek }}</div>
+      <div><b>Ankunft:</b> {{ selectedEntry.arrival }}</div>
+      <div><b>Verlassen:</b> {{ selectedEntry.departure }}</div>
+      <div><b>Berichtsnummer:</b> {{ selectedEntry.reportNumber }}</div>
+      <div><b>Inhalt:</b> {{ selectedEntry.notes }}</div>
+    </div>
+  </div>
+</app-window-title>
+<div class="entry-details" *ngIf="selectedEntry">
+        <button (click)="exportPDF()">PDF Export</button>
