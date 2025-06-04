@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
 import { HttpClient } from '@angular/common/http';
 import { WindowTitleComponent } from '../window-title/window-title.component'; 
-
+import { DailyReportService, DailyReport } from '../../services/daily-report.service';
 
 interface CompanyEntry {
   name: string;
@@ -20,7 +20,7 @@ interface CompanyEntry {
   standalone: true,
   imports: [FormsModule, CommonModule, WindowTitleComponent]
 })
-export class DailyReportComponent {
+export class DailyReportComponent implements OnInit{
   date: string = new Date().toISOString().slice(0, 10);
   companies: CompanyEntry[] = [];
   weather: string = '';
@@ -42,14 +42,47 @@ export class DailyReportComponent {
   arrival: string = '';
   departure: string = '';
   locationQuery: string = '';
-locationResults: any[] = [];
-lat: number | null = null;
-lon: number | null = null;
+  locationResults: any[] = [];
+  lat: number | null = null;
+  lon: number | null = null;
 
 
   newCompany: CompanyEntry = { name: '', strength: null, activity: '', images: [] };
 
-  constructor(private http: HttpClient) {}
+  reportList: DailyReport[] = [];
+
+  constructor(
+    private http: HttpClient,
+    private dailyReportService: DailyReportService
+  ) {}
+
+  ngOnInit() {
+  this.dailyReportService.getReports().subscribe({
+    next: (reports) => this.reportList = reports,
+    error: (err) => console.error('Fehler:', err)
+  });
+}
+  saveReport() {
+    const report: DailyReport = {
+      date: this.date,
+      companies: this.companies,
+      weather: this.weather,
+      notes: this.notes,
+      projectName: this.projectName,
+      projectAddress: this.projectAddress,
+      client: this.client,
+      creator: this.creator, 
+      reportNumber: this.reportNumber ?? '',
+      calendarWeek: this.calendarWeek ?? '',
+      arrival: this.arrival ?? '',
+      departure: this.departure ?? '',
+      id: undefined
+    };
+    this.dailyReportService.createReport(report).subscribe({
+      next: (res) => console.log('Gespeichert:', res),
+      error: (err) => console.error('Fehler:', err)
+  });
+}
   addCompany() {
     this.companies.push({ ...this.newCompany, images: [] });
     this.newCompany = { name: '', strength: null, activity: '', images: [] };
@@ -117,14 +150,4 @@ autoFillWeather() {
   });
 }
 
-
-  saveReport() {
-
-    console.log({
-      date: this.date,
-      companies: this.companies,
-      weather: this.weather,
-      notes: this.notes
-    });
-  }
 }
