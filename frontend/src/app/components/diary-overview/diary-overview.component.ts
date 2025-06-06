@@ -36,6 +36,78 @@ export class DiaryOverviewComponent {
 
   constructor(private dailyReportService: DailyReportService) {}
 
+get selectedEntryFields() {
+   if (!this.selectedEntry) return [];
+
+  // Adresse dynamisch mappen
+  let houseNumber = '', street = '', city = '', district = '', state = '', zip = '', country = '';
+  if (this.selectedEntry.projectAddress) {
+    const parts = this.selectedEntry.projectAddress.split(',').map(p => p.trim());
+    // Von hinten nach vorne zuweisen, damit fehlende Werte nicht alles verschieben
+    if (parts.length > 0) country = parts[parts.length - 1] || '';
+    if (parts.length > 1) zip = parts[parts.length - 2] || '';
+    if (parts.length > 2) state = parts[parts.length - 3] || '';
+    if (parts.length > 3) district = parts[parts.length - 4] || '';
+    if (parts.length > 4) city = parts[parts.length - 5] || '';
+    if (parts.length > 5) street = parts[parts.length - 6] || '';
+    if (parts.length > 6) houseNumber = parts[parts.length - 7] || '';
+  }
+  const streetAndNumber = [street, houseNumber].filter(Boolean).join(' ');
+
+  let cloud = '', temp = '', humidity = '', wind = '', rain = '';
+  if (this.selectedEntry.weather) {
+    const regexMap: Record<string, RegExp> = {
+      cloud: /Bewölkung:\s*([^,]+)/,
+      temp: /Temp(?:eratur)?:\s*([^,]+)/,
+      humidity: /Feuchte:\s*([^,]+)/,
+      wind: /Wind:\s*([^,]+)/,
+      rain: /Niederschlag:\s*([^,]+)/,
+    };
+    const weather = this.selectedEntry.weather;
+    cloud = (weather.match(regexMap['cloud'])?.[1] || '').trim();
+    temp = (weather.match(regexMap['temp'])?.[1] || '').trim();
+    humidity = (weather.match(regexMap['humidity'])?.[1] || '').trim();
+    wind = (weather.match(regexMap['wind'])?.[1] || '').trim();
+    rain = (weather.match(regexMap['rain'])?.[1] || '').trim();
+  }
+
+  return [
+    { label: 'Datum', value: this.selectedEntry.date },
+    { label: 'Projektname', value: this.selectedEntry.projectName },
+    { label: 'Ersteller', value: this.selectedEntry.creator },
+    { label: 'Auftraggeber', value: this.selectedEntry.client },
+    {
+      label: 'Adresse',
+      value: '',
+      subfields: [
+        { sublabel: 'Straße', subvalue: streetAndNumber },
+      { sublabel: 'Stadt', subvalue: city },
+      { sublabel: 'Landkreis', subvalue: district },
+      { sublabel: 'Bundesland', subvalue: state },
+      { sublabel: 'PLZ', subvalue: zip },
+      { sublabel: 'Land', subvalue: country }
+      ].filter(sub => sub.subvalue)
+    },
+    {
+      label: 'Wetter',
+      value: '',
+      subfields: [
+        { sublabel: 'Bewölkung', subvalue: cloud },
+        { sublabel: 'Temperatur', subvalue: temp },
+        { sublabel: 'Feuchte', subvalue: humidity },
+        { sublabel: 'Wind', subvalue: wind },
+        { sublabel: 'Niederschlag', subvalue: rain }
+      ].filter(sub => sub.subvalue)
+    },
+    { label: 'KW', value: this.selectedEntry.calendarWeek },
+    { label: 'Ankunft', value: this.selectedEntry.arrival },
+    { label: 'Verlassen', value: this.selectedEntry.departure },
+    { label: 'Berichtsnummer', value: this.selectedEntry.reportNumber },
+    { label: 'Inhalt', value: this.selectedEntry.notes }
+  ];
+}
+
+
   ngOnInit() {
   this.dailyReportService.getReports().subscribe({
     next: (reports) => {

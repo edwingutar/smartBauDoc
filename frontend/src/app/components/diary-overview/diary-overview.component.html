@@ -11,21 +11,30 @@
         </div>
       </div>
     </div>
-    <div class="entry-details" *ngIf="selectedEntry">
-      <div class="details-title">Details</div>
-      <div><b>Datum:</b> {{ selectedEntry.date }}</div>
-      <div><b>Projektname:</b> {{ selectedEntry.projectName }}</div>
-      <div><b>Ersteller:</b> {{ selectedEntry.creator }}</div>
-      <div><b>Auftraggeber:</b> {{ selectedEntry.client }}</div>
-      <div><b>Adresse:</b> {{ selectedEntry.projectAddress }}</div>
-      <div><b>Wetter:</b> {{ selectedEntry.weather }}</div>
-      <div><b>KW:</b> {{ selectedEntry.calendarWeek }}</div>
-      <div><b>Ankunft:</b> {{ selectedEntry.arrival }}</div>
-      <div><b>Verlassen:</b> {{ selectedEntry.departure }}</div>
-      <div><b>Berichtsnummer:</b> {{ selectedEntry.reportNumber }}</div>
-      <div><b>Inhalt:</b> {{ selectedEntry.notes }}</div>
-    </div>
+<div class="entry-details" *ngIf="selectedEntry">
+  <div class="details-title">Details</div>
+  <div class="DiaryOverviewDetailedInfo">
+    <ng-container *ngFor="let field of selectedEntryFields">
+      <div class="detail-row" *ngIf="!field.subfields">
+        <span class="detail-label">{{ field.label }}</span>
+        <span class="detail-sep">|</span>
+        <span class="detail-value">{{ field.value }}</span>
+      </div>
+      <div class="detail-row" *ngIf="field.subfields">
+        <span class="detail-label">{{ field.label }}</span>
+        <span class="detail-sep"></span>
+        <span class="detail-value"></span>
+      </div>
+      <div class="detail-row sub-detail-row" *ngFor="let sub of field.subfields || []">
+        <span class="detail-label sub-label">{{ sub.sublabel }}</span>
+        <span class="detail-sep">|</span>
+        <span class="detail-value">{{ sub.subvalue }}</span>
+      </div>
+    </ng-container>
+  </div>
+  <div class="buttonInfo">
+    <button class="DailyReportButton" (click)="exportPDF()">PDF Export</button>
+  </div>
+</div>
   </div>
 </app-window-title>
-<div class="entry-details" *ngIf="selectedEntry">
-        <button (click)="exportPDF()">PDF Export</button>
