@@ -5,6 +5,9 @@ import com.example.backend.model.Entry
 import com.example.backend.model.Project
 import com.example.backend.repository.ProjectRepository
 import com.example.backend.service.WeatherService
+import com.example.backend.security.JwtUtil
+import jakarta.servlet.http.HttpServletRequest
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
 
@@ -16,11 +19,29 @@ class ProjectController(
 ) {
 
     @GetMapping
-    fun getAllProjects(): List<Project> = projectRepository.findAll()
+    fun getAllProjects(request: HttpServletRequest): List<Project> {
+        val header = request.getHeader("Authorization")
+        val token = header?.removePrefix("Bearer ")?.trim()
+        val claims = token?.let { JwtUtil.validateToken(it) }
+        val userEmail = claims?.get("email", String::class.java) ?: return emptyList()
+        return projectRepository.findAll().filter { it.viewers.contains(userEmail) }
+    }
 
     @PostMapping
-    fun createProject(@RequestBody project: Project): Project =
-        projectRepository.save(project)
+    fun createProject(
+        request: HttpServletRequest,
+        @RequestBody project: Project
+    ): ResponseEntity<Project> {
+        val header = request.getHeader("Authorization")
+        val token = header?.removePrefix("Bearer ")?.trim()
+        val claims = token?.let { JwtUtil.validateToken(it) }
+        val userEmail = claims?.get("email", String::class.java) ?: return ResponseEntity.status(401).build()
+        val newProject = project.copy(
+            viewers = (project.viewers + userEmail).distinct()
+        )
+        val saved = projectRepository.save(newProject)
+        return ResponseEntity.ok(saved)
+    }
 
     @GetMapping("/{id}")
     fun getProjectById(@PathVariable id: String): Project? =

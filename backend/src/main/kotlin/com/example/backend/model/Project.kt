@@ -41,5 +41,9 @@ data class Project(
 
     @get:JsonProperty("entries")
     @Field("entries")
-    val entries: List<Entry> = listOf()
+    val entries: List<Entry> = listOf(),
+
+    @get:JsonProperty("viewers")
+    @Field("viewers")
+    val viewers: List<String> = listOf()
 )
