@@ -4,6 +4,7 @@ import {InputFieldComponent} from '../input-field/input-field.component';
 import {WindowTitleComponent} from '../window-title/window-title.component';
 import {Project} from '../../core/models/project.model';
 import {ProjectService} from '../../services/project.service';
+import {HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-add-project',
@@ -45,7 +46,13 @@ export class AddProjectComponent {
   constructor(private projectService: ProjectService) {}
 
   saveProject() {
-    this.projectService.createProject(this.project).subscribe({
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': token ? `Bearer ${token}` : ''
+      // weitere Header hier ergänzen, falls nötig
+    });
+
+    this.projectService.createProject(this.project, headers).subscribe({
       next: (res) => {
         console.log('Projekt erfolgreich gespeichert:', res);
       },

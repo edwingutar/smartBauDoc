@@ -1,5 +1,5 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Project } from '../core/models/project.model';
 import { Observable } from 'rxjs';
 
@@ -9,12 +9,11 @@ export class ProjectService {
 
   constructor(private http: HttpClient) {}
 
-  createProject(project: Project): Observable<Project> {
-    return this.http.post<Project>(this.apiUrl, project);
+  createProject(project: Project, headers?: HttpHeaders): Observable<Project> {
+    return this.http.post<Project>(this.apiUrl, project, { headers });
   }
 
-  getProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(this.apiUrl);
+  getProjects(headers?: HttpHeaders): Observable<Project[]> {
+    return this.http.get<Project[]>(this.apiUrl, { headers });
   }
-
 }

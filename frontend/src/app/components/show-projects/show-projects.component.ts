@@ -6,6 +6,7 @@ import {ProjectService} from '../../services/project.service';
 import {Entry} from '../../core/models/entry.model';
 import {Router} from '@angular/router';
 import {ConfirmButtonComponent} from '../confirm-button/confirm-button.component';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-show-projects',
@@ -32,8 +33,15 @@ export class ShowProjectsComponent {
   }
 
 
-  ngOnInit(): void {
-    this.projectService.getProjects().subscribe({
+  ngOnInit(): void 
+  {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': token ? `Bearer ${token}` : ''
+      // weitere Header hier ergänzen, falls nötig
+    });
+
+    this.projectService.getProjects(headers).subscribe({
       next: (data) => this.projectList = data,
       error: (err) => console.error('Fehler beim Laden der Projekte:', err)
     });
