@@ -3,7 +3,13 @@ import { CommonModule } from '@angular/common';
 import { WindowTitleComponent } from '../window-title/window-title.component';
 import { DailyReportService, DailyReport } from '../../services/daily-report.service';
 import html2pdf from 'html2pdf.js';
+import { ViewChild, ElementRef } from '@angular/core';
 
+interface CompanyEntry {
+  name: string;
+  strength: number;
+  activity: string;
+}
 
 interface DiaryEntry {
    id: string | number;
@@ -12,6 +18,7 @@ interface DiaryEntry {
   creator?: string;
   client?: string;
   projectAddress?: string;
+  companies?: CompanyEntry[];
   weather?: string;
   calendarWeek?: string;
   arrival?: string;
@@ -31,6 +38,7 @@ interface DiaryEntry {
   ]
 })
 export class DiaryOverviewComponent {
+  @ViewChild('detailSection') detailSection!: ElementRef;
   diaryEntries: DiaryEntry[] = [];
   selectedEntry: DiaryEntry | null = null;
 
@@ -70,11 +78,17 @@ get selectedEntryFields() {
     wind = (weather.match(regexMap['wind'])?.[1] || '').trim();
     rain = (weather.match(regexMap['rain'])?.[1] || '').trim();
   }
-
+    const companies = (this.selectedEntry.companies || []).map(c => ({
+    name: c.name,
+    strength: c.strength,
+    activity: c.activity
+  }));
   return [
-    { label: 'Datum', value: this.selectedEntry.date },
     { label: 'Projektname', value: this.selectedEntry.projectName },
+    { label: 'Datum', value: this.selectedEntry.date },
+    { label: 'KW', value: this.selectedEntry.calendarWeek },
     { label: 'Ersteller', value: this.selectedEntry.creator },
+    { label: 'Berichtsnummer', value: this.selectedEntry.reportNumber },
     { label: 'Auftraggeber', value: this.selectedEntry.client },
     {
       label: 'Adresse',
@@ -88,6 +102,15 @@ get selectedEntryFields() {
       { sublabel: 'Land', subvalue: country }
       ].filter(sub => sub.subvalue)
     },
+{
+  label: 'Anwesende Firmen',
+  value: '',
+  subfields: (this.selectedEntry.companies || []).flatMap(c => [
+    { sublabel: 'Firmenname', subvalue: c.name },
+    { sublabel: 'Mitarbeiter', subvalue: c.strength?.toString() ?? '' },
+    { sublabel: 'Tätigkeit', subvalue: c.activity }
+  ])
+},
     {
       label: 'Wetter',
       value: '',
@@ -99,11 +122,9 @@ get selectedEntryFields() {
         { sublabel: 'Niederschlag', subvalue: rain }
       ].filter(sub => sub.subvalue)
     },
-    { label: 'KW', value: this.selectedEntry.calendarWeek },
     { label: 'Ankunft', value: this.selectedEntry.arrival },
     { label: 'Verlassen', value: this.selectedEntry.departure },
-    { label: 'Berichtsnummer', value: this.selectedEntry.reportNumber },
-    { label: 'Inhalt', value: this.selectedEntry.notes }
+    { label: 'Notiz', value: this.selectedEntry.notes }
   ];
 }
 
@@ -124,7 +145,7 @@ get selectedEntryFields() {
   departure: report.departure,
   reportNumber: report.reportNumber,
   notes: report.notes,
-        
+         companies: report.companies || []
       }));
     },
     error: (err) => console.error('Fehler beim Laden:', err)
@@ -133,6 +154,30 @@ get selectedEntryFields() {
 
   exportPDF() {
     if (!this.selectedEntry) return;
+
+      const companiesHtml = (this.selectedEntry.companies && this.selectedEntry.companies.length)
+    ? `<section class="companies">
+        <h2>Anwesende Firmen</h2>
+        <table style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr>
+              <th style="text-align:left;border-bottom:1px solid #bbb;">Firmenname</th>
+              <th style="text-align:left;border-bottom:1px solid #bbb;">Mitarbeiter</th>
+              <th style="text-align:left;border-bottom:1px solid #bbb;">Tätigkeit</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${this.selectedEntry.companies.map(c => `
+              <tr>
+                <td style="padding:2mm 0;">${c.name}</td>
+                <td style="padding:2mm 0;">${c.strength}</td>
+                <td style="padding:2mm 0;">${c.activity}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </section>`
+    : '';
 
     const html = `
       <div id="pdf">
@@ -149,6 +194,7 @@ get selectedEntryFields() {
           <div><b>Verlassen:</b> ${this.selectedEntry.departure || ''}</div>
           <div><b>Berichtsnummer:</b> ${this.selectedEntry.reportNumber || ''}</div>
         </header>
+        ${companiesHtml}
         <section class="notes">
           <h2>Notizen</h2>
           <div>${this.selectedEntry.notes || ''}</div>
@@ -181,7 +227,37 @@ get selectedEntryFields() {
 
   selectEntry(entry: DiaryEntry) {
     this.selectedEntry = entry;
+    setTimeout(() => {
+      this.detailSection?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
 
+getCompanies(subfields: any[]): any[][] {
+  // Jede Firma besteht aus 3 Subfeldern
+  const result = [];
+  for (let i = 0; i < subfields.length; i += 3) {
+    result.push(subfields.slice(i, i + 3));
+  }
+  return result;
+}
+
+companyIndex(company: any[], all: any[]): number {
+  // Gibt den Index der Firma zurück (für die Nummerierung)
+  return Math.floor(all.indexOf(company[0]) / 3);
+}
+
+  deleteEntry(entry: DiaryEntry) {
+  if (confirm('Diesen Eintrag wirklich löschen?')) {
+    this.dailyReportService.deleteReport(entry.id).subscribe({
+      next: () => {
+        this.diaryEntries = this.diaryEntries.filter(e => e.id !== entry.id);
+        if (this.selectedEntry?.id === entry.id) {
+          this.selectedEntry = null;
+        }
+      },
+      error: err => alert('Fehler beim Löschen: ' + err?.message)
+    });
+  }
+}
 
 }

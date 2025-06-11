@@ -1,40 +1,63 @@
 <app-window-title [title]="'Tagebuch Übersicht'">
   <div class="overview-container">
     <div class="entry-list">
-      <div class="overview-title">Tagebucheinträge</div>
-      <div *ngFor="let entry of diaryEntries"
-           class="entry-row"
-           [class.selected]="entry === selectedEntry"
-           (click)="selectEntry(entry)">
-        <div class="entry-title">
-          <b>{{ entry.projectName || 'Kein Projektname' }} – {{ entry.date }}</b>
-        </div>
-      </div>
-    </div>
-<div class="entry-details" *ngIf="selectedEntry">
+ <div *ngFor="let entry of diaryEntries" class="entry-row">
+  <span (click)="selectEntry(entry)" class="entry-link">
+    <span class="entry-title">{{ entry.projectName || 'Kein Projektname' }}</span>
+    <br>
+    <span class="entry-date">{{ entry.date }}</span>
+  </span>
+  <button class="delete-entry-btn" (click)="deleteEntry(entry)">Löschen</button>
+</div>
+</div>
+    
+<div class="entry-details" *ngIf="selectedEntry" #detailSection>
   <div class="details-title">Details</div>
   <div class="DiaryOverviewDetailedInfo">
     <ng-container *ngFor="let field of selectedEntryFields">
-      <div class="detail-row" *ngIf="!field.subfields">
-        <span class="detail-label">{{ field.label }}</span>
-        <span class="detail-sep">|</span>
-        <span class="detail-value">{{ field.value }}</span>
-      </div>
-      <div class="detail-row" *ngIf="field.subfields">
-        <span class="detail-label">{{ field.label }}</span>
-        <span class="detail-sep"></span>
-        <span class="detail-value"></span>
-      </div>
-      <div class="detail-row sub-detail-row" *ngFor="let sub of field.subfields || []">
-        <span class="detail-label sub-label">{{ sub.sublabel }}</span>
-        <span class="detail-sep">|</span>
-        <span class="detail-value">{{ sub.subvalue }}</span>
-      </div>
+      <!-- Firmenblock -->
+      <ng-container *ngIf="field.label === 'Anwesende Firmen'; else defaultField">
+        <span class="detail-label" style="font-weight: bold;">{{ field.label }}</span>
+        <div *ngFor="let company of getCompanies(field.subfields || [])" class="company-block">
+          <div class="company-title">Firma</div>
+          <div class="detail-row sub-detail-row">
+            <span class="detail-label sub-label">Firmenname</span>
+            <span class="detail-sep">|</span>
+            <span class="detail-value">{{ company[0]?.subvalue }}</span>
+          </div>
+          <div class="detail-row sub-detail-row">
+            <span class="detail-label sub-label">Mitarbeiter</span>
+            <span class="detail-sep">|</span>
+            <span class="detail-value">{{ company[1]?.subvalue }}</span>
+          </div>
+          <div class="detail-row sub-detail-row">
+            <span class="detail-label sub-label">Tätigkeit</span>
+            <span class="detail-sep">|</span>
+            <span class="detail-value">{{ company[2]?.subvalue }}</span>
+          </div>
+        </div>
+      </ng-container>
+      <!-- Standard-Feld -->
+<ng-template #defaultField>
+  <div class="detail-row" [class.detail-label-bold]="field.label === 'Wetter' || field.label === 'Adresse'">
+    <span class="detail-label">{{ field.label }}</span>
+    <span 
+      class="detail-sep" 
+      *ngIf="field.label !== 'Wetter' && field.label !== 'Adresse'">|</span>
+    <span class="detail-value">{{ field.value }}</span>
+  </div>
+        <!-- Wetter-Subfelder -->
+        <div class="detail-row sub-detail-row" *ngFor="let sub of field.subfields || []">
+          <span class="detail-label sub-label">{{ sub.sublabel }}</span>
+          <span class="detail-sep">|</span>
+          <span class="detail-value">{{ sub.subvalue }}</span>
+        </div>
+      </ng-template>
     </ng-container>
   </div>
   <div class="buttonInfo">
     <button class="DailyReportButton" (click)="exportPDF()">PDF Export</button>
   </div>
 </div>
-  </div>
+</div>
 </app-window-title>
