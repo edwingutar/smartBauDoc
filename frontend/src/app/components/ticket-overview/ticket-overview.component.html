@@ -1,64 +1,79 @@
-<div class="TicketWindow">
-  <div class="TicketHeader">
-    <button (click)="showTicketForm = true" class="TicketButton">+ Ticket anlegen</button>
-    <h2>Tickets</h2>
+<app-window-title [title]="'Ticket Übersicht'">
+  <!-- TICKET-ÜBERSICHT -->
+  <div class="TicketWindow">
+  <!-- HEADER MIT BUTTONS -->
+    <div class="TicketHeader">
+      <button (click)="showTicketForm = true" class="TicketButton">+ Ticket anlegen</button>
+      <button class="TicketButton" (click)="markSelectedDone()">Als erledigt markieren</button>
+      <button class="TicketButton" (click)="showDone = !showDone">
+        {{ showDone ? 'Offene Tickets anzeigen' : 'Erledigte Tickets anzeigen' }}
+      </button>
+    </div>
+      <!-- TICKET-TABELLE -->
+    <div class="TicketTableWrapper">
+      <table class="TicketTable">
+        <thead>
+          <tr>
+          <th><input type="checkbox" [(ngModel)]="allSelected" (change)="toggleAll()"></th>
+          <th>ID</th>
+          <th>Kurztext</th>
+          <th>Typ</th>
+          <th>Kategorie</th>
+          <th>Status</th>
+          <th>Erstellt am</th>
+          <th>Frist</th>
+          <th>Verantwortlicher</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ticket of filteredTickets"
+            [class.selected]="ticket === selectedTicket"
+            (click)="selectTicket(ticket)">
+              <td><input type="checkbox" [(ngModel)]="ticket.selected"></td>
+              <td>{{ticket.id}}</td>
+              <td>{{ticket.shortText}}</td>
+              <td>{{ticket.type}}</td>
+              <td>{{ticket.category}}</td>
+              <td>{{ticket.status}}</td>
+              <td>{{ticket.created | date:'dd.MM.yyyy'}}</td>
+              <td>{{ticket.due | date:'dd.MM.yyyy'}}</td>
+              <td>{{ticket.responsible}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+ <!-- Detailansicht für ausgewähltes Ticket -->
+ <div class="entry-details" *ngIf="selectedTicket">
+  <div class="details-title">Ticket Details</div>
+  <div>
+    <div class="detail-row" *ngFor="let field of selectedTicketFields">
+      <span class="detail-label">{{ field.label }}</span>
+      <span class="detail-sep">|</span>
+      <span class="detail-value">{{ field.value }}</span>
+    </div>
   </div>
-  <table class="TicketTable">
-    <thead>
-      <tr>
-        <th><input type="checkbox" [(ngModel)]="allSelected" (change)="toggleAll()"></th>
-        <th>ID</th>
-        <th>Kurztext</th>
-        <th>Typ</th>
-        <th>Kategorie</th>
-        <th>Status</th>
-        <th>Erstellt am</th>
-        <th>Frist</th>
-        <th>Verantwortlicher</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ticket of tickets" [class.selected]="ticket === selectedTicket" (click)="selectTicket(ticket)">
-        <td><input type="checkbox" [(ngModel)]="ticket.selected"></td>
-        <td>{{ticket.id}}</td>
-        <td>{{ticket.shortText}}</td>
-        <td>{{ticket.type}}</td>
-        <td>{{ticket.category}}</td>
-        <td>{{ticket.status}}</td>
-        <td>{{ticket.created | date:'dd.MM.yyyy'}}</td>
-        <td>{{ticket.due | date:'dd.MM.yyyy'}}</td>
-        <td>{{ticket.responsible}}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <button class="TicketButton" (click)="exportSelected()">Exportieren</button>
-
-  <!-- Detailansicht für ausgewähltes Ticket -->
-  <div *ngIf="selectedTicket" class="TicketDetail">
-    <h3>Ticket Detail ({{selectedTicket.id}})</h3>
-    <div><b>Kurztext:</b> {{selectedTicket.shortText}}</div>
-    <div><b>Typ:</b> {{selectedTicket.type}}</div>
-    <div><b>Kategorie:</b> {{selectedTicket.category}}</div>
-    <div><b>Status:</b> {{selectedTicket.status}}</div>
-    <div><b>Beschreibung:</b> {{selectedTicket.description}}</div>
-    <div><b>Verantwortlicher:</b> {{selectedTicket.responsible}}</div>
-    <div><b>Erstellt am:</b> {{selectedTicket.created | date:'dd.MM.yyyy'}}</div>
-    <div><b>Frist:</b> {{selectedTicket.due | date:'dd.MM.yyyy'}}</div>
+  <div class="buttonInfo">
     <button class="TicketButton" (click)="selectedTicket = null">Schließen</button>
-  </div>
-
-  <!-- Ticket anlegen Formular -->
-  <div *ngIf="showTicketForm" class="TicketForm">
-    <h3>Neues Ticket</h3>
-    <input class="TicketInput" placeholder="Kurztext" [(ngModel)]="newTicket.shortText">
-    <input class="TicketInput" placeholder="Typ" [(ngModel)]="newTicket.type">
-    <input class="TicketInput" placeholder="Kategorie" [(ngModel)]="newTicket.category">
-    <input class="TicketInput" placeholder="Beschreibung" [(ngModel)]="newTicket.description">
-    <input class="TicketInput" placeholder="Status" [(ngModel)]="newTicket.status">
-    <input class="TicketInput" placeholder="Verantwortlicher" [(ngModel)]="newTicket.responsible">
-    <input class="TicketInput" type="date" [(ngModel)]="newTicket.due">
-    <button class="TicketButton" (click)="addTicket()">Speichern</button>
-    <button class="TicketButton" (click)="showTicketForm = false">Abbrechen</button>
+    <button class="TicketButton" (click)="exportTicketsPDF()">Exportieren</button>
   </div>
 </div>
+
+    <!-- Ticket anlegen Formular -->
+<div class="entry-details" *ngIf="showTicketForm">
+  <div class="details-title">Neues Ticket</div>
+  <form (ngSubmit)="addTicket()">
+    <input class="TicketInput" placeholder="Kurztext" [(ngModel)]="newTicket.shortText" name="shortText" required>
+    <input class="TicketInput" placeholder="Typ" [(ngModel)]="newTicket.type" name="type">
+    <input class="TicketInput" placeholder="Kategorie" [(ngModel)]="newTicket.category" name="category">
+    <input class="TicketInput" placeholder="Beschreibung" [(ngModel)]="newTicket.description" name="description">
+    <input class="TicketInput" placeholder="Status" [(ngModel)]="newTicket.status" name="status">
+    <input class="TicketInput" placeholder="Verantwortlicher" [(ngModel)]="newTicket.responsible" name="responsible">
+    <input class="TicketInput" type="date" [(ngModel)]="newTicket.due" name="due">
+    <div class="buttonInfo">
+      <button class="TicketButton" type="submit">Speichern</button>
+      <button class="TicketButton" type="button" (click)="showTicketForm = false">Abbrechen</button>
+    </div>
+  </form>
+</div>
+  </div>
+</app-window-title>
