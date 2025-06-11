@@ -24,7 +24,8 @@ class SecurityConfig {
                     "/api/login",
                     "/api/register",
                     "/api/projects/**",
-                    "/uploads/images/**"
+                    "/uploads/images/**",
+                    "/api/weather"
                 ).permitAll()
                 it.anyRequest().authenticated()
             }
