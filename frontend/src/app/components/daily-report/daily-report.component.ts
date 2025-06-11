@@ -4,12 +4,16 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { WindowTitleComponent } from '../window-title/window-title.component'; 
 import { DailyReportService, DailyReport } from '../../services/daily-report.service';
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+
+
+
 
 interface CompanyEntry {
   name: string;
   strength: number | null;
   activity: string;
-  images: string[]; 
 }
 
 
@@ -20,6 +24,8 @@ interface CompanyEntry {
   standalone: true,
   imports: [FormsModule, CommonModule, WindowTitleComponent]
 })
+
+
 export class DailyReportComponent implements OnInit{
   date: string = new Date().toISOString().slice(0, 10);
   companies: CompanyEntry[] = [];
@@ -47,7 +53,7 @@ export class DailyReportComponent implements OnInit{
   lon: number | null = null;
 
 
-  newCompany: CompanyEntry = { name: '', strength: null, activity: '', images: [] };
+  newCompany: CompanyEntry = { name: '', strength: null, activity: ''};
 
   reportList: DailyReport[] = [];
 
@@ -62,46 +68,57 @@ export class DailyReportComponent implements OnInit{
     error: (err) => console.error('Fehler:', err)
   });
 }
+
+
   saveReport() {
-    const report: DailyReport = {
-      date: this.date,
-      companies: this.companies,
-      weather: this.weather,
-      notes: this.notes,
-      projectName: this.projectName,
-      projectAddress: this.projectAddress,
-      client: this.client,
-      creator: this.creator, 
-      reportNumber: this.reportNumber ?? '',
-      calendarWeek: this.calendarWeek ?? '',
-      arrival: this.arrival ?? '',
-      departure: this.departure ?? '',
-      id: undefined
-    };
-    this.dailyReportService.createReport(report).subscribe({
-      next: (res) => console.log('Gespeichert:', res),
-      error: (err) => console.error('Fehler:', err)
+const report: DailyReport = {
+    date: this.date,
+    projectName: this.projectName || '',
+    projectAddress: this.projectAddress || '',
+    client: this.client || '',
+    creator: this.creator || '',
+    reportNumber: this.reportNumber || '',
+    calendarWeek: this.calendarWeek || '',
+    arrival: this.arrival || '',
+    departure: this.departure || '',
+    companies: this.companies
+      .filter(c => c.name && c.strength !== null && c.activity)
+      .map(c => ({
+        name: c.name,
+        strength: c.strength ?? 0, // Fallback auf 0 falls leer
+        activity: c.activity
+      })),
+    weather: this.weather || '',
+    notes: this.notes || ''
+   
+  };
+  this.dailyReportService.createReport(report).subscribe({
+    next: (res) => console.log('Gespeichert:', res),
+    error: (err) => console.error('Fehler:', err)
   });
 }
-  addCompany() {
-    this.companies.push({ ...this.newCompany, images: [] });
-    this.newCompany = { name: '', strength: null, activity: '', images: [] };
+addCompany() {
+  if (
+    this.newCompany.name.trim() &&
+    this.newCompany.strength !== null &&
+    this.newCompany.strength !== undefined &&
+    this.newCompany.activity.trim()
+  ) {
+    this.companies.push({
+      name: this.newCompany.name.trim(),
+      strength: Number(this.newCompany.strength), 
+      activity: this.newCompany.activity.trim()
+    });
+    this.newCompany = { name: '', strength: null, activity: '' };
+  } else {
+    alert('Bitte alle Felder für die Firma ausfüllen!');
   }
+}
 
   removeCompany(company: CompanyEntry) {
     this.companies = this.companies.filter(c => c !== company);
   }
 
-  addImageToCompany(company: CompanyEntry, event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        company.images.push(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  }
 
   searchLocation() {
   if (!this.locationQuery) return;

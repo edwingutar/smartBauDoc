@@ -14,21 +14,21 @@
       <input class="DailyReportInput" type="time" placeholder="Verlassen" [(ngModel)]="departure">
     </div>
 
-    <div class="inputFelder">
-      <div class="DailyReportSectionTitle">Anwesende Firmen</div>
-      <div *ngFor="let company of companies" class="DailyReportCompany">
-        <input class="DailyReportInput" placeholder="Firmenname" [(ngModel)]="company.name">
-        <input class="DailyReportInput" type="number" min="1" placeholder="Anzahl Mitarbeiter" [(ngModel)]="company.strength">
-        <input class="DailyReportInput" placeholder="Tätigkeit" [(ngModel)]="company.activity">
-        <button class="DailyReportRemove" (click)="removeCompany(company)">Entfernen</button>
-      </div>
-        <div class="DailyReportCompanyAdd">
-          <input class="DailyReportInput" placeholder="Firmenname" [(ngModel)]="newCompany.name">
-          <input class="DailyReportInput" type="number" min="1" placeholder="Anzahl Mitarbeiter" [(ngModel)]="newCompany.strength">
-          <input class="DailyReportInput" placeholder="Tätigkeit" [(ngModel)]="newCompany.activity">
-          <button class="DailyReportButton" (click)="addCompany()">WEITERE FIRMA HINZUFÜGEN</button>
-        </div>
-      </div>
+<div class="inputFelder">
+  <div class="DailyReportSectionTitle">Anwesende Firmen</div>
+  <div *ngFor="let company of companies">
+    <input class="DailyReportInput" placeholder="Firmenname" [(ngModel)]="company.name">
+    <input class="DailyReportInput" type="number" min="1" placeholder="Anzahl Mitarbeiter" [(ngModel)]="company.strength">
+    <input class="DailyReportInput" placeholder="Tätigkeit" [(ngModel)]="company.activity">
+    <button class="DailyReportRemove" (click)="removeCompany(company)">Entfernen</button>
+  </div>
+  <div>
+    <input class="DailyReportInput" placeholder="Firmenname" [(ngModel)]="newCompany.name">
+    <input class="DailyReportInput" type="number" min="1" placeholder="Anzahl Mitarbeiter" [(ngModel)]="newCompany.strength">
+    <input class="DailyReportInput" placeholder="Tätigkeit" [(ngModel)]="newCompany.activity">
+    <button class="DailyReportButton" (click)="addCompany()">WEITERE FIRMA HINZUFÜGEN</button>
+  </div>
+</div>
 
       <div class="inputFelder">
         <div class="DailyReportSectionTitle">Standort</div>

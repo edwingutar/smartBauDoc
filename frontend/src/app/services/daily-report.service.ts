@@ -24,6 +24,9 @@ export class DailyReportService {
 
   constructor(private http: HttpClient) {}
 
+   deleteReport(id: string | number): Observable<any> {
+    return this.http.delete(`http://localhost:8080/api/daily-reports/${id}`);
+  }
   getReports(): Observable<DailyReport[]> {
     return this.http.get<DailyReport[]>(this.apiUrl);
   }
