@@ -25,6 +25,5 @@ data class DailyReport(
 data class CompanyEntry(
     val name: String,
     val strength: Int,
-    val activity: String,
-    val images: List<String>
+    val activity: String
 )
