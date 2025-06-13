@@ -16,9 +16,12 @@ import { ProjectAddViewComponent} from "./components/views/project-add-view/proj
 import { DailyReportComponent } from './components/daily-report/daily-report.component';
 import { TicketOverviewComponent } from './components/ticket-overview/ticket-overview.component';
 import { DailyReportViewComponent } from './components/views/daily-report-view/daily-report-view.component';
-import { ProfilViewComponent } from './components/profil-view/profil-view.component'; 
+import { ProfilViewComponent } from './components/profil-view/profil-view.component';
 import { AuthGuard } from './guards/auth.guard';
 import { DiaryOverviewComponent } from './components/diary-overview/diary-overview.component';
+import {ProjectEntriesViewComponent} from './components/views/project-entries-view/project-entries-view.component';
+import {EntryAddViewComponent} from './components/views/entry-add-view/entry-add-view.component';
+import {ShowProjectEntrysComponent} from './components/show-project-entrys/show-project-entrys.component';
 
 export const routes: Routes = [
   { path: 'windowTitle', component: WindowTitleComponent},
@@ -32,10 +35,13 @@ export const routes: Routes = [
   { path: 'OutputTask', component: OutputTaskComponent },
   { path: 'OutputProject', component: OutputProjectComponent },
   { path: 'showProjects', component: ShowProjectsComponent },
+  { path: 'showEntries', component: ShowProjectEntrysComponent },
   { path: 'menuBar', component: MenuBarComponent },
   { path: 'menuBar/projectView', component: ProjectViewComponent },
   { path: 'menuBar/addProject', component: ProjectAddViewComponent },
   { path: 'menuBar/dailyReport', component: DailyReportViewComponent },
+  { path: 'menuBar/addEntry', component: EntryAddViewComponent },
+  { path: 'menuBar/ProjectEntries', component:  ProjectEntriesViewComponent},
   { path: 'daily-report', component: DailyReportComponent },
   { path: 'tickets', component: TicketOverviewComponent },
   { path: 'profil-view', component: ProfilViewComponent, canActivate: [AuthGuard] },
