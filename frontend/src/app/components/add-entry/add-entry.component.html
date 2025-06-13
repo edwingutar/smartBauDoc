@@ -1,5 +1,4 @@
-<app-window-title
-  [title]= titelProjekt>
+<app-window-title [title]="titelProjekt">
 
   <div class="AufgabeTitel">
     <span class="underline-text">Eintrag Hinzufügen</span>
@@ -7,40 +6,69 @@
 
   <div class="inputFelder">
     <app-input-field
-      [placeholder]= firstPlaceholder>
-    </app-input-field>
-    <app-input-field
-      [placeholder]= secondPlaceholder>
-    </app-input-field>
-    <app-input-field
-      [placeholder]= thirdPlaceholder>
-    </app-input-field>
-    <app-input-field
-      [placeholder]= fourthPlaceholder>
-    </app-input-field>
-    <app-input-field
-      [placeholder]= fifthPlaceholder>
-    </app-input-field>
-    <app-input-field
-      [placeholder]= sixthPlaceholder>
-    </app-input-field>
-    <app-input-field
-      [placeholder]= seventhPlaceholder>
-    </app-input-field>
-    <app-input-field
-      [placeholder]= eighthPlaceholder>
-    </app-input-field>
-    <app-input-field
-      [placeholder]= ninthPlaceholder>
-    </app-input-field>
-    <app-input-field
-      [placeholder]= tenthPlaceholder>
+      [placeholder]="firstPlaceholder"
+      [(fieldValue)]="entryInput.creatorName">
     </app-input-field>
 
-    <button class="icon-button" (click)="uploadPic()" aria-label="uploadPic">
+    <app-input-field
+      [placeholder]="secondPlaceholder"
+      [fieldValue]="todayDate">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="thirdPlaceholder"
+      [(fieldValue)]="entryInput.calendarWeek">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="fourthPlaceholder"
+      [(fieldValue)]="entryInput.companyName">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="fifthPlaceholder"
+      [(fieldValue)]="entryInput.onSitePersonnelCount">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="sixthPlaceholder"
+      [(fieldValue)]="entryInput.taskDescription">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="seventhPlaceholder"
+      [(fieldValue)]="entryInput.notes">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="eighthPlaceholder"
+      [fieldValue]="temperatureText">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="ninthPlaceholder"
+      [fieldValue]="windText">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="tenthPlaceholder"
+      [fieldValue]="weatherCodeText">
+    </app-input-field>
+
+    <input type="file" #hiddenFileInput style="display: none" (change)="onImageSelected($event)" />
+
+    <button class="icon-button" (click)="triggerFileInput()" aria-label="uploadPic" type="button">
       <img src="assets/icons/camera.png" alt="camera" />
     </button>
 
+    <div *ngIf="entryInput.image.url" class="bildVorschau">
+      <img
+        [src]="entryInput.image.url"
+        [alt]="entryInput.image.fileName"
+        style="max-width: 200px; margin-top: 10px; border-radius: 8px"
+      />
+      <p style="font-size: 0.9rem; color: #333;">{{ entryInput.image.fileName }}</p>
+    </div>
   </div>
 
   <app-confirm-button
