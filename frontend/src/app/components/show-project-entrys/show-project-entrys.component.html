@@ -1,0 +1,29 @@
+<app-window-title
+  [title]=this.projectName>
+
+  <div class="projects-scroll-area">
+    <div class="projects-container">
+      <app-output-task
+        *ngFor="let entry of entries"
+        [entry]="entry">
+      </app-output-task>
+    </div>
+  </div>
+
+  <app-confirm-button
+    [title] ="'Eintrag Hinzufügen'"
+    [colorBackground] = colorButton
+    [colorText]= colorText
+    [onClick]="addEntry.bind(this)">
+  </app-confirm-button>
+  <app-confirm-button
+  [title] ="'User Hinzufügen'"
+  [colorBackground] = colorButton
+  [colorText]= colorText>
+  </app-confirm-button>
+
+
+</app-window-title>
+
+<button (click)="test()">TITEL</button>
+
