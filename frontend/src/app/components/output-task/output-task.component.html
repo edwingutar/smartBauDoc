@@ -1,18 +1,20 @@
-<div class="task-card">
+<div class="task-card"
+     [ngStyle]="{
+          width: width,
+          height: height,
+          minWidth: minWidth,
+          maxWidth: maxWidth,
+        }">
 
   <div class="task-content">
-    <h3 class="task-title">{{ task.title }}</h3>
-    <p class="task-room">{{ task.room }}</p>
-    <p class="task-pn">{{ task.pn }}</p>
-    <p class="task-date">{{ task.date }}</p>
-
-
+    <h3 class="task-title">{{ entry.taskDescription }}</h3>
+    <p class="task-company">{{ entry.companyName }}</p>
+    <p class="task-notes">{{ entry.notes }}</p>
+    <p class="task-created">{{ entry.createdAt | date: 'dd.MM.yyyy'}}</p>
   </div>
 
   <button class="info-button" (click)="showInfo()">
     <img src="assets/icons/info.png" alt="Info" />
   </button>
 
-
 </div>
-
