@@ -22,6 +22,7 @@ import { DiaryOverviewComponent } from './components/diary-overview/diary-overvi
 import {ProjectEntriesViewComponent} from './components/views/project-entries-view/project-entries-view.component';
 import {EntryAddViewComponent} from './components/views/entry-add-view/entry-add-view.component';
 import {ShowProjectEntrysComponent} from './components/show-project-entrys/show-project-entrys.component';
+import { AddUsersComponent } from './components/add-users/add-users.component';
 
 export const routes: Routes = [
   { path: 'windowTitle', component: WindowTitleComponent},
@@ -45,5 +46,6 @@ export const routes: Routes = [
   { path: 'daily-report', component: DailyReportComponent },
   { path: 'tickets', component: TicketOverviewComponent },
   { path: 'profil-view', component: ProfilViewComponent, canActivate: [AuthGuard] },
-   { path: 'diary-overview', component: DiaryOverviewComponent }
+   { path: 'diary-overview', component: DiaryOverviewComponent },
+   { path: 'menuBar/ProjectEntries/AddUser', component: AddUsersComponent }
 ];

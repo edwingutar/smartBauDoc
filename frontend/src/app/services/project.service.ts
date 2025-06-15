@@ -16,4 +16,16 @@ export class ProjectService {
   getProjects(headers?: HttpHeaders): Observable<Project[]> {
     return this.http.get<Project[]>(this.apiUrl, { headers });
   }
+
+  addViewerToProject(
+    projectId: string,
+    userEmail: string,
+    headers?: HttpHeaders
+  ) {
+    return this.http.post(
+      `${this.apiUrl}/${projectId}/add-viewer`,
+      { email: userEmail },
+      { headers }
+    );
+  }
 }

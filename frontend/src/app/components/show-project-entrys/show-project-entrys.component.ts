@@ -7,6 +7,7 @@ import {Entry} from '../../core/models/entry.model';
 import {Router} from '@angular/router';
 import {EntryService} from '../../services/entry.service';
 import {OutputTaskComponent} from '../output-task/output-task.component';
+import { Token } from '@angular/compiler';
 
 
 @Component({
@@ -83,5 +84,13 @@ export class ShowProjectEntrysComponent implements OnInit {
 
   }
 
-
+  addUser(): void {
+    if (this.projectId) {
+      this.router.navigate(['/menuBar/ProjectEntries/AddUser'], {
+        state: { projectId: this.projectId, projectName: this.projectName }
+      });
+    } else {
+      console.warn('Keine gültige Projekt-ID vorhanden');
+    }
+  }
 }
