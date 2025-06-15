@@ -15,8 +15,8 @@ import {NgStyle} from '@angular/common';
 export class MenuBarComponent {
 
   @Input() width: string = '90vw';
-  @Input() minWidth: string = '350px';
-  @Input() maxWidth: string = '1200px';
+  @Input() minWidth: string = '300px';
+  @Input() maxWidth: string = '1180px';
 
   @Input() height: string = '75px';
 
