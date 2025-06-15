@@ -63,12 +63,6 @@ export class ShowProjectEntrysComponent implements OnInit {
     }
   }
 
-
-  test(){
-    console.log(this.projectName)
-    console.log(this.projectId)
-  }
-
   addEntry(): void {
     if (this.projectId) {
       this.router.navigate(['/menuBar/addEntry'], {
