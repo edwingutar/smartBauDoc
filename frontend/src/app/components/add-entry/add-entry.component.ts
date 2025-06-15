@@ -44,6 +44,9 @@ export class AddEntryComponent {
   @Input() ninthPlaceholder = 'Windgeschwindikeit';
   @Input() tenthPlaceholder = 'Wettercode';
 
+  @Input() colorButton: string = '#FAD739';
+  @Input() colorText: string = '#FFFFFF';
+
   todayDate: string = '';
 
   temperatureText: string = '';
