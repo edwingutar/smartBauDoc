@@ -80,4 +80,26 @@ class ProjectController(
     fun getEntriesForProject(@PathVariable id: String): List<Entry>? {
         return projectRepository.findById(id).orElse(null)?.entries
     }
+
+    @PostMapping("{projectId}/add-viewer")
+    fun addViewer(
+        @PathVariable projectId: String,
+        @RequestBody body: Map<String, String>
+    ): ResponseEntity<Void> {
+        println("addViewer aufgerufen für projectId=$projectId, body=$body")
+        val email = body["email"] ?: return ResponseEntity.badRequest().build()
+        println("E-Mail extrahiert: $email")
+        val project = projectRepository.findById(projectId).orElse(null)
+            ?: return ResponseEntity.notFound().build()
+        println("Projekt gefunden: ${project.id}")
+        if (!project.viewers.contains(email)) {
+            val updatedViewers = project.viewers + email
+            val updatedProject = project.copy(viewers = updatedViewers)
+            projectRepository.save(updatedProject)
+            println("Viewer hinzugefügt und Projekt gespeichert.")
+        } else {
+            println("Viewer bereits vorhanden.")
+        }
+        return ResponseEntity.ok().build()
+    }
 }
