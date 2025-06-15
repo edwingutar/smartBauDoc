@@ -28,6 +28,9 @@ export class AddProjectComponent {
   @Input() sixthPlaceholder = 'Start';
   @Input() seventhPlaceholder = 'Deadline';
 
+  @Input() colorButton: string = '#FAD739';
+  @Input() colorText: string = '#FFFFFF';
+
   saveClick: () => void = () => {
     this.saveProject();
   };
