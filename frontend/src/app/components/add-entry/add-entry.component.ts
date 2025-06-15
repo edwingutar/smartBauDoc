@@ -89,19 +89,22 @@ export class AddEntryComponent {
   };
 
   projectId: string | null = null;
+  projectName: string = '';
 
   ngOnInit() {
     this.setLocation();
     this.getTodayInfo();
 
-    const state = history.state as { projectId?: string };
+    const state = history.state as { projectId?: string; projectName?: string };
     if (state?.projectId) {
       this.projectId = state.projectId;
+      this.projectName = state.projectName ?? '';
       console.log("Projekt-ID empfangen:", this.projectId);
     } else {
       console.warn(" Keine Project-ID im State");
     }
   }
+
 
   setLocation() {
     navigator.geolocation.getCurrentPosition(
