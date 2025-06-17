@@ -84,4 +84,15 @@ export class ShowProjectEntrysComponent implements OnInit {
       console.warn('Keine gültige Projekt-ID vorhanden');
     }
   }
+
+  navigateToDetails(entry: Entry): void {
+    this.router.navigate(['/menuBar/entryDetail'], {
+      state: {
+        entry: entry,
+        entryName: entry.taskDescription,
+        projectId: this.projectId,
+        projectName: this.projectName
+      }
+    });
+  }
 }

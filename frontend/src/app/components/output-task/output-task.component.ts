@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {DatePipe, NgIf, NgStyle} from '@angular/common';
 import {Entry} from '../../core/models/entry.model';
 
@@ -15,19 +15,22 @@ import {Entry} from '../../core/models/entry.model';
 })
 export class OutputTaskComponent {
 
+  @Input() projectId!: string;
+  @Input() projectName!: string;
   @Input() entry!: Entry;
+  @Output() openDetails = new EventEmitter<Entry>();
 
   @Input() width: string = '85vw';
   @Input() minWidth: string = '300px';
   @Input() maxWidth: string = '1000px';
   @Input() height: string = '110px';
 
-  showInfo(): void {
 
+  showDetails(): void {
+    this.openDetails.emit(this.entry);
   }
 
 }
-
 
 
 

@@ -5,7 +5,10 @@
     <div class="projects-container">
       <app-output-task
         *ngFor="let entry of entries"
-        [entry]="entry">
+        [entry]="entry"
+        [projectId]="projectId!"
+        [projectName]="projectName"
+        (openDetails)="navigateToDetails($event)">
       </app-output-task>
     </div>
   </div>
