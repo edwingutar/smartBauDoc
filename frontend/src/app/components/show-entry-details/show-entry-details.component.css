@@ -1,0 +1,40 @@
+.info-card {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 20px;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.detail-box {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  border-radius: 20px;
+  border: none;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.label, .value {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #013063;
+  font-size: 15px;
+}
+
+
+
+
+
+
+
+
+
+
