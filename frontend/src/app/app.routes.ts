@@ -23,6 +23,7 @@ import {ProjectEntriesViewComponent} from './components/views/project-entries-vi
 import {EntryAddViewComponent} from './components/views/entry-add-view/entry-add-view.component';
 import {ShowProjectEntrysComponent} from './components/show-project-entrys/show-project-entrys.component';
 import { AddUsersComponent } from './components/add-users/add-users.component';
+import {EntryDetailViewComponent} from './components/views/entry-detail-view/entry-detail-view.component';
 
 export const routes: Routes = [
   { path: 'windowTitle', component: WindowTitleComponent},
@@ -43,6 +44,7 @@ export const routes: Routes = [
   { path: 'menuBar/dailyReport', component: DailyReportViewComponent },
   { path: 'menuBar/addEntry', component: EntryAddViewComponent },
   { path: 'menuBar/ProjectEntries', component:  ProjectEntriesViewComponent},
+  { path: 'menuBar/entryDetail', component:  EntryDetailViewComponent},
   { path: 'daily-report', component: DailyReportComponent },
   { path: 'tickets', component: TicketOverviewComponent },
   { path: 'profil-view', component: ProfilViewComponent, canActivate: [AuthGuard] },
