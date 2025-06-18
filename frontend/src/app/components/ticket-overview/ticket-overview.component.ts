@@ -5,6 +5,8 @@ import { WindowTitleComponent } from '../window-title/window-title.component';
 import html2pdf from 'html2pdf.js';
 import { TicketService, Ticket } from '../../services/ticket.service';
 import { Router } from '@angular/router';
+import { ConfirmButtonComponent } from '../confirm-button/confirm-button.component';
+
 
 // --- KOMPONENTENKONFIGURATION ---
 
@@ -13,8 +15,9 @@ import { Router } from '@angular/router';
   templateUrl: './ticket-overview.component.html',
   styleUrls: ['./ticket-overview.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, WindowTitleComponent]
+  imports: [CommonModule, FormsModule, WindowTitleComponent, ConfirmButtonComponent]
 })
+
 export class TicketOverviewComponent implements OnInit {
   @ViewChild('addSection') addSection!: ElementRef;
   @ViewChild('detailSection') detailSection!: ElementRef;
@@ -46,6 +49,13 @@ export class TicketOverviewComponent implements OnInit {
     responsible: '',
     due: ''
   };
+
+    colorButton: string = '#FAD739';
+  colorText: string = '#FFFFFF';
+  buttonWidth: string = '90vw';
+  buttonFontSize: string = '12px';
+  backButtonColor: string = '#1654F7';
+  backButtonTextColor: string = '#FFFFFF';
 
 constructor(private ticketService: TicketService, private router: Router) {}
 
@@ -167,6 +177,12 @@ constructor(private ticketService: TicketService, private router: Router) {}
 
   loadTickets() {
     this.ticketService.getTickets().subscribe(tickets => this.tickets = tickets);
+  }
+
+  goBack = () => {
+    this.router.navigate(['/menuBar/ProjectEntries'], {
+      state: { projectId: this.projectId, projectName: this.projectName }
+    });
   }
  onAddTicketClick() {
   this.showTicketForm = true;

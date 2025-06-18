@@ -118,6 +118,13 @@
   color: #222;
   word-break: break-word;
 }
+.TicketTable td:first-child, .TicketTable th:first-child {
+  max-width: 220px;      
+  width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 /* --- BUTTON-GRUPPE --- */
 .buttonInfo {

@@ -3,20 +3,20 @@
   <div class="TicketWindow">
   <!-- HEADER MIT BUTTONS -->
     <div class="TicketHeader">
-      <button (click)="onAddTicketClick()" class="TicketButton">+ Ticket anlegen</button>
-      <button class="TicketButton" (click)="exportTicketsPDF()">Exportieren</button>
+      <button (click)="onAddTicketClick()" class="TicketButton">+ TICKET ANLEGEN</button>
+      <button class="TicketButton" (click)="exportTicketsPDF()">EXPORTIEREN</button>
       <button
         class="TicketButton"
         *ngIf="!showDone"
         (click)="markSelectedDone()"
-      >Als erledigt markieren</button>
+      >ALS ERLEDIGT MARKIEREN</button>
       <button
         class="TicketButton"
         *ngIf="showDone"
         (click)="markSelectedUndone()"
-      >Als unerledigt markieren</button>
+      >ALS UNERLEDIGT MARKIEREN</button>
       <button class="TicketButton" (click)="showDone = !showDone">
-        {{ showDone ? 'Offene Tickets anzeigen' : 'Erledigte Tickets anzeigen' }}
+        {{ showDone ? 'OFFENE TICKETS ANZEIGEN' : 'ERLEDIGTE TICKETS ANZEIGEN' }}
       </button>
     </div>
     
@@ -25,8 +25,8 @@
       <table class="TicketTable">
         <thead>
           <tr>
-          <th><input type="checkbox" [(ngModel)]="allSelected" (change)="toggleAll()"></th>
-          <th>ID</th>
+          <!--<th><input type="checkbox" [(ngModel)]="allSelected" (change)="toggleAll()"></th>
+          <th>ID</th>-->
           <th>Kurztext</th>
           <th>Typ</th>
           <th>Kategorie</th>
@@ -40,7 +40,7 @@
             <tr *ngFor="let ticket of filteredTickets"
                 [class.selected]="ticket === selectedTicket"
                 (click)="selectTicket(ticket)">
-              <td>
+              <!--<td>
                 <input
                   type="radio"
                   name="selectedTicket"
@@ -49,7 +49,7 @@
                   (change)="selectTicket(ticket)"
                 />
               </td>
-              <td>{{ticket.id}}</td>
+              <td>{{ticket.id}}</td>-->
               <td>{{ticket.shortText}}</td>
               <td>{{ticket.type}}</td>
               <td>{{ticket.category}}</td>
@@ -77,8 +77,8 @@
       class="TicketButton"
       [disabled]="!selectedTicket"
       (click)="deleteSelectedTicket()"
-    >Löschen</button>
-    <button class="TicketButton" (click)="selectedTicket = null">Schließen</button>
+    >LÖSCHEN</button>
+    <button class="TicketButton" (click)="selectedTicket = null">SCHLIEßEN</button>
    </div>
   </div>
 </div>
@@ -96,11 +96,20 @@
     <input class="TicketInput" placeholder="Verantwortlicher" [(ngModel)]="newTicket.responsible" name="responsible">
     <input class="TicketInput" type="date" [(ngModel)]="newTicket.due" name="due">
     <div class="buttonInfo">
-      <button class="TicketButton" type="submit">Speichern</button>
-      <button class="TicketButton" type="button" (click)="showTicketForm = false">Abbrechen</button>
+      <button class="TicketButton" type="submit">SPEICHERN</button>
+      <button class="TicketButton" type="button" (click)="showTicketForm = false">ABBRECHEN</button>
     </div>
   </form>
 </div>
 </section>
+
   </div>
+  <app-confirm-button
+      [title]="'ZURÜCK'"
+      [colorBackground]="backButtonColor"
+      [colorText]="backButtonTextColor"
+      [width]="buttonWidth"
+      [fontSizeText]="buttonFontSize"
+      [onClick]="goBack">
+    </app-confirm-button>
 </app-window-title>
