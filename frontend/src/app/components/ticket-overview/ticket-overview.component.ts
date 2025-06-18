@@ -1,11 +1,13 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WindowTitleComponent } from '../window-title/window-title.component'; 
 import html2pdf from 'html2pdf.js';
 import { TicketService, Ticket } from '../../services/ticket.service';
+import { Router } from '@angular/router';
 
 // --- KOMPONENTENKONFIGURATION ---
+
 @Component({
   selector: 'app-ticket-overview',
   templateUrl: './ticket-overview.component.html',
@@ -14,6 +16,10 @@ import { TicketService, Ticket } from '../../services/ticket.service';
   imports: [CommonModule, FormsModule, WindowTitleComponent]
 })
 export class TicketOverviewComponent implements OnInit {
+  @ViewChild('addSection') addSection!: ElementRef;
+  @ViewChild('detailSection') detailSection!: ElementRef;
+    projectId: string | null = null;
+  projectName: string = '';
   tickets: Ticket[] = [
     {
       id: 'MJ-49',
@@ -26,7 +32,7 @@ export class TicketOverviewComponent implements OnInit {
       due: '2020-09-04',
       responsible: 'Florian Ettlinger'
     },
-  ];
+ ];
   selectedTicket: Ticket | null = null;
   allSelected = false;
   showTicketForm = false;
@@ -41,7 +47,7 @@ export class TicketOverviewComponent implements OnInit {
     due: ''
   };
 
-  constructor(private ticketService: TicketService) {}
+constructor(private ticketService: TicketService, private router: Router) {}
 
   get selectedTicketFields() {
   if (!this.selectedTicket) return [];
@@ -59,6 +65,11 @@ export class TicketOverviewComponent implements OnInit {
 
   selectTicket(ticket: Ticket) {
     this.selectedTicket = ticket;
+    setTimeout(() => {
+    if (this.detailSection?.nativeElement) {
+      this.detailSection.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 0);
   }
 
   get filteredTickets() {
@@ -66,16 +77,40 @@ export class TicketOverviewComponent implements OnInit {
   }
 
   markSelectedDone() {
-    const selected = this.tickets.filter(t => t.selected && !t.done);
-    selected.forEach(ticket => {
-      this.ticketService.markDone(ticket.id!).subscribe(updated => {
-        ticket.done = true;
-        ticket.status = 'Erledigt';
-        ticket.selected = false;
+  if (this.selectedTicket && this.projectId) {
+    this.ticketService.markProjectTicketDone(this.projectId, this.selectedTicket.id!).subscribe(() => {
+      this.selectedTicket!.done = true;
+      this.selectedTicket!.status = 'Erledigt';
+      this.selectedTicket!.selected = false;
+      this.allSelected = false;
+      this.loadTicketsForProject(this.projectId!);
+      this.router.navigate(['/menuBar/addEntry'], { state: { ticket: this.selectedTicket, projectId: this.projectId } });
       });
-    });
-    this.allSelected = false;
+    }
   }
+
+
+    markSelectedUndone() {
+    if (this.selectedTicket && this.projectId) {
+      this.ticketService.markProjectTicketUndone(this.projectId!, this.selectedTicket.id!).subscribe(() => {
+        this.selectedTicket!.done = false;
+        this.selectedTicket!.status = 'Offen';
+        this.selectedTicket!.selected = false;
+        this.allSelected = false;
+        this.loadTicketsForProject(this.projectId!);
+      });
+    }
+}
+
+  deleteSelectedTicket() {
+  if (this.selectedTicket && this.projectId) {
+    this.ticketService.deleteProjectTicket(this.projectId, this.selectedTicket.id!).subscribe(() => {
+      this.loadTicketsForProject(this.projectId!);
+      this.selectedTicket = null;
+    });
+  }
+}
+
   deleteTicket(ticket: Ticket) {
     this.ticketService.deleteTicket(ticket.id!).subscribe(() => {
       this.tickets = this.tickets.filter(t => t.id !== ticket.id);
@@ -94,23 +129,53 @@ export class TicketOverviewComponent implements OnInit {
     status: this.newTicket.status,
     description: this.newTicket.description,
     responsible: this.newTicket.responsible,
-    created: new Date().toISOString().slice(0, 10), // oder leer lassen, wenn Backend setzt
+    created: new Date().toISOString().slice(0, 10), 
     due: this.newTicket.due
   };
-  this.ticketService.addTicket(ticketToSend as Ticket).subscribe(ticket => {
-    this.tickets.push(ticket);
-    this.showTicketForm = false;
-    this.newTicket = { shortText: '', description: '', type: '', category: '', status: 'Offen', responsible: '', due: '' };
-  });
+  if (this.projectId) {
+    this.ticketService.addTicketToProject(this.projectId, ticketToSend as Ticket).subscribe(ticket => {
+       this.loadTicketsForProject(this.projectId!);
+      this.showTicketForm = false;
+      this.newTicket = { shortText: '', description: '', type: '', category: '', status: 'Offen', responsible: '', due: '' };
+    });
+  }
   }
 
   ngOnInit() {
-    this.loadTickets();
+  const state = history.state as { projectId?: string; projectName?: string };
+    if (state?.projectId) {
+      this.projectId = state.projectId;
+      this.projectName = state.projectName ?? '';
+      this.loadTicketsForProject(this.projectId);
+    } else {
+       const lastId = localStorage.getItem('lastProjectId');
+    if (lastId) {
+      this.projectId = lastId;
+      this.loadTicketsForProject(this.projectId);
+    } else {
+      this.loadTickets(); // alle Tickets
+    }
+    }
+  }
+
+    loadTicketsForProject(projectId: string) {
+    this.ticketService.getTicketsForProject(projectId).subscribe(tickets => {
+      this.tickets = tickets;
+      this.showDone = false;
+    });
   }
 
   loadTickets() {
     this.ticketService.getTickets().subscribe(tickets => this.tickets = tickets);
   }
+ onAddTicketClick() {
+  this.showTicketForm = true;
+  setTimeout(() => {
+    if (this.addSection?.nativeElement) {
+      this.addSection.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 0);
+}
   
   exportTicketsPDF() { //Hier Projektnamen in der Pdf anbinden
   const projektname = 'Projekt XY'; 
