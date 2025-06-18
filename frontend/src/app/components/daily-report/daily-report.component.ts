@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EntryAddViewComponent } from "../views/entry-add-view/entry-add-view.component";
+import { ConfirmButtonComponent } from '../confirm-button/confirm-button.component';
+import { OutputButtonComponent } from '../output-button/output-button.component';
 
 
 
@@ -25,21 +27,27 @@ interface CompanyEntry {
   templateUrl: './daily-report.component.html',
   styleUrls: ['./daily-report.component.css'],
   standalone: true,
-  imports: [FormsModule, CommonModule, WindowTitleComponent, EntryAddViewComponent]
+  imports: [FormsModule, CommonModule, WindowTitleComponent, EntryAddViewComponent, ConfirmButtonComponent, OutputButtonComponent]
 })
 
 
 export class DailyReportComponent implements OnInit{
+  // Formulardaten
   date: string = new Date().toISOString().slice(0, 10);
   companies: CompanyEntry[] = [];
   weather: string = '';
   notes: string = '';
+  newCompany: CompanyEntry = { name: '', strength: null, activity: ''};
+  reportList: DailyReport[] = [];
 
-  weatherPreview: {
-    temperature: number;
-    windSpeed: number;
-    weatherCode: number;
-  } | null = null;
+   // Button-Styling (Input)
+  colorButton: string = '#FAD739';
+  colorText: string = '#FFFFFF';
+  buttonWidth: string = '90vw';
+  buttonFontSize: string = '12px';
+  backButtonColor: string = '#1654F7';
+  backButtonTextColor: string = '#FFFFFF';
+
 
   weatherDescriptions: { [code: number]: string } = {
     0: '☀️ Klarer Himmel',
@@ -54,6 +62,7 @@ export class DailyReportComponent implements OnInit{
     95: '⛈️ Gewitter'
   };
 
+  // Projekt-Infos (Input + State)
   @Input() titelProjekt: string = 'Projekte';
   @Input() widht: string = '400px';
   @Input() height: string = '750px';
@@ -62,7 +71,6 @@ export class DailyReportComponent implements OnInit{
   
   projectId!: string;
   projectName: string = '';
-  
   projectAddress: string = '';
   client: string = '';
   creator: string = '';
@@ -70,22 +78,29 @@ export class DailyReportComponent implements OnInit{
   calendarWeek: string = '';
   arrival: string = '';
   departure: string = '';
+
+
+// Standort & Wetter
   locationQuery: string = '';
   locationResults: any[] = [];
   lat: number | null = null;
   lon: number | null = null;
 
+    weatherPreview: {
+    temperature: number;
+    windSpeed: number;
+    weatherCode: number;
+  } | null = null;
 
-  newCompany: CompanyEntry = { name: '', strength: null, activity: ''};
 
-  reportList: DailyReport[] = [];
+
 
   constructor(
     private http: HttpClient,
     private dailyReportService: DailyReportService,
     private router: Router
   ) {
-    
+        // Projektinformationen aus Navigation übernehmen
    const state = this.router.getCurrentNavigation()?.extras.state as { projectId?: string; projectName?: string };
     if (state?.projectId) {
       this.projectId = state.projectId;
@@ -98,7 +113,7 @@ export class DailyReportComponent implements OnInit{
 
   }
 
-
+// Initialisierung
   ngOnInit() {
     this.setLocationAndWeather();
   // Projekt-ID und Name aus dem Router-State holen
@@ -114,8 +129,29 @@ export class DailyReportComponent implements OnInit{
   }
      */
   }
- 
-    setLocationAndWeather() {
+  // Methoden: Firmenverwaltung
+  addCompany() {
+    if (
+      this.newCompany.name.trim() &&
+      this.newCompany.strength !== null &&
+      this.newCompany.strength !== undefined &&
+      this.newCompany.activity.trim()
+    ) {
+      this.companies.push({
+        name: this.newCompany.name.trim(),
+        strength: Number(this.newCompany.strength), 
+        activity: this.newCompany.activity.trim()
+      });
+      this.newCompany = { name: '', strength: null, activity: '' };
+    } else {
+      alert('Bitte alle Felder für die Firma ausfüllen!');
+    }
+  }
+  removeCompany(company: CompanyEntry) {
+    this.companies = this.companies.filter(c => c !== company);
+  }
+   // Methoden: Standort & Wetter
+  setLocationAndWeather() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.lat = position.coords.latitude;
@@ -131,7 +167,7 @@ export class DailyReportComponent implements OnInit{
     );
   }
 
-    fetchWeather(lat: number, lon: number) {
+  fetchWeather(lat: number, lon: number) {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation,cloudcover,relative_humidity_2m,windspeed_10m,weathercode&start_date=${this.date}&end_date=${this.date}`;
     this.http.get<any>(url).subscribe({
       next: (data) => {
@@ -154,6 +190,12 @@ export class DailyReportComponent implements OnInit{
         this.weather = 'Wetterdaten konnten nicht geladen werden!';
         console.error('Fehler beim Abrufen der Wetterdaten:', err);
       }
+    });
+  }
+// Methoden: Speichern & Navigation
+  goBack = () => {
+    this.router.navigate(['/menuBar/ProjectEntries'], {
+      state: { projectId: this.projectId, projectName: this.projectName }
     });
   }
 
@@ -196,27 +238,10 @@ export class DailyReportComponent implements OnInit{
 }
   
 }
-addCompany() {
-  if (
-    this.newCompany.name.trim() &&
-    this.newCompany.strength !== null &&
-    this.newCompany.strength !== undefined &&
-    this.newCompany.activity.trim()
-  ) {
-    this.companies.push({
-      name: this.newCompany.name.trim(),
-      strength: Number(this.newCompany.strength), 
-      activity: this.newCompany.activity.trim()
-    });
-    this.newCompany = { name: '', strength: null, activity: '' };
-  } else {
-    alert('Bitte alle Felder für die Firma ausfüllen!');
-  }
-}
 
-  removeCompany(company: CompanyEntry) {
-    this.companies = this.companies.filter(c => c !== company);
-  }
+
+
+ 
 
 /*
   searchLocation() {
