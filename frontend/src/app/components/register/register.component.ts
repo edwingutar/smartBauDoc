@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { ConfirmButtonComponent } from '../confirm-button/confirm-button.component';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,8 @@ export class RegisterComponent {
   name = '';
   password = '';
   confirmPassword = '';
+
+  @Output() registerSuccess = new EventEmitter<void>();
 
   constructor(private authService: AuthService) {}
 
@@ -41,6 +43,7 @@ export class RegisterComponent {
       }).subscribe({
         next: (res) => {
           alert('Erfolgreich registriert!');
+          this.registerSuccess.emit(); // Event auslösen
         },
         error: (err) => {
           alert('Registrierung fehlgeschlagen!');

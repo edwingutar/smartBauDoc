@@ -26,6 +26,7 @@ import { AddUsersComponent } from './components/add-users/add-users.component';
 import {EntryDetailViewComponent} from './components/views/entry-detail-view/entry-detail-view.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'AuthView', pathMatch: 'full' },
   { path: 'windowTitle', component: WindowTitleComponent},
   { path: 'InputField', component: InputFieldComponent },
   { path: 'ConfirmButton', component: ConfirmButtonComponent },

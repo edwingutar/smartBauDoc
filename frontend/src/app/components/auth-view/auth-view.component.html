@@ -26,10 +26,10 @@
     </nav>
 
     <section *ngIf="activeTab === 'login'" aria-label="Login Formular" class="form-wrapper login-form">
-      <app-login />
+      <app-login (loginSuccess)="onLoginSuccess()" />
     </section>
     <section *ngIf="activeTab === 'register'" aria-label="Registrierungsformular" class="form-wrapper register-form">
-      <app-register />
+      <app-register (registerSuccess)="onRegisterSuccess()" />
     </section>
 
     <div class="section-divider">LOGIN MIT</div>

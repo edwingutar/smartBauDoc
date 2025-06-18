@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { WindowTitleComponent } from '../window-title/window-title.component';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -26,6 +27,15 @@ export class AuthViewComponent {
   @Input() maxHeight: string = 'none'; // Keine maximale Höhe
 
   activeTab: 'login' | 'register' = 'login';
+
+  constructor(private router: Router) {}
+
+  onLoginSuccess() {
+    this.router.navigate(['menuBar/projectView']);
+  }
+  onRegisterSuccess() {
+    this.router.navigate(['menuBar/projectView']);
+  }
 
   loginWithApple() {
     console.log('Apple Login');

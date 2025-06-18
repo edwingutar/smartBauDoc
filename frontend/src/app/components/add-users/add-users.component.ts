@@ -56,6 +56,7 @@ export class AddUsersComponent implements OnInit {
         this.message = 'User erfolgreich hinzugefügt!';
         this.userEmail = '';
         this.loading = false;
+        alert("User erfolgreich hinzugefügt!");
       },
       error: (err) => {
         this.message = 'Fehler: ' + (err.error?.message || err.statusText);
