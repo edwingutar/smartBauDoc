@@ -1,0 +1,26 @@
+.outputButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 35px;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+
+}
+
+.outputButton h1 {
+  font-weight: 300;
+}
+
+.outputButton:hover {
+  opacity: 0.75;
+}
+
+
+
+.inputField {
+  width: 100%;
+  display: flex;
+}
+
