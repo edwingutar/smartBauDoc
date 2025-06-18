@@ -17,12 +17,12 @@
     </div>
 
     <div class="button-container">
-      <app-confirm-button
+      <app-output-button
         [title]="'ABMELDEN'"
         [colorBackground]="'#1654F7'"
         [colorText]="'#FFFFFF'"
-        [onClick]="logout">
-      </app-confirm-button>
+        (onClick)="logout()">
+      </app-output-button>
     </div>
   </div>
 </app-window-title>

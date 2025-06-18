@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WindowTitleComponent } from '../window-title/window-title.component';
 import { AuthService } from '../../services/auth.service';
-import { ConfirmButtonComponent } from '../confirm-button/confirm-button.component';
+import { OutputButtonComponent } from '../output-button/output-button.component';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
   imports: [
     CommonModule,
     WindowTitleComponent,
-    ConfirmButtonComponent
+    OutputButtonComponent
   ],
   templateUrl: './profil-view.component.html',
   styleUrls: ['./profil-view.component.css']
@@ -58,19 +58,8 @@ export class ProfilViewComponent implements OnInit {
     }
   }
 
-  logout = () => {
-    // HTTP-Request zum Abmelden beim Server
-    this.http.post('http://localhost:8080/api/logout', {}).subscribe({
-      next: () => {
-        this.authService.logout();
-        this.router.navigate(['/AuthView']);
-        console.log('Erfolgreich abgemeldet');
-      },
-      error: (err) => {
-        console.error('Fehler beim Logout:', err);
-        this.authService.logout();
-        this.router.navigate(['/AuthView']);
-      }
-    });
-  }
+  
+logout() {
+  this.authService.logout();
+}
 }

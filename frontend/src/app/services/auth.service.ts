@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
 
@@ -8,11 +9,21 @@ import { Observable, tap } from 'rxjs';
 export class AuthService {
   private tokenKey = 'token';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   logout() {
-    localStorage.removeItem(this.tokenKey);
-    console.log('Ausgeloggt');
+    this.http.post('http://localhost:8080/api/logout', {}).subscribe({
+      next: () => {
+        localStorage.removeItem(this.tokenKey);
+        this.router.navigate(['/AuthView']);
+        console.log('Erfolgreich abgemeldet');
+      },
+      error: (err) => {
+        console.error('Fehler beim Logout:', err);
+        localStorage.removeItem(this.tokenKey);
+        this.router.navigate(['/AuthView']);
+      }
+    });
   }
 
   //registerservice
