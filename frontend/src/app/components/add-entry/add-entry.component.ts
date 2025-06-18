@@ -95,13 +95,20 @@ export class AddEntryComponent {
     this.setLocation();
     this.getTodayInfo();
 
-    const state = history.state as { projectId?: string; projectName?: string };
+    const state = history.state as { projectId?: string; projectName?: string; ticket?: { shortText?: string; description?: string; responsible?: string } };
     if (state?.projectId) {
       this.projectId = state.projectId;
       this.projectName = state.projectName ?? '';
       console.log("Projekt-ID empfangen:", this.projectId);
     } else {
       console.warn(" Keine Project-ID im State");
+    }
+    if (state?.ticket) {
+      
+      this.entryInput.taskDescription = state.ticket.shortText || '';
+      this.entryInput.notes = state.ticket.description || '';
+      this.entryInput.companyName = state.ticket.responsible || '';
+      console.log("Ticketdaten empfangen:", state.ticket);
     }
   }
 
