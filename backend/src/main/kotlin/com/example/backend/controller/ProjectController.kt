@@ -6,6 +6,8 @@ import com.example.backend.model.Project
 import com.example.backend.repository.ProjectRepository
 import com.example.backend.service.WeatherService
 import com.example.backend.security.JwtUtil
+import com.example.backend.model.Ticket
+import com.example.backend.model.DailyReport
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -79,6 +81,123 @@ class ProjectController(
     @GetMapping("/{id}/entries")
     fun getEntriesForProject(@PathVariable id: String): List<Entry>? {
         return projectRepository.findById(id).orElse(null)?.entries
+    }
+
+    //----------Anbindung Tickets----------
+    //Tickets abrufen
+        @GetMapping("/{id}/tickets")
+    fun getTicketsForProject(@PathVariable id: String): List<Ticket> {
+        val project = projectRepository.findById(id).orElse(null) ?: return emptyList()
+        return project.tickets
+    }
+
+    //Ticket hinzufügen
+
+    @PostMapping("/{id}/tickets")
+    fun addTicketToProject(
+        @PathVariable id: String,
+        @RequestBody ticket: Ticket
+    ): ResponseEntity<Ticket> {
+        val project = projectRepository.findById(id).orElse(null)
+            ?: return ResponseEntity.notFound().build()
+        val newTicket = ticket.copy(id = java.util.UUID.randomUUID().toString())
+        val updatedProject = project.copy(tickets = project.tickets + newTicket)
+        projectRepository.save(updatedProject)
+        return ResponseEntity.ok(newTicket)
+    }
+
+    //Ticket Erledigt markieren
+    @PutMapping("/{projectId}/tickets/{ticketId}/done")
+    fun markProjectTicketDone(
+        @PathVariable projectId: String,
+        @PathVariable ticketId: String
+    ): ResponseEntity<Project> {
+        val project = projectRepository.findById(projectId).orElse(null) ?: return ResponseEntity.notFound().build()
+        val updatedTickets = project.tickets.map {
+            if (it.id == ticketId) it.copy(done = true, status = "Erledigt") else it
+        }
+        val updatedProject = project.copy(tickets = updatedTickets)
+        projectRepository.save(updatedProject)
+        return ResponseEntity.ok(updatedProject)
+    }
+
+    //Ticket Unerledigt markieren
+
+    @PutMapping("/{projectId}/tickets/{ticketId}/undone")
+    fun markProjectTicketUndone(
+        @PathVariable projectId: String,
+        @PathVariable ticketId: String
+    ): ResponseEntity<Project> {
+        val project = projectRepository.findById(projectId).orElse(null) ?: return ResponseEntity.notFound().build()
+        val updatedTickets = project.tickets.map {
+            if (it.id == ticketId) it.copy(done = false, status = "Offen") else it
+        }
+        val updatedProject = project.copy(tickets = updatedTickets)
+        projectRepository.save(updatedProject)
+        return ResponseEntity.ok(updatedProject)
+    }
+
+    //Ticket löschen
+    @DeleteMapping("/{projectId}/tickets/{ticketId}")
+    fun deleteProjectTicket(
+        @PathVariable projectId: String,
+        @PathVariable ticketId: String
+    ): ResponseEntity<Project> {
+        val project = projectRepository.findById(projectId).orElse(null) ?: return ResponseEntity.notFound().build()
+        val updatedTickets = project.tickets.filterNot { it.id == ticketId }
+        val updatedProject = project.copy(tickets = updatedTickets)
+        projectRepository.save(updatedProject)
+        return ResponseEntity.ok(updatedProject)
+    }
+
+    //----------Anbindung Tagebuch----------
+
+    // Alle Reports eines Projekts abrufen
+    @GetMapping("/{id}/daily-reports")
+    fun getDailyReportsForProject(@PathVariable id: String): List<DailyReport> {
+        val project = projectRepository.findById(id).orElse(null) ?: return emptyList()
+        return project.dailyReports
+    }
+
+    // Einen Report zu einem Projekt hinzufügen
+    @PostMapping("/{id}/daily-reports")
+    fun addDailyReportToProject(
+        @PathVariable id: String,
+        @RequestBody report: DailyReport
+    ): ResponseEntity<DailyReport> {
+        val project = projectRepository.findById(id).orElse(null)
+            ?: return ResponseEntity.notFound().build()
+        val newReport = report.copy(id = java.util.UUID.randomUUID().toString())
+        val updatedProject = project.copy(dailyReports = project.dailyReports + newReport)
+        projectRepository.save(updatedProject)
+        return ResponseEntity.ok(newReport)
+    }
+
+    // Einen bestimmten Report eines Projekts abrufen
+    @GetMapping("/{projectId}/daily-reports/{reportId}")
+    fun getDailyReportById(
+        @PathVariable projectId: String,
+        @PathVariable reportId: String
+    ): ResponseEntity<DailyReport> {
+        val project = projectRepository.findById(projectId).orElse(null)
+            ?: return ResponseEntity.notFound().build()
+        val report = project.dailyReports.find { it.id == reportId }
+            ?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(report)
+    }
+
+    // Einen Report aus einem Projekt löschen
+    @DeleteMapping("/{projectId}/daily-reports/{reportId}")
+    fun deleteDailyReportFromProject(
+        @PathVariable projectId: String,
+        @PathVariable reportId: String
+    ): ResponseEntity<Project> {
+        val project = projectRepository.findById(projectId).orElse(null)
+            ?: return ResponseEntity.notFound().build()
+        val updatedReports = project.dailyReports.filterNot { it.id == reportId }
+        val updatedProject = project.copy(dailyReports = updatedReports)
+        projectRepository.save(updatedProject)
+        return ResponseEntity.ok(updatedProject)
     }
 
     @PostMapping("{projectId}/add-viewer")

@@ -1,5 +1,6 @@
 package com.example.backend.controller
 
+import org.springframework.http.ResponseEntity
 
 import com.example.backend.model.Ticket
 
@@ -27,4 +28,20 @@ class TicketController(
     @DeleteMapping("/{id}")
     fun deleteTicket(@PathVariable id: String) =
         ticketRepository.deleteById(id)
+
+    @PutMapping("/{id}/done")
+    fun markTicketDone(@PathVariable id: String): ResponseEntity<Void> {
+        val ticketOpt = ticketRepository.findById(id)
+        return if (ticketOpt.isPresent) {
+            val ticket = ticketOpt.get()
+            val updatedTicket = ticket.copy(
+                done = true,
+                status = "Erledigt" 
+            )
+            ticketRepository.save(updatedTicket)
+            ResponseEntity.ok().build()
+        } else {
+            ResponseEntity.notFound().build()
+        }
+    }
 }
