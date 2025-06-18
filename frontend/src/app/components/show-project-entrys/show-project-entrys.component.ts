@@ -95,4 +95,32 @@ export class ShowProjectEntrysComponent implements OnInit {
       }
     });
   }
+  
+  openProjectDiary(): void {
+  if (this.projectId) {
+    this.router.navigate(['/menuBar/ProjectEntries/daily-report'], {
+      state: { projectId: this.projectId, projectName: this.projectName }
+    });
+  } else {
+    console.warn('Keine gültige Projekt-ID vorhanden');
+  }
+}
+  openProjectDiaryOverview(): void {
+  if (this.projectId) {
+    this.router.navigate(['/menuBar/ProjectEntries/diary-overview'], {
+      state: { projectId: this.projectId, projectName: this.projectName }
+    });
+  } else {
+    console.warn('Keine gültige Projekt-ID vorhanden');
+  }
+}
+  openProjectTickets(): void {
+  if (this.projectId) {
+    this.router.navigate(['/menuBar/ProjectEntries/project-tickets'], {
+      state: { projectId: this.projectId, projectName: this.projectName }
+    });
+  } else {
+    console.warn('Keine gültige Projekt-ID vorhanden');
+  }
+}
 }

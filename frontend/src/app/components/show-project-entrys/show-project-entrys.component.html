@@ -25,6 +25,24 @@
   [colorText]= colorText
   [onClick]="addUser.bind(this)">
   </app-confirm-button>
+    <app-confirm-button
+    [title] ="'Tickets'"
+    [colorBackground] = colorButton
+    [colorText]= colorText
+    [onClick]="openProjectTickets.bind(this)">
+  </app-confirm-button>
+    <app-confirm-button
+    [title] ="'Tagebuch'"
+    [colorBackground] = colorButton
+    [colorText]= colorText
+    [onClick]="openProjectDiary.bind(this)">
+  </app-confirm-button>
+    <app-confirm-button
+    [title] ="'Tagebuchübersicht'"
+    [colorBackground] = colorButton
+    [colorText]= colorText
+    [onClick]="openProjectDiaryOverview.bind(this)">
+  </app-confirm-button>
 
 
 </app-window-title>
