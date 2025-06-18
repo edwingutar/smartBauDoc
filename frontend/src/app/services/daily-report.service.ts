@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 export interface DailyReport {
   id?: string;
+  projectId: string;
   date: string;
   projectName: string;
   projectAddress: string;
@@ -20,18 +21,19 @@ export interface DailyReport {
 
 @Injectable({ providedIn: 'root' })
 export class DailyReportService {
-  private apiUrl = 'http://localhost:8080/api/daily-reports';
+  private apiUrl = 'http://localhost:8080/api/projects';
 
   constructor(private http: HttpClient) {}
 
-   deleteReport(id: string | number): Observable<any> {
-    return this.http.delete(`http://localhost:8080/api/daily-reports/${id}`);
-  }
-  getReports(): Observable<DailyReport[]> {
-    return this.http.get<DailyReport[]>(this.apiUrl);
+  getReports(projectId: string): Observable<DailyReport[]> {
+    return this.http.get<DailyReport[]>(`${this.apiUrl}/${projectId}/daily-reports`);
   }
 
-  createReport(report: DailyReport): Observable<DailyReport> {
-    return this.http.post<DailyReport>(this.apiUrl, report);
+  createReport(projectId: string, report: DailyReport): Observable<DailyReport> {
+    return this.http.post<DailyReport>(`${this.apiUrl}/${projectId}/daily-reports`, report);
+  }
+
+  deleteReport(projectId: string, reportId: string | number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${projectId}/daily-reports/${reportId}`);
   }
 }

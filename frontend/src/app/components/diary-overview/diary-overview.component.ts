@@ -4,6 +4,7 @@ import { WindowTitleComponent } from '../window-title/window-title.component';
 import { DailyReportService, DailyReport } from '../../services/daily-report.service';
 import html2pdf from 'html2pdf.js';
 import { ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface CompanyEntry {
   name: string;
@@ -13,6 +14,7 @@ interface CompanyEntry {
 
 interface DiaryEntry {
    id: string | number;
+   projectId: string;
   projectName?: string;
   date?: string;
   creator?: string;
@@ -37,12 +39,22 @@ interface DiaryEntry {
     WindowTitleComponent
   ]
 })
-export class DiaryOverviewComponent {
+export class DiaryOverviewComponent implements OnInit{
   @ViewChild('detailSection') detailSection!: ElementRef;
   diaryEntries: DiaryEntry[] = [];
   selectedEntry: DiaryEntry | null = null;
 
-  constructor(private dailyReportService: DailyReportService) {}
+  projectId!: string;
+
+  constructor(private dailyReportService: DailyReportService, private router: Router) {
+    const state = this.router.getCurrentNavigation()?.extras.state as { projectId?: string };
+    if (state?.projectId) {
+      this.projectId = state.projectId;
+    } else {
+      console.warn('Keine Project-ID im State');
+      alert('Projekt-ID fehlt! Übersicht kann nicht geladen werden.');
+    }
+  }
 
 get selectedEntryFields() {
    if (!this.selectedEntry) return [];
@@ -89,7 +101,6 @@ get selectedEntryFields() {
     { label: 'KW', value: this.selectedEntry.calendarWeek },
     { label: 'Ersteller', value: this.selectedEntry.creator },
     { label: 'Berichtsnummer', value: this.selectedEntry.reportNumber },
-    { label: 'Auftraggeber', value: this.selectedEntry.client },
     {
       label: 'Adresse',
       value: '',
@@ -130,21 +141,32 @@ get selectedEntryFields() {
 
 
   ngOnInit() {
-  this.dailyReportService.getReports().subscribe({
+/*
+        const state = this.router.getCurrentNavigation()?.extras.state as { projectId?: string };
+    if (state?.projectId) {
+      this.projectId = state.projectId;
+    } else {
+      console.warn('Keine Project-ID im State');
+      // Optional: handle missing projectId
+    }
+*/
+if (!this.projectId) return;
+  this.dailyReportService.getReports(this.projectId).subscribe({
     next: (reports) => {
       this.diaryEntries = reports.map((report, idx) => ({
           id: report.id ?? idx,
-  projectName: report.projectName,
-  date: report.date,
-  creator: report.creator,
-  client: report.client,
-  projectAddress: report.projectAddress,
-  weather: report.weather,
-  calendarWeek: report.calendarWeek,
-  arrival: report.arrival,
-  departure: report.departure,
-  reportNumber: report.reportNumber,
-  notes: report.notes,
+          projectId: report.projectId, 
+          projectName: report.projectName,
+          date: report.date,
+          creator: report.creator,
+          client: report.client,
+          projectAddress: report.projectAddress,
+          weather: report.weather,
+          calendarWeek: report.calendarWeek,
+          arrival: report.arrival,
+          departure: report.departure,
+          reportNumber: report.reportNumber,
+          notes: report.notes,
          companies: report.companies || []
       }));
     },
@@ -248,7 +270,7 @@ companyIndex(company: any[], all: any[]): number {
 
   deleteEntry(entry: DiaryEntry) {
   if (confirm('Diesen Eintrag wirklich löschen?')) {
-    this.dailyReportService.deleteReport(entry.id).subscribe({
+    this.dailyReportService.deleteReport(this.projectId, entry.id).subscribe({
       next: () => {
         this.diaryEntries = this.diaryEntries.filter(e => e.id !== entry.id);
         if (this.selectedEntry?.id === entry.id) {

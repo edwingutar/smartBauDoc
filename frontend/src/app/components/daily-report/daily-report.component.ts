@@ -6,6 +6,9 @@ import { WindowTitleComponent } from '../window-title/window-title.component';
 import { DailyReportService, DailyReport } from '../../services/daily-report.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { EntryAddViewComponent } from "../views/entry-add-view/entry-add-view.component";
+
 
 
 
@@ -22,7 +25,7 @@ interface CompanyEntry {
   templateUrl: './daily-report.component.html',
   styleUrls: ['./daily-report.component.css'],
   standalone: true,
-  imports: [FormsModule, CommonModule, WindowTitleComponent]
+  imports: [FormsModule, CommonModule, WindowTitleComponent, EntryAddViewComponent]
 })
 
 
@@ -32,14 +35,34 @@ export class DailyReportComponent implements OnInit{
   weather: string = '';
   notes: string = '';
 
+  weatherPreview: {
+    temperature: number;
+    windSpeed: number;
+    weatherCode: number;
+  } | null = null;
+
+  weatherDescriptions: { [code: number]: string } = {
+    0: '☀️ Klarer Himmel',
+    1: '🌤️ Überwiegend klar',
+    2: '🌥️ Teilweise bewölkt',
+    3: '☁️ Bedeckt',
+    45: '🌫️ Nebel',
+    48: '🌫️ Nebel mit Reif',
+    51: '🌦️ Leichter Nieselregen',
+    61: '🌧️ Leichter Regen',
+    80: '🌧️ Schauerregen',
+    95: '⛈️ Gewitter'
+  };
+
   @Input() titelProjekt: string = 'Projekte';
   @Input() widht: string = '400px';
   @Input() height: string = '750px';
   @Input() widhtInput: string = '325px';
   @Input() heightInput: string = '50px';
-
-
+  
+  projectId!: string;
   projectName: string = '';
+  
   projectAddress: string = '';
   client: string = '';
   creator: string = '';
@@ -59,19 +82,89 @@ export class DailyReportComponent implements OnInit{
 
   constructor(
     private http: HttpClient,
-    private dailyReportService: DailyReportService
-  ) {}
+    private dailyReportService: DailyReportService,
+    private router: Router
+  ) {
+    
+   const state = this.router.getCurrentNavigation()?.extras.state as { projectId?: string; projectName?: string };
+    if (state?.projectId) {
+      this.projectId = state.projectId;
+      this.projectName = state.projectName ?? '';
+    } else {
+      alert('Projekt-ID fehlt! Kann nicht speichern.');
+      console.warn('Keine Projekt-ID im State gefunden!');
+    }
+
+
+  }
+
 
   ngOnInit() {
-  this.dailyReportService.getReports().subscribe({
-    next: (reports) => this.reportList = reports,
-    error: (err) => console.error('Fehler:', err)
-  });
-}
+    this.setLocationAndWeather();
+  // Projekt-ID und Name aus dem Router-State holen
+  /*
+  const state = this.router.getCurrentNavigation()?.extras.state as { projectId?: string; projectName?: string };
+   console.log('State beim Laden:', state);
+  if (state?.projectId) {
+    this.projectId = state.projectId;
+    this.projectName = state.projectName ?? '';
+  } else {
+    alert('Projekt-ID fehlt! Kann nicht speichern.');
+    console.warn('Keine Projekt-ID im State gefunden!');
+  }
+     */
+  }
+ 
+    setLocationAndWeather() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.lat = position.coords.latitude;
+        this.lon = position.coords.longitude;
 
+        // Wetterdaten holen
+        this.fetchWeather(this.lat, this.lon);
+      },
+      (err) => {
+        console.error('Geolocation-Fehler:', err);
+        this.weather = 'Standort konnte nicht ermittelt werden!';
+      }
+    );
+  }
+
+    fetchWeather(lat: number, lon: number) {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation,cloudcover,relative_humidity_2m,windspeed_10m,weathercode&start_date=${this.date}&end_date=${this.date}`;
+    this.http.get<any>(url).subscribe({
+      next: (data) => {
+        const idx = 12; // Mittagswerte
+        const temp = data.hourly?.temperature_2m?.[idx];
+        const wind = data.hourly?.windspeed_10m?.[idx];
+        const code = data.hourly?.weathercode?.[idx];
+
+        this.weatherPreview = {
+          temperature: temp,
+          windSpeed: wind,
+          weatherCode: code
+        };
+
+        this.weather =
+          `${this.weatherDescriptions[code] ?? `Code ${code}`}, ` +
+          `Temp: ${temp}°C, Wind: ${wind}km/h`;
+      },
+      error: (err) => {
+        this.weather = 'Wetterdaten konnten nicht geladen werden!';
+        console.error('Fehler beim Abrufen der Wetterdaten:', err);
+      }
+    });
+  }
 
   saveReport() {
-const report: DailyReport = {
+    console.log('projectId vor dem Speichern:', this.projectId);
+      if (!this.projectId) {
+    alert('Projekt-ID fehlt!');
+    return;
+  }
+  const report: DailyReport = {
+    projectId: this.projectId!, 
     date: this.date,
     projectName: this.projectName || '',
     projectAddress: this.projectAddress || '',
@@ -90,12 +183,18 @@ const report: DailyReport = {
       })),
     weather: this.weather || '',
     notes: this.notes || ''
+    
    
   };
-  this.dailyReportService.createReport(report).subscribe({
+ if (this.projectId) {
+  this.dailyReportService.createReport(this.projectId, report).subscribe({
     next: (res) => console.log('Gespeichert:', res),
     error: (err) => console.error('Fehler:', err)
   });
+} else {
+  alert('Projekt-ID fehlt!');
+}
+  
 }
 addCompany() {
   if (
@@ -119,7 +218,7 @@ addCompany() {
     this.companies = this.companies.filter(c => c !== company);
   }
 
-
+/*
   searchLocation() {
   if (!this.locationQuery) return;
   const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(this.locationQuery)}`;
@@ -167,4 +266,5 @@ autoFillWeather() {
   });
 }
 
+*/
 }
