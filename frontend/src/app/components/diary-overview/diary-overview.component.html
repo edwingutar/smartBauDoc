@@ -56,8 +56,16 @@
     </ng-container>
   </div>
   <div class="buttonInfo">
-    <button class="DailyReportButton" (click)="exportPDF()">PDF Export</button>
+    <button class="DailyReportButton" (click)="exportPDF()">PDF EXPORT</button>
   </div>
 </div>
 </div>
+  <app-confirm-button
+      [title]="'ZURÜCK'"
+      [colorBackground]="backButtonColor"
+      [colorText]="backButtonTextColor"
+      [width]="buttonWidth"
+      [fontSizeText]="buttonFontSize"
+      [onClick]="goBack">
+    </app-confirm-button>
 </app-window-title>

@@ -5,6 +5,8 @@ import { DailyReportService, DailyReport } from '../../services/daily-report.ser
 import html2pdf from 'html2pdf.js';
 import { ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfirmButtonComponent } from '../confirm-button/confirm-button.component';
+
 
 interface CompanyEntry {
   name: string;
@@ -36,15 +38,24 @@ interface DiaryEntry {
   styleUrl: './diary-overview.component.css',
   imports: [
     CommonModule,
-    WindowTitleComponent
+    WindowTitleComponent,
+    ConfirmButtonComponent
   ]
 })
 export class DiaryOverviewComponent implements OnInit{
   @ViewChild('detailSection') detailSection!: ElementRef;
   diaryEntries: DiaryEntry[] = [];
   selectedEntry: DiaryEntry | null = null;
-
+  projectName?: string;
   projectId!: string;
+
+
+      colorButton: string = '#FAD739';
+  colorText: string = '#FFFFFF';
+  buttonWidth: string = '90vw';
+  buttonFontSize: string = '12px';
+  backButtonColor: string = '#1654F7';
+  backButtonTextColor: string = '#FFFFFF';
 
   constructor(private dailyReportService: DailyReportService, private router: Router) {
     const state = this.router.getCurrentNavigation()?.extras.state as { projectId?: string };
@@ -74,21 +85,19 @@ get selectedEntryFields() {
   }
   const streetAndNumber = [street, houseNumber].filter(Boolean).join(' ');
 
-  let cloud = '', temp = '', humidity = '', wind = '', rain = '';
+ let weatherDescription = '', temp = '', wind = '';
   if (this.selectedEntry.weather) {
-    const regexMap: Record<string, RegExp> = {
-      cloud: /Bewölkung:\s*([^,]+)/,
-      temp: /Temp(?:eratur)?:\s*([^,]+)/,
-      humidity: /Feuchte:\s*([^,]+)/,
-      wind: /Wind:\s*([^,]+)/,
-      rain: /Niederschlag:\s*([^,]+)/,
-    };
+    
     const weather = this.selectedEntry.weather;
-    cloud = (weather.match(regexMap['cloud'])?.[1] || '').trim();
-    temp = (weather.match(regexMap['temp'])?.[1] || '').trim();
-    humidity = (weather.match(regexMap['humidity'])?.[1] || '').trim();
-    wind = (weather.match(regexMap['wind'])?.[1] || '').trim();
-    rain = (weather.match(regexMap['rain'])?.[1] || '').trim();
+    // Wetterbeschreibung 
+    const descMatch = weather.match(/^([^,]+)/);
+    weatherDescription = descMatch ? descMatch[1].trim() : '';
+    // Temperatur
+    const tempMatch = weather.match(/Temp(?:eratur)?:\s*([^,]+)/);
+    temp = tempMatch ? tempMatch[1].trim() : '';
+    // Wind
+    const windMatch = weather.match(/Wind:\s*([^,]+)/);
+    wind = windMatch ? windMatch[1].trim() : '';
   }
     const companies = (this.selectedEntry.companies || []).map(c => ({
     name: c.name,
@@ -101,7 +110,7 @@ get selectedEntryFields() {
     { label: 'KW', value: this.selectedEntry.calendarWeek },
     { label: 'Ersteller', value: this.selectedEntry.creator },
     { label: 'Berichtsnummer', value: this.selectedEntry.reportNumber },
-    {
+    /*{
       label: 'Adresse',
       value: '',
       subfields: [
@@ -112,7 +121,7 @@ get selectedEntryFields() {
       { sublabel: 'PLZ', subvalue: zip },
       { sublabel: 'Land', subvalue: country }
       ].filter(sub => sub.subvalue)
-    },
+    },*/
 {
   label: 'Anwesende Firmen',
   value: '',
@@ -126,11 +135,9 @@ get selectedEntryFields() {
       label: 'Wetter',
       value: '',
       subfields: [
-        { sublabel: 'Bewölkung', subvalue: cloud },
+        { sublabel: 'Wetter', subvalue: weatherDescription },
         { sublabel: 'Temperatur', subvalue: temp },
-        { sublabel: 'Feuchte', subvalue: humidity },
-        { sublabel: 'Wind', subvalue: wind },
-        { sublabel: 'Niederschlag', subvalue: rain }
+        { sublabel: 'Wind', subvalue: wind }
       ].filter(sub => sub.subvalue)
     },
     { label: 'Ankunft', value: this.selectedEntry.arrival },
@@ -281,5 +288,10 @@ companyIndex(company: any[], all: any[]): number {
     });
   }
 }
+  goBack = () => {
+    this.router.navigate(['/menuBar/ProjectEntries'], {
+      state: { projectId: this.projectId, projectName: this.projectName }
+    });
+  }
 
 }
