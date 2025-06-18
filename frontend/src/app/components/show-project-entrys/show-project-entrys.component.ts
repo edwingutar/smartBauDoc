@@ -77,7 +77,7 @@ export class ShowProjectEntrysComponent implements OnInit {
 
   addUser(): void {
     if (this.projectId) {
-      this.router.navigate(['/menuBar/ProjectEntries/AddUser'], {
+      this.router.navigate(['/menuBar/AddUser'], {
         state: { projectId: this.projectId, projectName: this.projectName }
       });
     } else {

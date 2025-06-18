@@ -24,6 +24,7 @@ import {EntryAddViewComponent} from './components/views/entry-add-view/entry-add
 import {ShowProjectEntrysComponent} from './components/show-project-entrys/show-project-entrys.component';
 import { AddUsersComponent } from './components/add-users/add-users.component';
 import {EntryDetailViewComponent} from './components/views/entry-detail-view/entry-detail-view.component';
+import { AddUsersViewComponent } from './components/views/add-users-view/add-users-view.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'AuthView', pathMatch: 'full' },
@@ -53,5 +54,6 @@ export const routes: Routes = [
   { path: 'tickets', component: TicketOverviewComponent },
   { path: 'profil-view', component: ProfilViewComponent, canActivate: [AuthGuard] },
    { path: 'diary-overview', component: DiaryOverviewComponent },
-   { path: 'menuBar/ProjectEntries/AddUser', component: AddUsersComponent }
+   { path: 'menuBar/ProjectEntries/AddUser', component: AddUsersComponent },
+   { path: 'menuBar/AddUser', component: AddUsersViewComponent }
 ];
