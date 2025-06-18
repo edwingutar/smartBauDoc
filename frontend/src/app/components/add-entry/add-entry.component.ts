@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import {ImageUploadService} from '../../services/imageUpload.service';
 import {EntryService} from "../../services/entry.service";
 import {WeatherService} from "../../services/weather.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-entry',
@@ -28,6 +29,7 @@ export class AddEntryComponent {
       private imageUploadService: ImageUploadService,
       private entryService: EntryService,
       private weatherService: WeatherService,
+      private router: Router
   ) {}
 
   @ViewChild('hiddenFileInput') fileInputRef!: ElementRef<HTMLInputElement>;
@@ -90,6 +92,12 @@ export class AddEntryComponent {
 
   projectId: string | null = null;
   projectName: string = '';
+
+  
+  buttonWidth: string = '90vw';
+  buttonFontSize: string = '12px';
+  backButtonColor: string = '#1654F7';
+  backButtonTextColor: string = '#FFFFFF';
 
   ngOnInit() {
     this.setLocation();
@@ -204,4 +212,9 @@ export class AddEntryComponent {
     this.entryInput.calendarWeek = String(week); // falls `string` im Model
   }
 
+    goBack = () => {
+    this.router.navigate(['/menuBar/ProjectEntries'], {
+      state: { projectId: this.projectId, projectName: this.projectName }
+    });
+  }
 }

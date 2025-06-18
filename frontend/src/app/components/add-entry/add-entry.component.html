@@ -77,7 +77,14 @@
     [colorText]= colorText
     [onClick]="saveClick">
   </app-confirm-button>
-
+  <app-confirm-button
+      [title]="'ZURÜCK'"
+      [colorBackground]="backButtonColor"
+      [colorText]="backButtonTextColor"
+      [width]="buttonWidth"
+      [fontSizeText]="buttonFontSize"
+      [onClick]="goBack">
+    </app-confirm-button>
 </app-window-title>
 
 
