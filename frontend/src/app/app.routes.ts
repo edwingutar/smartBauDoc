@@ -27,14 +27,14 @@ import {EntryDetailViewComponent} from './components/views/entry-detail-view/ent
 import { AddUsersViewComponent } from './components/views/add-users-view/add-users-view.component';
 import { TicketViewComponent } from './components/views/ticket-overview-view/ticket-overview-view.component';
 import { DiaryOverviewViewComponent } from './components/views/diary-overview-view/diary-overview-view.component';
-
+import { ProfilViewViewComponent } from './components/views/profil-view-view/profil-view-view.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'AuthView', pathMatch: 'full' },
   { path: 'windowTitle', component: WindowTitleComponent},
   { path: 'InputField', component: InputFieldComponent },
   { path: 'ConfirmButton', component: ConfirmButtonComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', redirectTo: 'AuthView', pathMatch: 'full'  },
   { path: 'register', component: RegisterComponent },
   { path: 'AuthView', component: AuthViewComponent },
   { path: 'AddEntry', component: AddEntryComponent },
@@ -55,7 +55,7 @@ export const routes: Routes = [
   { path: 'menuBar/ProjectEntries/diary-overview', component: DiaryOverviewViewComponent },
   { path: 'daily-report', component: DailyReportComponent },
   { path: 'tickets', component: TicketOverviewComponent },
-  { path: 'profil-view', component: ProfilViewComponent, canActivate: [AuthGuard] },
+  { path: 'profil-view', component: ProfilViewViewComponent, canActivate: [AuthGuard] },
    { path: 'diary-overview', component: DiaryOverviewComponent },
    { path: 'menuBar/ProjectEntries/AddUser', component: AddUsersComponent },
    { path: 'menuBar/AddUser', component: AddUsersViewComponent }
