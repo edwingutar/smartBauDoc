@@ -216,7 +216,7 @@ if (!this.projectId) return;
           <div><b>Datum:</b> ${this.selectedEntry.date || ''}</div>
           <div><b>Ersteller:</b> ${this.selectedEntry.creator || ''}</div>
           <div><b>Auftraggeber:</b> ${this.selectedEntry.client || ''}</div>
-          <div><b>Adresse:</b> ${this.selectedEntry.projectAddress || ''}</div>
+         
           <div><b>Wetter:</b> ${this.selectedEntry.weather || ''}</div>
           <div><b>KW:</b> ${this.selectedEntry.calendarWeek || ''}</div>
           <div><b>Ankunft:</b> ${this.selectedEntry.arrival || ''}</div>
@@ -233,20 +233,24 @@ if (!this.projectId) return;
         </footer>
       </div>
       <style>
-        @page { size: A4 portrait; margin: 0; }
-        body { margin: 0; padding: 0; background: white; }
-        #pdf { width: 210mm; min-height: 297mm; padding: 20mm; box-sizing: border-box; font-family: Arial, sans-serif; color: #333; }
-        header { border-bottom: 2px solid #004080; margin-bottom: 10mm; }
-        header h1 { font-size: 24px; color: #004080; }
-        section.notes { margin-top: 10mm; }
-        section.notes h2 { font-size: 18px; color: #004080; }
-        section.notes div { border: 1px solid #bbb; padding: 4mm; min-height: 30mm; background: #fafafa; font-size: 13px; }
-        footer { margin-top: 20mm; text-align: center; font-size: 11px; color: #777; }
+  @page { size: A4 portrait; margin: 20mm 15mm 20mm 15mm; }
+  body {     max-width: 180mm;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    color: #333; }
+  #pdf { width: 100%; box-sizing: border-box; font-family: Arial, sans-serif; color: #333; }
+  header { border-bottom: 2px solid #004080; margin-bottom: 10mm; }
+  header h1 { font-size: 24px; color: #004080; }
+  section.notes { margin-top: 10mm; }
+  section.notes h2 { font-size: 18px; color: #004080; }
+  section.notes div { border: 1px solid #bbb; padding: 4mm; min-height: 30mm; background: #fafafa; font-size: 13px; }
+  footer { margin-top: 20mm; text-align: center; font-size: 11px; color: #777; }
       </style>
     `;
 
     html2pdf().from(html).set({
-      margin: 0,
+      margin: [20, 15, 20, 15],
       filename: `Bautagesbericht_${this.selectedEntry.projectName || 'Bericht'}.pdf`,
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
