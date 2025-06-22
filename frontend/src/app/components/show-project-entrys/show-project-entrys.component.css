@@ -1,8 +1,9 @@
 .projects-scroll-area {
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 90vh;
+  /*max-height: 90vh;*/
   scrollbar-width: none;
+  flex: 2 2 0%;
 }
 
 .projects-container {
@@ -10,4 +11,19 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+}
+
+.button-list-scroll {
+  max-height: 150px; 
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+  scrollbar-width: none;     
+  -ms-overflow-style: none;    
+}
+
+.button-list-scroll::-webkit-scrollbar {
+  display: none;                
 }
