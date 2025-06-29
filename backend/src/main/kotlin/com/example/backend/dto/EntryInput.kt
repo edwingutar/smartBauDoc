@@ -1,15 +1,15 @@
-package com.example.backend.model
+package com.example.backend.dto
 
-import java.time.LocalDateTime
+import com.example.backend.model.Image
 
-data class Entry(
+data class EntryInput(
     val creatorName: String,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
     val calendarWeek: Int? = null,
     val companyName: String,
     val onSitePersonnelCount: Int,
     val taskDescription: String,
     val notes: String,
-    val weather: Weather,
-    val image: Image
+    val image: Image,
+    val latitude: Double,
+    val longitude: Double
 )
