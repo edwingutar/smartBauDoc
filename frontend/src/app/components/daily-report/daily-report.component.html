@@ -1,0 +1,83 @@
+
+<app-window-title
+  [title]="'Tagesbericht'">
+    
+<!-- Scroll Bereich -->
+  <div class="daily-report-scroll-area">
+    <!-- Projektinformationen -->
+    <div class="inputFelder">
+      <input class="DailyReportInput" placeholder="Projektname" [(ngModel)]="projectName">
+      <input class="DailyReportInput" placeholder="Ersteller" [(ngModel)]="creator">
+      <input class="DailyReportInput" placeholder="Tagesberichtsnummer" [(ngModel)]="reportNumber">
+      <input class="DailyReportInput" type="date" placeholder="Datum" [(ngModel)]="date">        
+      <input class="DailyReportInput" placeholder="KW" [(ngModel)]="calendarWeek">
+      <input class="DailyReportInput" type="time" placeholder="Ankunft" [(ngModel)]="arrival">
+      <input class="DailyReportInput" type="time" placeholder="Verlassen" [(ngModel)]="departure">
+    </div>
+    <!-- Firmeninformationen -->
+    <div class="inputFelder">
+      <div class="DailyReportSectionTitle">Anwesende Firmen</div>
+      <div *ngFor="let company of companies">
+        <input class="DailyReportInput" placeholder="Firmenname" [(ngModel)]="company.name">
+        <input class="DailyReportInput" type="number" min="1" placeholder="Anzahl Mitarbeiter" [(ngModel)]="company.strength">
+        <input class="DailyReportInput" placeholder="Tätigkeit" [(ngModel)]="company.activity">
+        <button class="DailyReportRemove" (click)="removeCompany(company)">ENTFERNEN</button>
+      </div>
+      <!-- Neue Firma hinzufügen -->
+      <div>
+        <input class="DailyReportInput" placeholder="Firmenname" [(ngModel)]="newCompany.name">
+        <input class="DailyReportInput" type="number" min="1" placeholder="Anzahl Mitarbeiter" [(ngModel)]="newCompany.strength">
+        <input class="DailyReportInput" placeholder="Tätigkeit" [(ngModel)]="newCompany.activity">
+        <button class="DailyReportButton" (click)="addCompany()">+ FIRMA HINZUFÜGEN</button>
+      </div>
+    </div>
+<!-- Adresse suchen wurde ins Projekt verlegt
+      <div class="inputFelder">
+        <div class="DailyReportSectionTitle">Standort</div>
+        <input class="DailyReportInput" placeholder="Ort oder Adresse suchen" [(ngModel)]="locationQuery">
+        <button class="DailyReportButton" (click)="searchLocation()">Suchen</button>
+        <div *ngIf="locationResults.length > 0" class="DailyReportLocationResults">
+          <div *ngFor="let loc of locationResults" (click)="selectLocation(loc)" class="DailyReportLocationResult">
+            {{ loc.display_name }}
+          </div>
+        </div>
+        <div *ngIf="lat && lon" class="DailyReportLocationSelected">
+          <b>Gewählter Standort:</b> {{ lat }}, {{ lon }}
+        </div>
+      </div>
+--><!-- Wetterangabe -->
+      <div class="inputFelder">
+        <div class="DailyReportSectionTitle">Wetter</div>
+        <input class="DailyReportInput" placeholder="z.B. Teilw. bewölkt, 21°C, 75%, 2km/h" [(ngModel)]="weather">
+        <!--<button class="DailyReportButton" (click)="autoFillWeather()">AUTO</button>-->
+      </div>
+    <!-- Besonderheiten -->
+      <div class="inputFelder">
+        <div class="DailyReportSectionTitle">Besonderheiten / Absprachen</div>
+        <textarea class="DailyReportTextarea" [(ngModel)]="notes"></textarea>
+      </div>
+    </div>
+    <!-- Buttons -->
+    <div>
+      <app-output-button
+        [title]="'SPEICHERN'"
+        [colorBackground]= colorButton
+        [colorText]="backButtonTextColor"
+        [width]="buttonWidth"
+        [fontSizeText]="buttonFontSize"
+        (onClick)="saveReport()">
+      </app-output-button>
+    </div>
+    <div>
+      <app-confirm-button
+        [title]="'ZURÜCK'"
+        [colorBackground]="backButtonColor"
+        [colorText]="backButtonTextColor"
+        [width]="buttonWidth"
+        [fontSizeText]="buttonFontSize"
+        [onClick]="goBack">
+      </app-confirm-button>
+    </div>
+
+</app-window-title>
+

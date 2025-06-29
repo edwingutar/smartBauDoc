@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgStyle } from '@angular/common';
 
 @Component({
@@ -10,31 +10,19 @@ import { NgStyle } from '@angular/common';
 })
 export class WindowTitleComponent {
   @Input() title: string = 'Headline';
-  @Input() colorText: string = '#91A7BA';
+  @Input() colorText: string = '#013063';
 
-  // Responsives Größenverhalten mit Begrenzung
-  @Input() width: string = '100%';
-  @Input() height: string = '600px';
-  @Input() minWidth: string = '320px';
-  @Input() maxWidth: string = '1800px';
-  @Input() minHeight: string = '600px';
+  @Input() width: string = '95vw';
+  @Input() minWidth: string = '350px'; //iPhoneSe 375
+  @Input() maxWidth: string = '1200px';
+
+  @Input() height: string = '80vh';
+  @Input() minHeight: string = '500px';
   @Input() maxHeight: string = '1000px';
 
-  @Output() close = new EventEmitter<void>();
 
-  private get safeHeight(): string {
-    return this.height?.includes('px') || this.height?.includes('vh') ? this.height : '500px';
-  }
+  @Input() topbarHeight: string = '80px';
+  @Input() fontSizeHeadline: string = '25px';
 
-  get topbarHeight(): string {
-    return `calc(${this.safeHeight} / 8)`;
-  }
 
-  get fontSizeHeadline(): string {
-    return `calc(${this.safeHeight} / 20)`;
-  }
-
-  get closeButtonFontSize(): string {
-    return `calc(${this.safeHeight} / 22)`;
-  }
 }

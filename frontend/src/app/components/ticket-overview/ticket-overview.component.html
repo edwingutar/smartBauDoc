@@ -1,0 +1,115 @@
+<app-window-title [title]="'Ticket Übersicht'">
+  <!-- TICKET-ÜBERSICHT -->
+  <div class="TicketWindow">
+  <!-- HEADER MIT BUTTONS -->
+    <div class="TicketHeader">
+      <button (click)="onAddTicketClick()" class="TicketButton">+ TICKET ANLEGEN</button>
+      <button class="TicketButton" (click)="exportTicketsPDF()">EXPORTIEREN</button>
+      <button
+        class="TicketButton"
+        *ngIf="!showDone"
+        (click)="markSelectedDone()"
+      >ALS ERLEDIGT MARKIEREN</button>
+      <button
+        class="TicketButton"
+        *ngIf="showDone"
+        (click)="markSelectedUndone()"
+      >ALS UNERLEDIGT MARKIEREN</button>
+      <button class="TicketButton" (click)="showDone = !showDone">
+        {{ showDone ? 'OFFENE TICKETS ANZEIGEN' : 'ERLEDIGTE TICKETS ANZEIGEN' }}
+      </button>
+    </div>
+    
+      <!-- TICKET-TABELLE -->
+    <div class="TicketTableWrapper">
+      <table class="TicketTable">
+        <thead>
+          <tr>
+          <!--<th><input type="checkbox" [(ngModel)]="allSelected" (change)="toggleAll()"></th>
+          <th>ID</th>-->
+          <th>Kurztext</th>
+          <th>Typ</th>
+          <th>Kategorie</th>
+          <th>Status</th>
+          <th>Erstellt am</th>
+          <th>Frist</th>
+          <th>Verantwortlicher</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ticket of filteredTickets"
+                [class.selected]="ticket === selectedTicket"
+                (click)="selectTicket(ticket)">
+              <!--<td>
+                <input
+                  type="radio"
+                  name="selectedTicket"
+                  [checked]="selectedTicket?.id === ticket.id"
+                  (click)="$event.stopPropagation()"
+                  (change)="selectTicket(ticket)"
+                />
+              </td>
+              <td>{{ticket.id}}</td>-->
+              <td>{{ticket.shortText}}</td>
+              <td>{{ticket.type}}</td>
+              <td>{{ticket.category}}</td>
+              <td>{{ticket.status}}</td>
+              <td>{{ticket.created | date:'dd.MM.yyyy'}}</td>
+              <td>{{ticket.due | date:'dd.MM.yyyy'}}</td>
+              <td>{{ticket.responsible}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+ <!-- Detailansicht für ausgewähltes Ticket -->
+  <div #detailSection>
+ <div class="entry-details" *ngIf="selectedTicket" #detailSection>
+  <div class="details-title">Ticket Details</div>
+  <div>
+    <div class="detail-row" *ngFor="let field of selectedTicketFields">
+      <span class="detail-label">{{ field.label }}</span>
+      <span class="detail-sep">|</span>
+      <span class="detail-value">{{ field.value }}</span>
+    </div>
+  </div>
+  <div class="buttonInfo">
+    <button
+      class="TicketButton"
+      [disabled]="!selectedTicket"
+      (click)="deleteSelectedTicket()"
+    >LÖSCHEN</button>
+    <button class="TicketButton" (click)="selectedTicket = null">SCHLIEßEN</button>
+   </div>
+  </div>
+</div>
+
+    <!-- Ticket anlegen Formular -->
+     <section #addSection>
+<div class="entry-details" *ngIf="showTicketForm">
+  <div class="details-title">Neues Ticket</div>
+  <form (ngSubmit)="addTicket()">
+    <input class="TicketInput" placeholder="Kurztext" [(ngModel)]="newTicket.shortText" name="shortText" required>
+    <input class="TicketInput" placeholder="Typ" [(ngModel)]="newTicket.type" name="type">
+    <input class="TicketInput" placeholder="Kategorie" [(ngModel)]="newTicket.category" name="category">
+    <input class="TicketInput" placeholder="Beschreibung" [(ngModel)]="newTicket.description" name="description">
+    <input class="TicketInput" placeholder="Status" [(ngModel)]="newTicket.status" name="status">
+    <input class="TicketInput" placeholder="Verantwortlicher" [(ngModel)]="newTicket.responsible" name="responsible">
+    <input class="TicketInput" type="date" [(ngModel)]="newTicket.due" name="due">
+    <div class="buttonInfo">
+      <button class="TicketButton" type="submit">SPEICHERN</button>
+      <button class="TicketButton" type="button" (click)="showTicketForm = false">ABBRECHEN</button>
+    </div>
+  </form>
+</div>
+</section>
+
+  </div>
+  <app-confirm-button
+      [title]="'ZURÜCK'"
+      [colorBackground]="backButtonColor"
+      [colorText]="backButtonTextColor"
+      [width]="buttonWidth"
+      [fontSizeText]="buttonFontSize"
+      [onClick]="goBack">
+    </app-confirm-button>
+</app-window-title>

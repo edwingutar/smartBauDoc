@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
-import {NgIf} from '@angular/common';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {DatePipe, NgIf, NgStyle} from '@angular/common';
+import {Entry} from '../../core/models/entry.model';
 
 @Component({
   selector: 'app-output-task',
   imports: [
-    NgIf
+    NgIf,
+    DatePipe,
+    NgStyle
   ],
   templateUrl: './output-task.component.html',
   standalone: true,
@@ -12,21 +15,22 @@ import {NgIf} from '@angular/common';
 })
 export class OutputTaskComponent {
 
-  task = {
-    title: 'Trockenbauarbeiten',
-    room: 'Zimmer 030',
-    pn: 'PN. 001/001/001',
-    date: '01.05.2024'
-  };
+  @Input() projectId!: string;
+  @Input() projectName!: string;
+  @Input() entry!: Entry;
+  @Output() openDetails = new EventEmitter<Entry>();
+
+  @Input() width: string = '85vw';
+  @Input() minWidth: string = '300px';
+  @Input() maxWidth: string = '1000px';
+  @Input() height: string = '110px';
 
 
-
-  showInfo(): void {
-    console.log("Ich bin aktiv!")
+  showDetails(): void {
+    this.openDetails.emit(this.entry);
   }
 
 }
-
 
 
 

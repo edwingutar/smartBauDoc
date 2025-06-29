@@ -11,15 +11,35 @@
 
 .InputGroup {
   width: 100%;
-  max-width: 500px;
   display: flex;
   flex-direction: column;
+  align-items: center; /* Neues Property für horizontale Zentrierung */
   gap: 1.5rem;
   padding: 1rem;
+  box-sizing: border-box;
 }
 
 app-input-field {
   width: 100%;
+  display: flex; /* Wichtig für korrekte Ausrichtung */
+  justify-content: center; /* Zentriert das Input-Feld */
+}
+
+app-confirm-button {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Zentriert den Button */
+}
+
+/* Responsive Anpassung */
+@media (max-width: 600px) {
+  .LoginWindow {
+    max-width: 100vw;
+    padding: 0.5rem;
+  }
+  .InputGroup {
+    padding: 0.5rem;
+  }
 }
 
 .forgot-password {
@@ -32,6 +52,8 @@ app-input-field {
   text-decoration: underline;
   padding: 0;
   margin-top: 0.2rem;
+  text-align: center; /* Zentriert den Text */
+  width: 100%; /* Sorgt dafür, dass der Text zentriert wird */
 }
 
 .forgot-password:hover {

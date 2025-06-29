@@ -11,7 +11,11 @@
       [(fieldValue)]="password"
     ></app-input-field>
 
-    <app-confirm-button [title]="'ANMELDEN'"></app-confirm-button>
+    <app-confirm-button 
+    [title]="'ANMELDEN'"
+    [onClick]="saveClick">
+    </app-confirm-button>
+    
   </div>
 
   <button class="forgot-password">

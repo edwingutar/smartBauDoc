@@ -1,44 +1,43 @@
 .task-card {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: white;
-  border-radius: 16px;
-  padding: 1rem;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-  font-family: Arial, sans-serif;
-  color: #91A7BA;
+  border-radius: 25px;
+  padding: 10px;
+  font-family: "Helvetica Neue", sans-serif;
+  color:  #013063;
 }
 
 .task-content {
   display: flex;
   flex-direction: column;
+  margin: 10px;
+  width: 80vw;
 }
 
 .task-title {
+  font-weight: 400;
   margin: 0 0 0.5rem;
-  font-weight: 600;
-  font-size: 16px;
-  color: #91A7BA;
+  font-size: 20px;
 }
 
-.task-room,
-.task-pn,
-.task-date {
+.task-company,
+.task-created,
+.task-notes{
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 
 .info-button {
   background-color: #1654F7;
   border: none;
-  border-top-right-radius: 16px;
-  border-bottom-right-radius: 16px;
-  width: 50px;
-  height: 70px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  min-width: 60px;
+  max-width: 60px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;

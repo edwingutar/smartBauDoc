@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { ConfirmButtonComponent } from '../confirm-button/confirm-button.component';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -11,13 +12,18 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-
-
-
   email = '';
   name = '';
   password = '';
   confirmPassword = '';
+
+  @Output() registerSuccess = new EventEmitter<void>();
+
+  constructor(private authService: AuthService) {}
+
+  saveClick: () => void = () => {
+    this.onRegister();
+  };
 
   onRegister() {
     console.log('Registrieren:', {
@@ -30,7 +36,20 @@ export class RegisterComponent {
     if (this.password !== this.confirmPassword) {
       alert('Passwörter stimmen nicht überein!');
     } else {
-      // Registrierung absenden
+      this.authService.register({
+        email: this.email,
+        name: this.name,
+        password: this.password
+      }).subscribe({
+        next: (res) => {
+          alert('Erfolgreich registriert!');
+          this.registerSuccess.emit(); // Event auslösen
+        },
+        error: (err) => {
+          alert('Registrierung fehlgeschlagen!');
+          console.error(err);
+        }
+      });
     }
   }
 

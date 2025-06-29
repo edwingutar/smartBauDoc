@@ -1,20 +1,21 @@
-<div class="background">
+<app-window-title
+  [title]="titelProjekt">
 
-  <app-window-title
-    [title]="titelProjekt"
-    [minHeight]="height"
-    [maxHeight]="height"
-    [minWidth]="widht"
-    [maxWidth]="widht">
-  </app-window-title>
-
-
-  <div class="projects-container">
-    <app-output-project
-      *ngFor="let project of projectList"
-      [project]="project">
-    </app-output-project>
+  <div class="projects-scroll-area">
+    <div class="projects-container">
+      <app-output-project
+        *ngFor="let project of projectList"
+        [project]="project">
+      </app-output-project>
+    </div>
   </div>
 
-</div>
+  <app-confirm-button
+    [title] ="'PROJEKT HINZUFÜGEN'"
+    [colorBackground] = colorButton
+    [colorText]= colorText
+    [onClick]="goToProjectAdd">
+  </app-confirm-button>
+
+</app-window-title>
 

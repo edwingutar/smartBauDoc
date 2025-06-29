@@ -1,0 +1,26 @@
+<div class="menu-bar"
+     [ngStyle]="{
+          width: width,
+          height: height,
+          minWidth: minWidth,
+          maxWidth: maxWidth,
+        }">
+
+  <div class="icon">
+    <img src="assets/icons/sbd.png" alt="sbd" />
+  </div>
+
+  <div class="buttons">
+    <button routerLink="/menuBar/projectView" class="projekte">PROJEKTE</button>
+    <button routerLink="/profil-view" class="tickets">ACCOUNT</button>
+    <button (click)="logout()" class="tagebuch">LOGOUT</button>
+    <!--<button routerLink="account" routerLinkActive="active" class="account">Account</button>
+    <button routerLink="account" routerLinkActive="active" class="account">Test 1</button>
+    <button routerLink="account" routerLinkActive="active" class="account">Test 2</button>
+    <button routerLink="account" routerLinkActive="active" class="account">Test 3</button>
+    <button routerLink="account" routerLinkActive="active" class="account">Test 4</button>
+  -->
+  </div>
+</div>
+
+

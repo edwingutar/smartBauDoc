@@ -1,0 +1,226 @@
+.overview-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem 0;
+    
+  box-sizing: border-box;
+}
+
+.entry-list {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 1.2rem 1.5rem;
+  min-width: 220px;
+  max-width: 280px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1 1 0;
+}
+
+.entry-link {
+  flex: 1;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+  color: #013063;
+}
+
+.overview-title {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #013063;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.entry-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border: 1px solid transparent;
+}
+
+.DailyReportButton, .DailyReportRemove {
+  background: #1654F7;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 0.7rem 1.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.entry-row.selected,
+.entry-row:hover {
+  background: #e9ecef;
+  border: 1px solid #1654F7;
+}
+
+.DiaryOverviewDetailedInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 180px) 18px 1fr;
+  align-items: start;
+  gap: 0.5rem;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #4978A1;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
+  word-break: break-word;
+}
+
+.detail-sep {
+  color: #b0b0b0;
+  font-weight: bold;
+  margin-right: 0;
+  margin-left: 0;
+  justify-self: center;
+}
+
+.detail-value {
+  color: #222;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
+  word-break: break-word;
+  white-space: pre-line;
+    min-width: 120px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.sub-detail-row {
+  margin-left: 1.5em;
+  font-size: 0.98em;
+  display: grid;
+  grid-template-columns: minmax(110px, 150px) 18px 1fr;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.sub-label {
+  font-weight: 500;
+  color: #4978A1;
+  min-width: 110px;
+}
+
+.entry-date {
+  font-size: 0.95rem;
+  color: #4978A1;
+  font-weight: 500;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.entry-title {
+  font-size: 1rem;
+  color: #013063;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.company-block {
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  margin: 1rem 0;
+  padding: 0.7rem 1rem;
+  background: #fafdff;
+}
+
+.company-title {
+  font-weight: bold;
+  color: #4978A1;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+.entry-details {
+  background: #F5F7FA;
+  border-radius: 18px;
+  padding: 1.2rem 1.5rem;
+  min-width: 260px;
+  max-width: 350px;
+  width: 100%;
+  box-shadow: 0 2px 8px #0001;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex: 1 1 0;
+}
+
+.details-title {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #013063;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.7rem;
+}
+
+.details-date,
+.details-title,
+.details-content {
+  font-size: 1rem;
+  color: #4978A1;
+}
+
+.buttonInfo {
+  align-self: flex-end;
+  padding-right: 0.5rem; 
+}
+
+
+.delete-entry-btn {
+margin-left: 16px;
+  color: #d32f2f;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.delete-entry-btn:hover {
+  background: #ffeaea;
+  border-radius: 4px;
+}
+
+@media (max-width: 900px) {
+  .overview-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+        min-width: 0 !important;
+    padding: 1rem 1rem !important; /* <-- Abstand links und rechts */
+    box-sizing: border-box;
+  }
+  .entry-list, .entry-details {
+    min-width: 0 !important;
+    max-width: 90% !important;
+    
+  }
+}

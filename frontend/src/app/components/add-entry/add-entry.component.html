@@ -1,73 +1,94 @@
-<div class="background">
+<app-window-title [title]="projectName">
 
-  <div class="window">
+  <div class="AufgabeTitel">
+    <span class="underline-text">Eintrag Hinzufügen</span>
+  </div>
 
-    <app-window-title
-      [title]= titelProjekt
-      [minHeight]= height
-      [maxHeight]= height
-      [minWidth]= widht
-      [maxWidth]= widht>
-    </app-window-title>
+  <div class="inputFelder">
+    <app-input-field
+      [placeholder]="firstPlaceholder"
+      [(fieldValue)]="entryInput.creatorName">
+    </app-input-field>
 
-    <div class="AufgabeTitel">
-      <span class="underline-text">Eintrag Hinzufügen</span>
-    </div>
+    <app-input-field
+      [placeholder]="secondPlaceholder"
+      [fieldValue]="todayDate">
+    </app-input-field>
 
-    <div class="inputFelder">
-      <app-input-field
-        [placeholder]= firstPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= secondPlaceholder
-        [height]= heightInput
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= thirdPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= fourthPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput>
-      </app-input-field>
-      <app-input-field
-        [placeholder]= fifthPlaceholder
-        [height]="'50px'"
-        [maxWidth]= widhtInput
-        [minWidth]= widhtInput>
-      </app-input-field>
-    </div>
+    <app-input-field
+      [placeholder]="thirdPlaceholder"
+      [(fieldValue)]="entryInput.calendarWeek">
+    </app-input-field>
 
+    <app-input-field
+      [placeholder]="fourthPlaceholder"
+      [(fieldValue)]="entryInput.companyName">
+    </app-input-field>
 
-    <button class="icon-button" (click)="uploadPic()" aria-label="uploadPic">
+    <app-input-field
+      [placeholder]="fifthPlaceholder"
+      [(fieldValue)]="entryInput.onSitePersonnelCount">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="sixthPlaceholder"
+      [(fieldValue)]="entryInput.taskDescription">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="seventhPlaceholder"
+      [(fieldValue)]="entryInput.notes">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="eighthPlaceholder"
+      [fieldValue]="temperatureText">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="ninthPlaceholder"
+      [fieldValue]="windText">
+    </app-input-field>
+
+    <app-input-field
+      [placeholder]="tenthPlaceholder"
+      [fieldValue]="weatherCodeText">
+    </app-input-field>
+
+    <input type="file" #hiddenFileInput style="display: none" (change)="onImageSelected($event)" />
+
+    <button class="icon-button" (click)="triggerFileInput()" aria-label="uploadPic" type="button">
       <img src="assets/icons/camera.png" alt="camera" />
     </button>
 
-
-    <div class="confirmButton">
-      <app-confirm-button
-      [title]="'ANLEGEN'"
-      [height]= heightInput
-      [minWidth]= widhtInput
-      [maxWidth]= widhtInput>
-      </app-confirm-button>
+    <div *ngIf="entryInput.image.url" class="bildVorschau">
+      <img
+        [src]="entryInput.image.url"
+        [alt]="entryInput.image.fileName"
+        style="max-width: 200px; margin-top: 10px; border-radius: 8px"
+      />
+      <p style="font-size: 0.9rem; color: #333;">{{ entryInput.image.fileName }}</p>
     </div>
-
   </div>
 
+  <app-confirm-button
+    title="ANLEGEN"
+    [colorBackground] = colorButton
+    [colorText]= colorText
+    [onClick]="saveClick">
+  </app-confirm-button>
+  <app-confirm-button
+      [title]="'ZURÜCK'"
+      [colorBackground]="backButtonColor"
+      [colorText]="backButtonTextColor"
+      [width]="buttonWidth"
+      [fontSizeText]="buttonFontSize"
+      [onClick]="goBack">
+    </app-confirm-button>
+</app-window-title>
 
 
 
 
-</div>
 
 

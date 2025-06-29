@@ -1,0 +1,51 @@
+<app-window-title [title]="entryName">
+
+  <div *ngIf="entry" class="info-card">
+    <div class="info-row">
+      <span class="label">Aufgabe:</span>
+      <span class="value">{{ entry.taskDescription }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Erstellt am:</span>
+      <span class="value">{{ entry.createdAt | date: 'dd.MM.yyyy' }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Erstellt von:</span>
+      <span class="value">{{ entry.creatorName }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Firma:</span>
+      <span class="value">{{ entry.companyName }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Notizen:</span>
+      <span class="value">{{ entry.notes }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Temperatur:</span>
+      <span class="value">{{ entry.weather?.temperature }} °C</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Wind:</span>
+      <span class="value">{{ entry.weather?.windSpeed }} km/h</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Wetter:</span>
+      <span class="value">{{ weatherCodeText }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="entry" class="detail-box">
+    <img [src]="entry.image.url" [alt]="entry.image.description" style="width: 100%; border-radius: 12px;"/>
+  </div>
+
+  <div class="backButton">
+    <app-confirm-button
+      title="ZURÜCK"
+      [onClick]="goBack">
+    </app-confirm-button>
+  </div>
+
+</app-window-title>
+
+

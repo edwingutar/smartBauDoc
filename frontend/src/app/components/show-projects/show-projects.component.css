@@ -1,12 +1,13 @@
-.background {
-  position: relative;
-  justify-content: space-between;
-  align-items: center;
+.projects-scroll-area {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 90vh;
+  scrollbar-width: none;
 }
 
 .projects-container {
-  position: absolute;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  gap: 1rem;
 }

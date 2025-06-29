@@ -1,0 +1,75 @@
+app-window-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.AufgabeTitel {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #013063;
+  font-size: 17px;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.underline-text {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.underline-text::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  width: 180%;
+  height: 1px;
+  background-color: #91A7BA;
+}
+
+.inputFelder {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+}
+
+.add-user-message {
+  margin-top: 0.5rem;
+  color: #388e3c;
+  font-weight: bold;
+  text-align: center;
+}
+
+app-input-field {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+app-confirm-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Anpassung */
+@media (max-width: 600px) {
+  app-window-title {
+    padding: 0.5rem;
+  }
+  .inputFelder {
+    gap: 0.5rem;
+    height: auto;
+  }
+}

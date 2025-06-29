@@ -1,0 +1,51 @@
+<app-window-title
+  [title]=this.projectName>
+
+  <div class="projects-scroll-area">
+    <div class="projects-container">
+      <app-output-task
+        *ngFor="let entry of entries"
+        [entry]="entry"
+        [projectId]="projectId!"
+        [projectName]="projectName"
+        (openDetails)="navigateToDetails($event)">
+      </app-output-task>
+    </div>
+  </div>
+    <div class="button-list-scroll">
+      <app-confirm-button
+        [title] ="'EINTRAG HINZUFÜGEN'"
+        [colorBackground] = colorButton
+        [colorText]= colorText
+        [onClick]="addEntry.bind(this)">
+      </app-confirm-button>
+      <app-confirm-button
+        [title] ="'USER HINZUFÜGEN'"
+        [colorBackground] = colorButton
+        [colorText]= colorText
+        [onClick]="addUser.bind(this)">
+      </app-confirm-button>
+        <app-confirm-button
+        [title] ="'TICKETS'"
+        [colorBackground] = colorButton
+        [colorText]= colorText
+        [onClick]="openProjectTickets.bind(this)">
+      </app-confirm-button>
+        <app-confirm-button
+        [title] ="'TAGEBUCH'"
+        [colorBackground] = colorButton
+        [colorText]= colorText
+        [onClick]="openProjectDiary.bind(this)">
+      </app-confirm-button>
+        <app-confirm-button
+        [title] ="'TAGEBUCHÜBERSICHT'"
+        [colorBackground] = colorButton
+        [colorText]= colorText
+        [onClick]="openProjectDiaryOverview.bind(this)">
+      </app-confirm-button>
+    </div>
+
+</app-window-title>
+
+
+

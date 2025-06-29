@@ -1,0 +1,28 @@
+<app-window-title [title]="title">
+  <div class="profile-container">
+    <div class="profile-header">
+      <h2 class="profile-title">Benutzerprofil</h2>
+    </div>
+
+    <div class="profile-content">
+      <div class="profile-item">
+        <div class="item-label">Name:</div>
+        <div class="item-value">{{currentUser.name}}</div>
+      </div>
+      
+      <div class="profile-item">
+        <div class="item-label">E-Mail:</div>
+        <div class="item-value">{{currentUser.email}}</div>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <app-output-button
+        [title]="'ABMELDEN'"
+        [colorBackground]="'#1654F7'"
+        [colorText]="'#FFFFFF'"
+        (onClick)="logout()">
+      </app-output-button>
+    </div>
+  </div>
+</app-window-title>

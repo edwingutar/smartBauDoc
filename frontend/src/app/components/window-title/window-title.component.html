@@ -1,4 +1,4 @@
-<header class="window-title"
+<div class="window-title"
         [ngStyle]="{
           width: width,
           height: height,
@@ -7,18 +7,22 @@
           minHeight: minHeight,
           maxHeight: maxHeight
         }">
+
+  <!-- Obere Leiste mit Titel -->
   <div class="top-bar" [ngStyle]="{ height: topbarHeight }">
-    <h1 [ngStyle]="{ color: colorText, fontSize: fontSizeHeadline }">
+    <h1 class="title" [ngStyle]="{ color: colorText, fontSize: fontSizeHeadline }">
       {{ title }}
     </h1>
-
-    <button
-      class="close-button"
-      (click)="close.emit()"
-      [ngStyle]="{ fontSize: closeButtonFontSize }"
-      aria-label="Fenster schließen"
-    >
-      &times;
-    </button>
   </div>
-</header>
+
+  <!-- Inhaltlicher Bereich -->
+  <section class="window-content">
+    <ng-content></ng-content>
+  </section>
+
+
+  <div class="icon">
+    <img src="assets/icons/logo.png" alt="Logo" />
+  </div>
+
+</div>

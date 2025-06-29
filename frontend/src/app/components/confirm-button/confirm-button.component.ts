@@ -13,8 +13,9 @@ import {NgStyle} from '@angular/common';
 export class ConfirmButtonComponent {
   @Input() title = 'ANMELDEN';
   @Input() height: string = '50px';
+  @Input() width: string = '90vw';
   @Input() minWidth: string = '325px';
-  @Input() maxWidth: string = '500px';
+  @Input() maxWidth: string = '1100px';
   @Input() colorText = '#FFFFFF';
   @Input() colorBackground = '#1654F7';
   @Input() fontSizeText = '12px';

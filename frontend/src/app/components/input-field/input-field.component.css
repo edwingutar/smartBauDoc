@@ -1,5 +1,4 @@
 .inputField {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,9 +12,10 @@ input {
   border-radius: 25px;
   border: none;
   font-size: 13px;
-  color: #4978A1;
+  color: #013063;
   background-color: inherit;
-  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 1px 4px 4px rgba(0, 0, 0, 0.2);
+  font-family: "Helvetica Neue", sans-serif;
 }
 
 input::placeholder {

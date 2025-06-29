@@ -1,0 +1,27 @@
+<app-window-title [title]="'User hinzufügen'">
+  <div class="AufgabeTitel">
+    <span class="underline-text">User als Viewer hinzufügen</span>
+  </div>
+  <div class="inputFelder">
+    <app-input-field
+      [placeholder]="'E-Mail des Users'"
+      [(fieldValue)]="userEmail">
+    </app-input-field>
+    <app-confirm-button
+      [title]="'HINZUFÜGEN'"
+      [colorBackground]="colorButton"
+      [colorText]="colorText"
+      [width]="buttonWidth"
+      [fontSizeText]="buttonFontSize"
+      [onClick]="addUser">
+    </app-confirm-button>
+    <app-confirm-button
+      [title]="'ZURÜCK'"
+      [colorBackground]="backButtonColor"
+      [colorText]="backButtonTextColor"
+      [width]="buttonWidth"
+      [fontSizeText]="buttonFontSize"
+      [onClick]="goBack">
+    </app-confirm-button>
+  </div>
+</app-window-title>

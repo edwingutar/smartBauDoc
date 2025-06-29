@@ -1,45 +1,46 @@
 .project-card {
   display: flex;
-  justify-content: space-between;
-  align-items: stretch;
+  justify-content: center;
+  align-items: center;
   background-color: white;
-  border-radius: 16px;
-  padding: 1rem;
-  width: 300px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-  font-family: Arial, sans-serif;
-  color: #91A7BA;
+  border-radius: 25px;
+  padding: 10px;
+  font-family: "Helvetica Neue", sans-serif;
+  color:  #013063;
 }
 
 .project-content {
   display: flex;
   flex-direction: column;
+  margin: 10px;
+  width: 80vw;
 }
 
 .project-title {
+  font-weight: 400;
   margin: 0 0 0.5rem;
-  font-weight: 600;
-  font-size: 16px;
-  color: #91A7BA;
+  font-size: 18px;
 }
 
 .project-detail,
 .project-street,
+.project-anPartner,
 .project-pCode,
 .project-sdate,
 .project-ddate {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 
 .info-button {
   background-color: #1654F7;
   border: none;
-  border-top-right-radius: 16px;
-  border-bottom-right-radius: 16px;
-  width: 80px;
-  height: 100px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  min-width: 60px;
+  max-width: 60px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,8 +49,8 @@
 }
 
 .info-button img {
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
 }
 
 .info-button:hover {
